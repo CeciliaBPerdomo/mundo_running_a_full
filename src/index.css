@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: "D-DIN-PRO";
+  src: url("/fonts/D-DIN-Pro/D-DIN-PRO-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
