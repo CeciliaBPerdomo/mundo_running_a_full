@@ -1,9 +1,10 @@
 export const themeColors = {
     light: {
-        '--color-background': '#f1e9e4',
+        '--color-background': '#fffff',
+        '--color-background-secondary': '#EBECEC',
     },
 
     dark: {
-        '--color-background': '#2b2520',
+        '--color-background': '#000000',
     },
 }

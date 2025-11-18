@@ -11,6 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 // Estilos 
 import ThemeProvider from "./redux/theme/ThemeProvider.js"
 import { GlobalStyles } from "./styles/GlobalStyles.js"
+import './index.css'
 
 createRoot(document.getElementById('root')).render(
   <>

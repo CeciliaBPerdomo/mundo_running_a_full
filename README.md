@@ -52,4 +52,5 @@ Este proyecto tiene como objetivo desarrollar la plataforma web oficial de Mundo
 - Hecho con 💙​ por <a href="https://portfolio-cecilia.vercel.app/" style="text-decoration: none; color: black">Cecilia Perdomo</a>, desde el 17 de noviembre de 2025.
 - Github: <a href="https://github.com/CeciliaBPerdomo" style="text-decoration: none; color: black">https://github.com/CeciliaBPerdomo</a>
 - Repositorio: <a href="https://github.com/CeciliaBPerdomo/portfolio_cecilia" style="text-decoration: none; color: black">https://github.com/CeciliaBPerdomo/mundo_running_a_full</a>
+- Figma: <a href="https://www.figma.com/design/DRm5IuG57QhEv4PLgfMzgZ/MundoRunning?node-id=2-3&t=HjarJSLKV8AJ1br7-1" style="text-decoration: none; color: black">por Noelia Perdomo</a>
 - Versión en vivo: <a href="https://mundo-running-a-full.vercel.app/" style="text-decoration: none; color: black">en Vercel</a>
