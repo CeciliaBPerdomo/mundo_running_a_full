@@ -8,6 +8,7 @@ export const themeColors = {
         '--p-blanco': '#ffffff',
         '--p-negro': '#000000',
         '--recuadro': '#F6F5F5',
+        '--botones-rojos': '#C94800',
     },
 
     dark: {
