@@ -7,6 +7,7 @@ export const themeColors = {
         '--color-titulos': '#C94800',
         '--p-blanco': '#ffffff',
         '--p-negro': '#000000',
+        '--p-gris-claro': '#908F8F',
         '--recuadro': '#F6F5F5',
         '--botones-rojos': '#C94800',
     },
