@@ -11,6 +11,7 @@ export const themeColors = {
         '--p-gris-claro': '#908F8F',
         '--recuadro': '#F6F5F5',
         '--botones-rojos': '#C94800',
+        '--fondo-cards': '#F1F1F3'
     },
 
     dark: {
