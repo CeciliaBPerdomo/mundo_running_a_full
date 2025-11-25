@@ -1,10 +1,10 @@
 <div align="center">
-    <img src="/Cecilia_Perdomo.png" alt="Cecilia Perdomo">
+    <img src="./Cecilia_Perdomo.png" alt="Cecilia Perdomo">
 </div>
 
 
 <div align="center">
-    <img src="/logo.png" alt="Mundo Running a Full">
+    <img src="./logo.png" alt="Mundo Running a Full">
     <br />
 </div>
 
