@@ -7,14 +7,14 @@ const CardProducto = ({ id, imagen, nombre, descripcion, colores }) => {
     <motion.div
       whileHover={{ scale: 1.03, y: -4 }}
       transition={{ duration: 0.2, ease: "easeOut" }}
-      className="relative rounded-xl p-4 flex flex-col border border-[var(--bordes-botones-negro)]"
+      className="relative rounded-xl p-4 flex flex-col"
       style={{
         backgroundColor: "var(--fondo-cards)",
         width: "290px"
       }}
     >
       {/* ICONOS DERECHA */}
-      <div className="absolute top-3 right-3 flex flex-col gap-3">
+      <div className="absolute top-3 right-3 flex flex-col gap-1">
         <FiHeart className="text-[var(--botones-rojos)] text-2xl cursor-pointer" />
         <FiShoppingCart className="text-[var(--botones-rojos)] text-2xl cursor-pointer" />
       </div>
