@@ -26,7 +26,7 @@ const Contacto = () => {
           </p>
 
           {/* Google Maps (514 × 241) */}
-          <div className="w-[514px] h-[241px] rounded-xl overflow-hidden shadow-lg">
+          <div className="h-[241px] rounded-xl overflow-hidden shadow-lg">
             <iframe
               title="mapa"
               width="100%"

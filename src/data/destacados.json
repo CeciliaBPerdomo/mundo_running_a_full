@@ -2,7 +2,7 @@
   {
     "id": 1,
     "categoria": "ciclismo",
-    "imagen": "/public/destacados/specialize.png",
+    "imagen": "/destacados/specialize.png",
     "nombre": "SPECIALIZED",
     "descripcion": "Diverge Comp E5",
     "colores": ["#B5C4B1", "#7D0000", "#242424"]
@@ -10,7 +10,7 @@
   {
     "id": 2,
     "categoria": "ciclismo",
-    "imagen": "/public/destacados/cube.png",
+    "imagen": "/destacados/cube.png",
     "nombre": "CUBE",
     "descripcion": "Bicicleta de Montaña Cube Attention",
     "colores": ["#242424"]
@@ -18,7 +18,7 @@
   {
     "id": 3,
     "categoria": "ciclismo",
-    "imagen": "/public/destacados/guantes.png",
+    "imagen": "/destacados/guantes.png",
     "nombre": "GIRO",
     "descripcion": "Guantes ciclismo",
     "colores": ["#7E7E80", "#00008B"]
@@ -26,7 +26,7 @@
   {
     "id": 4,
     "categoria": "ciclismo",
-    "imagen": "/public/destacados/campera.png",
+    "imagen": "/destacados/campera.png",
     "nombre": "GOREWEAR",
     "descripcion": "Chaqueta térmica",
     "colores": ["#E2EFAD", "#5179EF"]
