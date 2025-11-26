@@ -17,5 +17,17 @@ export const themeColors = {
 
     dark: {
         '--color-background': '#000000',
+        '--color-background-secondary': '#1A1A1A',    // Secciones
+        '--color-background-third': '#262626',        // Cards o bloques
+        '--color-background-forth': '#131313',        // Fondos sutiles
+        '--color-background-black': '#000000',        // Negro puro si lo necesitas
+        '--color-titulos': '#FF6A2A',                 // Naranja rojizo brillante
+        '--p-blanco': '#F5F5F5',                      // Blanco suave
+        '--p-negro': '#FFFFFF',
+        '--p-gris-claro': '#B8B8B8',                  // Gris claro legible
+        '--recuadro': '#1F1F1F',                      // Caja o fondo de inputs
+        '--botones-rojos': '#FF6A2A',                 // Botón en dark
+        '--fondo-cards': '#1A1A1A',                   // Cards en oscuro
+        '--bordes-botones-negro': '#707070'           // Bordes sutiles
     },
 }
