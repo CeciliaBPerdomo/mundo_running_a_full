@@ -35,17 +35,12 @@ const Clientes = () => {
 
         {/* Botón */}
          <button
-          className="
-            relative inline-block 
+          className="relative inline-block 
             px-12 py-4 font-semibold text-[var(--p-blanco)] tracking-widest
-            bg-[var(--botones-rojos)]
-            text-lg italic
-            overflow-hidden
-           "
+            bg-[var(--botones-rojos)] hover:bg-[var(--botones-rojos-hover)]
+            text-lg italic overflow-hidden"
 
-          style={{
-            clipPath: "polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%)",
-          }}
+          style={{ clipPath: "polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%)" }}
         >
           VER TODOS NUESTROS CLIENTES
         </button>

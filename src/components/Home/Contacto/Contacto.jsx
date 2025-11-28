@@ -49,12 +49,12 @@ const Contacto = () => {
               <input
                 type="text"
                 placeholder="Nombre"
-                className="w-full p-3 border border-gray-300 rounded-md outline-none"
+                className="w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none"
               />
               <input
                 type="text"
                 placeholder="Apellido"
-                className="w-full p-3 border border-gray-300 rounded-md outline-none"
+                className="w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none"
               />
             </div>
 
@@ -62,7 +62,7 @@ const Contacto = () => {
             <input
               type="email"
               placeholder="Correo electrónico"
-              className="w-full p-3 border border-gray-300 rounded-md outline-none"
+              className="w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none"
             />
 
             {/* Adjuntar imagen + (opcional) */}
@@ -70,7 +70,7 @@ const Contacto = () => {
               <input
                 type="file"
                 id="fileInput"
-                className="w-full p-3 border border-gray-300 rounded-md outline-none pr-20 cursor-pointer"
+                className="w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none pr-20 cursor-pointer"
               />
 
               <label
@@ -95,7 +95,7 @@ const Contacto = () => {
             <textarea
               placeholder="Mensaje"
               rows={5}
-              className="w-full p-3 border border-gray-300 rounded-md outline-none resize-none"
+              className="w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none resize-none"
             ></textarea>
 
             {/* Botón enviar */}
@@ -104,8 +104,7 @@ const Contacto = () => {
               className="
                 w-full bg-[var(--botones-rojos)]
                 text-[var(--p-blanco)] font-semibold py-3 rounded-md
-                hover:bg-red-700 transition-all
-              "
+                hover:bg-[var(--botones-rojos-hover)] transition-all"
             >
               Enviar mensaje
             </button>

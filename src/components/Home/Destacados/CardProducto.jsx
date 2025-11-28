@@ -55,7 +55,7 @@ const CardProducto = ({ id, imagen, nombre, descripcion, colores }) => {
         whileHover={{ scale: 1.05, y: -2 }}
         whileTap={{ scale: 0.95 }}
         transition={{ duration: 0.15 }}
-        className="bg-[var(--botones-rojos)] text-[var(--p-blanco)] py-2 px-4 uppercase tracking-wide mt-auto"
+        className="bg-[var(--botones-rojos)] hover:bg-[var(--botones-rojos-hover)] text-[var(--p-blanco)] py-2 px-4 uppercase tracking-wide mt-auto"
         style={{ clipPath: "polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%)" }}
       >
         Ver detalles

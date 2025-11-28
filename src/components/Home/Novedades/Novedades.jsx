@@ -40,24 +40,18 @@ const Novedades = () => {
             <input
               type="email"
               placeholder="Correo electrónico"
-              className="
-                w-full md:w-[80%] p-3 rounded-md border 
-                border-gray-300 outline-none mb-4
-              "
-            />
+              className="w-full md:w-[80%] p-3 rounded-md border 
+               border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] outline-none mb-4"/>
 
             {/* Botón  */}
-          <motion.button
+            <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.2 }}
-              className="
-                w-full md:w-[80%]
-                bg-[var(--botones-rojos)]
-                text-white font-semibold
-                px-8 py-3 rounded-md
-              "
-            >
+              className="w-full md:w-[80%] 
+                bg-[var(--botones-rojos)] hover:bg-[var(--botones-rojos-hover)]
+                text-[var(--p-blanco)] font-semibold
+                px-8 py-3 rounded-md">
               Subscribirse ahora
             </motion.button>
 

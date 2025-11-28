@@ -42,7 +42,7 @@ const Footer = () => {
 
           <p className="flex items-center gap-2 mb-2">
             <FaEnvelope className="text-[var(--p-blanco)]" />
-            correoelctronico@gmail.com
+            correoelectronico@gmail.com
           </p>
 
           <p className="flex items-center gap-2 mb-6">
@@ -73,8 +73,8 @@ const Footer = () => {
           {/* ENLACES */}
           <h3 className="text-[var(--color-titulos)] font-semibold text-lg mb-4">ENLACES DE INTERÉS</h3>
           <ul className="space-y-1">
-            <li>www.kdskdlaklda.com</li>
-            <li>www.djskajdjoqoowiq.com</li>
+            <li>https://www.specialized.uy</li>
+            <li>https://www.lazersport.com/latam</li>
           </ul>
         </div>
 
@@ -92,7 +92,7 @@ const Footer = () => {
             EQUIPO DE DESARROLLO
           </h3>
           <p>Desarrollo web: <a href="https://portfolio-cecilia.vercel.app/">Cecilia Perdomo</a></p>
-          <p>Diseño UX/UI: Noelia Perdomo</p>
+          <p>Diseño UX/UI: <a href="https://www.linkedin.com/in/noeliaperdomo/">Noelia Perdomo</a></p>
         </div>
 
       </div>

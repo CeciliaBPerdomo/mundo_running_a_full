@@ -24,19 +24,15 @@ const Productos = () => {
             <input
               type="text"
               placeholder="¿Qué estás buscando?"
-              className="
-        w-full p-3 pr-14 rounded-full border 
-        border-gray-300 outline-none text-[18px]
-      "
+              className=" w-full p-3 pr-14 rounded-full border placeholder-[var(--color-placeholder)]
+        border-[var(--border-gray-300)] outline-none text-[18px] text-[var(--p-negro)]"
             />
 
             {/* Botoncito dentro del input */}
             <button
-              className="
-        absolute right-1 top-1/2 -translate-y-1/2
+              className="absolute right-1 top-1/2 -translate-y-1/2
         bg-[var(--botones-rojos)] text-[var(--p-blanco)] 
-        w-10 h-10 rounded-full flex items-center justify-center text-lg
-      "
+        w-10 h-10 rounded-full flex items-center justify-center text-lg"
             >
               <FiSearch />
             </button>
