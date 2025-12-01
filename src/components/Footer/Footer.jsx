@@ -73,8 +73,8 @@ const Footer = () => {
           {/* ENLACES */}
           <h3 className="text-[var(--color-titulos)] font-semibold text-lg mb-4">ENLACES DE INTERÉS</h3>
           <ul className="space-y-1">
-            <li>https://www.specialized.uy</li>
-            <li>https://www.lazersport.com/latam</li>
+            <li>www.specialized.uy</li>
+            <li>www.lazersport.com/latam</li>
           </ul>
         </div>
 

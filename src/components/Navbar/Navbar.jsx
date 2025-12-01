@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleTheme } from "../../redux/theme/themeSlice"
 
@@ -15,6 +17,8 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const navigate = useNavigate()
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -25,13 +29,13 @@ const Navbar = () => {
       <div className="w-[95%] max-w-7xl mx-auto flex items-center justify-between">
 
         {/* Logo */}
-        <div>
+        <Link to="/">
           <img
             src="/logo.png"
             alt="Logo"
             className="h-[40px] w-auto"
           />
-        </div>
+        </Link>
 
         {/* Menú desktop */}
         <ul className="hidden md:flex gap-6 text-[15px] tracking-wide">
@@ -56,22 +60,39 @@ const Navbar = () => {
 
         {/* Iconos + Hamburguesa */}
         <div className="flex items-center gap-5 text-[22px]">
-          <FiUser className="cursor-pointer hover:text-[var(--color-titulos)] transition" />
-          <FiHeart className="cursor-pointer hover:text-[var(--color-titulos)] transition" />
-          <FiShoppingCart className="cursor-pointer hover:text-[var(--color-titulos)] transition" />
-          {/* <FiMoon className="cursor-pointer hover:text-[var(--color-titulos)] transition" /> */}
+          <button
+            onClick={() => navigate("/login")}
+            className="p-2 rounded-full bg-[var(--color-background-black)] hover:bg-[var(--color-titulos)] transition-transform hover:scale-110"
+          >
+            <FiUser size={22} className="text-[var(--color-encabezados)]" />
+          </button>
 
-           <button
-          onClick={() => dispatch(toggleTheme())}
-          className="p-2 rounded-full bg-[var(--color-background-black)] hover:bg-[var(--color-titulos)] transition-transform hover:scale-110"
-          aria-label="Cambiar tema"
-        >
-          {mode === 'dark' ? (
-            <Sun size={22} className="text-[var(--color-encabezados)]" />
-          ) : (
-            <Moon size={22} className="text-[var(--color-encabezados)]" />
-          )}
-        </button>
+          <button
+            onClick={() => console.log("Hola")}
+            className="p-2 rounded-full bg-[var(--color-background-black)] hover:bg-[var(--color-titulos)] transition-transform hover:scale-110"
+          >
+            <FiHeart size={22} className="text-[var(--color-encabezados)]" />
+          </button>
+
+          <button
+            onClick={() => console.log("Hola")}
+            className="p-2 rounded-full bg-[var(--color-background-black)] hover:bg-[var(--color-titulos)] transition-transform hover:scale-110"
+          >
+            <FiShoppingCart size={22} className="text-[var(--color-encabezados)]" />
+          </button>
+
+
+          <button
+            onClick={() => dispatch(toggleTheme())}
+            className="p-2 rounded-full bg-[var(--color-background-black)] hover:bg-[var(--color-titulos)] transition-transform hover:scale-110"
+            aria-label="Cambiar tema"
+          >
+            {mode === 'dark' ? (
+              <Sun size={22} className="text-[var(--color-encabezados)]" />
+            ) : (
+              <Moon size={22} className="text-[var(--color-encabezados)]" />
+            )}
+          </button>
 
           {/* MENÚ HAMBURGUESA (solo mobile) */}
           {isMenuOpen ? (
