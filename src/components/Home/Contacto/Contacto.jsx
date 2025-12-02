@@ -42,6 +42,9 @@ const Contacto = () => {
 
         {/* ----------- COLUMNA 2: FORMULARIO ----------- */}
         <div>
+           <p className="text-[18px] text-[var(--p-negro)] mb-8">
+          Completa el formulario para enviarnos tu mensaje:
+           </p>
           <form className="space-y-6">
 
             {/* Nombre + Apellido */}

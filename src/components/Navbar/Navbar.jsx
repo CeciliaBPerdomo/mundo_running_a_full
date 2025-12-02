@@ -9,7 +9,13 @@ import { motion } from "framer-motion";
 import { FiUser, FiHeart, FiShoppingCart, FiMoon, FiMenu, FiX } from "react-icons/fi";
 import { Moon, Sun } from 'lucide-react';
 
-const menuItems = ["INICIO", "TIENDA DEPORTIVA", "SERVICIOS", "QUIÉNES SOMOS", "CONTACTO"];
+const menuItems = [
+  { "titulo": "INICIO", "link": "/" },
+  { "titulo": "TIENDA DEPORTIVA", "link": "" },
+  { "titulo": "SERVICIOS", "link": "" },
+  { "titulo": "QUIÉNES SOMOS", "link": "/quienes_somos" },
+  { "titulo": "CONTACTO", "link": "/contacto" },
+];
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -43,9 +49,10 @@ const Navbar = () => {
             <motion.li
               key={index}
               className="cursor-pointer relative"
-              whileHover="hover"
-            >
-              {item}
+              whileHover="hover" >
+              <Link to={item.link}>
+                {item.titulo}
+              </Link>
 
               {/* Línea animada */}
               <motion.span
