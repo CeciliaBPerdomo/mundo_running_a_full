@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const InicioSesion = () => {
   return (
@@ -7,7 +8,7 @@ const InicioSesion = () => {
       {/* LADO IZQUIERDO: IMAGEN */}
       <div className="hidden md:block w-1/2">
         <img 
-          src="/public/login/login-img.png" 
+          src="/login/login-img.png" 
           alt="Login" 
           className="w-full h-full object-cover"
         />
@@ -23,23 +24,23 @@ const InicioSesion = () => {
 
           <form className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
                 Email
               </label>
               <input 
                 type="email"
-                className="w-full p-3 rounded-md border border-gray-300 outline-none bg-transparent"
+                className="w-full p-3 rounded-md border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] outline-none bg-transparent"
                 placeholder="Ingresá tu email"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">
+              <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
                 Contraseña
               </label>
               <input 
                 type="password"
-                className="w-full p-3 rounded-md border border-gray-300 outline-none bg-transparent"
+                className="w-full p-3 rounded-md border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] outline-none bg-transparent"
                 placeholder="••••••••"
               />
             </div>
@@ -58,11 +59,11 @@ const InicioSesion = () => {
           </form>
 
           {/* Registrarse */}
-          <p className="text-center mt-6 text-sm">
+          <p className="text-center mt-6 text-sm text-[var(--p-negro)]">
             ¿No tenés cuenta?{" "}
-            <a href="/registro" className="text-[var(--color-titulos)] font-semibold hover:underline">
+            <Link to="/signup" className="text-[var(--color-titulos)] font-semibold hover:underline">
               Registrate
-            </a>
+            </Link>
           </p>
 
         </div>

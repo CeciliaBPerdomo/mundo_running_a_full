@@ -2,7 +2,9 @@ import React from 'react'
 
 const Registro = () => {
   return (
-    <div>Registro</div>
+<section className="mt-20 w-full min-h-screen flex">
+      Registro
+   </section>
   )
 }
 
