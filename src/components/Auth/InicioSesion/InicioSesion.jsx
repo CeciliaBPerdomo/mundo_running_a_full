@@ -3,20 +3,20 @@ import { Link } from 'react-router'
 
 const InicioSesion = () => {
   return (
-    <section className="mt-20 w-full min-h-screen flex">
+    <section className="mt-10 w-full min-h-screen flex">
       
       {/* LADO IZQUIERDO: IMAGEN */}
-      <div className="hidden md:block w-1/2">
+        <div className="hidden md:flex w-1/2 justify-end pr-10">
         <img 
           src="/login/login-img.png" 
           alt="Login" 
-          className="w-full h-full object-cover"
+          className="w-[90%] h-full object-cover rounded-lg"
         />
       </div>
 
       {/* LADO DERECHO: FORM */}
-      <div className="w-full md:w-1/2 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
+      <div className="w-full md:w-1/2 flex items-center p-8">
+        <div className="w-full max-w-md ml-10"> 
           
           <h2 className="text-3xl font-bold mb-6 text-[var(--color-titulos)] tracking-widest">
             INICIAR SESIÓN
