@@ -1,0 +1,20 @@
+services:
+  - name: mundo-running-backend
+    type: web
+    env: node
+    plan: free
+    region: oregon
+
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node dist/server.js
+
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: MONGO_URI
+        sync: false
+      - key: KEY_ADMIN
+        sync: false
+      - key: CORS_ORIGIN
+        value: "*"
