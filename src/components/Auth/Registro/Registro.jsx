@@ -8,6 +8,7 @@ import { ErrorMessage, Field } from 'formik';
 
 import { registerValidationSchema } from "../../../formik/validationSchema"
 import { registerInitialValues } from "../../../formik/initialValues"
+import { crearUsuario } from '../../../axios/registro-axios';
 
 
 const Registro = () => {
@@ -39,8 +40,22 @@ const Registro = () => {
             initialValues={registerInitialValues}
             validationSchema={registerValidationSchema}
             onSubmit={async (values, actions) => {
-              console.log(values, actions)
-              actions.resetForm()
+              try {
+                console.log(values, actions)
+                const user = await crearUsuario(
+                  values.nombre,
+                  values.email,
+                  values.password,
+                  values.celular,
+                  values.ciudad
+                )
+                if (user) {
+                  console.log("ok")
+                }
+                actions.resetForm()
+              } catch (error) {
+                console.error(error)
+              }
             }} >
             <FormikForm className="space-y-4">
 
@@ -187,7 +202,7 @@ const Registro = () => {
                           <option>Soriano</option>
                           <option>Tacuarembó</option>
                           <option>Treinta y Tres</option>
-                        </select> 
+                        </select>
 
                         <ErrorMessage
                           name="ciudad"

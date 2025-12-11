@@ -67,7 +67,7 @@ Este proyecto tiene como objetivo desarrollar la plataforma web oficial de Mundo
 - `tsc --init` → actualizar el tscongif (outDir)
 - `npm i nodemon` 
 - `tsc --watch`
-- `nodemon ./dist/app.js` → Si no funciona probar con `npm install -g nodemon`
+- `nodemon ./dist/index.js` → Si no funciona probar con `npm install -g nodemon`
 - `npm i --save-dev @types/express`
 - Agregar: `"type": "module",` en el package.json
 - `npm i dotenv` → Variables de entorno
