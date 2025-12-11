@@ -16,6 +16,7 @@ export const themeColors = {
         '--bordes-botones-negro': '#000000',
         '--border-gray-300': '#D1D5DC',
         '--color-placeholder': '#8d8d8d',
+        '--text-errors': '#fb2c36'
     },
 
     dark: {
@@ -35,5 +36,6 @@ export const themeColors = {
         '--bordes-botones-negro': '#707070',           // Bordes sutiles
         '--border-gray-300': '#D1D5DC',
         '--color-placeholder': '#8d8d8d',
+        '--text-errors': '#004CFF'
     },
 }

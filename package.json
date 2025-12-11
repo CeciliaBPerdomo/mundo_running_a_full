@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.10.1",
     "@tailwindcss/vite": "^4.1.17",
     "emailjs-com": "^3.2.0",
+    "formik": "^2.4.9",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.555.0",
     "react": "^19.1.0",
@@ -23,7 +24,8 @@
     "react-router-dom": "^7.9.6",
     "redux-persist": "^6.0.0",
     "styled-components": "^6.1.19",
-    "tailwindcss": "^4.1.17"
+    "tailwindcss": "^4.1.17",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
