@@ -1,14 +1,10 @@
 services:
-  - name: mundo-running-backend
-    type: web
-    env: node
-    plan: free
-    region: oregon
-
+  - type: web
+    name: mundo-running-backend
     rootDir: backend
-    buildCommand: npm install
-    startCommand: node dist/server.js
-
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     envVars:
       - key: PORT
         value: 8080
@@ -16,5 +12,3 @@ services:
         sync: false
       - key: KEY_ADMIN
         sync: false
-      - key: CORS_ORIGIN
-        value: "*"
