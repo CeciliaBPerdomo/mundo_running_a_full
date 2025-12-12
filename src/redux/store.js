@@ -5,18 +5,21 @@ import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage"
 import persistStore from "redux-persist/lib/persistStore";
 
-
-// Importa tu reducer
+// Reducers
+// Dark o light
 import themeReducer from "./theme/themeSlice"
+// Usuarios
+import usuarioReducer from "./usuario/usuarioSlice"
 
 const reducers = combineReducers({
     theme: themeReducer,
+    usuario: usuarioReducer,
 })
 
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["theme"] // Lo que realmente quiero peristir
+    whitelist: ["usuario", "theme"] // Lo que realmente quiero peristir
 }
 
 
