@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { register } from "../controllers/auth.js";
+import { login, register, usuarioVerificado } from "../controllers/auth.js";
 import { check } from "express-validator";
-import { existeEmail } from "../helpers/validaciones.js";
+import { existeEmail, existeUsuario } from "../helpers/validaciones.js";
 import { recoletarErrores } from "../middlewares/recoletarErrores.js";
 
 const router = Router()
@@ -20,6 +20,31 @@ router.post(
         recoletarErrores
     ],
     register
+)
+
+router.post(
+    "/login",
+    [
+        check("email", "El email es obligatorio").not().isEmpty(),
+        check("email", "El email no es válido").isEmail(),
+        check("email").custom(existeUsuario), 
+        check("password", "El password debe ser mayor a 6 caracteres").isLength({ min: 6 }),
+        recoletarErrores
+    ],
+    login
+)
+
+// Verificacion del codigo
+router.patch(
+    "/verify",
+    [
+        check("email", "El email es obligatorio").not().isEmpty(),
+        check("email", "El email no es válido").isEmail(),
+        check("email").custom(existeUsuario), 
+        check("code").not().isEmpty(),
+        recoletarErrores
+    ],
+    usuarioVerificado
 )
 
 export default router

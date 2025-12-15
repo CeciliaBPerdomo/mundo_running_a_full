@@ -2,12 +2,17 @@
     <img src="./Cecilia_Perdomo.png" alt="Cecilia Perdomo">
 </div>
 
+---
+
 <div align="center">
-   <h2> 🚧 Sitio web en construcción </h2>
+   <h5> 🚧 Sitio web en construcción </h5>
 </div>
 
-# Mundo Running a Full
+---
 
+<div align="center">
+   <h1> Mundo Running a Full </h1>
+</div>
 <br/>
 <div align="center">
     <img src="./logo.png" alt="Mundo Running a Full">

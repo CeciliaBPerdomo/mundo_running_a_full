@@ -19,13 +19,26 @@ import Loader from '../../UI/Loader/Loader';
 
 // Redux y axios
 import { setUsuarioActual } from "../../../redux/usuario/usuarioSlice"
-import { crearUsuario } from '../../../axios/registro-axios';
+import { crearUsuario, verificarCodigo } from '../../../axios/registro-axios';
+import { loginUsuario } from '../../../axios/login-axios';
 
 import useRedirect from "../../../hooks/useRedirect"
 
 const Registro = () => {
   const [showModal, setShowModal] = useState(false)
   const [codigoAdmin, setCodigoAdmin] = useState("")
+
+  // para codigo de verificacion
+  const [emailRegistro, setEmailRegistro] = useState("")
+  const [showVerifyModal, setShowVerifyModal] = useState(false)
+  const [codigoVerificacion, setCodigoVerificacion] = useState("")
+  const [permitirRedirect, setPermitirRedirect] = useState(false)
+
+
+  const [credenciales, setCredenciales] = useState({
+    email: "",
+    password: ""
+  })
 
   const dispatch = useDispatch()
 
@@ -40,7 +53,8 @@ const Registro = () => {
     });
   }
 
-  useRedirect("/")
+  useRedirect("/", permitirRedirect)
+
 
   return (
     <section className="w-full flex items-center py-12">
@@ -73,7 +87,14 @@ const Registro = () => {
                 )
                 if (user) {
                   mensaje("✔️ Tú usuario ha sido creado con éxito, a la brevedad recibirás un código de verificación")
-                  dispatch(setUsuarioActual({ ...user.usuario }))
+                  setEmailRegistro(values.email)
+
+                  setCredenciales({
+                    email: values.email,
+                    password: values.password
+                  })
+                  setShowVerifyModal(true)
+                  // dispatch(setUsuarioActual({ ...user.usuario }))
                 } else {
                   mensaje("❌ Error al guardar tú usuario, intentelo más tarde")
                 }
@@ -257,6 +278,81 @@ const Registro = () => {
           </div>
         </div>
       )}
+
+      {/* Modal de verificacion del codigo */}
+      {showVerifyModal && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
+          <div className="bg-[var(--color-background)] w-full max-w-sm p-6 rounded-lg shadow-xl">
+
+            <h3 className="text-lg font-semibold text-[var(--color-titulos)] mb-2">
+              Verificá tu cuenta
+            </h3>
+
+            <p className="text-sm text-[var(--p-negro)] mb-4">
+              Ingresá el código que te enviamos por email
+            </p>
+
+            <input
+              type="text"
+              value={codigoVerificacion}
+              onChange={(e) => setCodigoVerificacion(e.target.value)}
+              className="w-full p-3 border rounded-md outline-none border-[var(--border-gray-300)] text-[var(--p-negro)]"
+              placeholder="Código de verificación"
+            />
+
+            <div className="flex justify-end gap-3 mt-5">
+              <button
+                className="px-4 py-2 bg-[var(--border-gray-300)] rounded-md"
+                onClick={async () => {
+                  try {
+                    setShowVerifyModal(false)
+
+                    const data = await loginUsuario(
+                      credenciales.email,
+                      credenciales.password
+                    )
+
+                    dispatch(setUsuarioActual(data.usuario))
+                    mensaje("🙌 Sesión iniciada (cuenta sin verificar)")
+                    setTimeout(() => {
+                      setPermitirRedirect(true)
+                    }, 2200)
+                  } catch (error) {
+                    mensaje("❌ Error al iniciar sesión: " + error)
+                  }
+                }}
+
+              >
+                Cancelar
+              </button>
+
+              <button
+                className="px-4 py-2 bg-[var(--botones-rojos)] text-[var(--p-blanco)] rounded-md"
+                onClick={async () => {
+                  try {
+                    const data = await verificarCodigo(emailRegistro, codigoVerificacion)
+
+                    mensaje("✅ Cuenta verificada con éxito")
+                    setShowVerifyModal(false)
+                    await loginUsuario(credenciales.email, credenciales.password)
+                    dispatch(setUsuarioActual(data.usuario))
+
+                    setTimeout(() => {
+                      setPermitirRedirect(true)
+                    }, 2200)
+                  } catch (error) {
+                    mensaje("❌ Código incorrecto o vencido: " + error)
+                  }
+                }}
+              >
+                Verificar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+
       <ToastContainer />
     </section>
   )
