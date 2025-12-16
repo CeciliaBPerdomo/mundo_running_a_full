@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux';
 
 // Ciudades de Uruguay 
@@ -14,7 +14,7 @@ import { registerValidationSchema } from "../../../formik/validationSchema"
 import { registerInitialValues } from "../../../formik/initialValues"
 
 // Alertas y loader
-import { ToastContainer, toast, Bounce } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import Loader from '../../UI/Loader/Loader';
 
 // Redux y axios
@@ -26,7 +26,6 @@ import useRedirect from "../../../hooks/useRedirect"
 
 const Registro = () => {
   const [showModal, setShowModal] = useState(false)
-  const [codigoAdmin, setCodigoAdmin] = useState("")
 
   // para codigo de verificacion
   const [emailRegistro, setEmailRegistro] = useState("")
@@ -34,6 +33,8 @@ const Registro = () => {
   const [codigoVerificacion, setCodigoVerificacion] = useState("")
   const [permitirRedirect, setPermitirRedirect] = useState(false)
 
+  // para verificar si es administrador 
+  const [codigoAdmin, setCodigoAdmin] = useState("")
 
   const [credenciales, setCredenciales] = useState({
     email: "",
@@ -41,6 +42,7 @@ const Registro = () => {
   })
 
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   function mensaje(mensaje) {
     toast(mensaje, {
@@ -54,8 +56,7 @@ const Registro = () => {
   }
 
   useRedirect("/", permitirRedirect)
-
-
+  
   return (
     <section className="w-full flex items-center py-12">
 
@@ -83,7 +84,8 @@ const Registro = () => {
                   values.email,
                   values.password,
                   values.celular,
-                  values.ciudad
+                  values.ciudad,
+                  codigoAdmin
                 )
                 if (user) {
                   mensaje("✔️ Tú usuario ha sido creado con éxito, a la brevedad recibirás un código de verificación")
@@ -100,7 +102,16 @@ const Registro = () => {
                 }
                 actions.resetForm()
               } catch (error) {
-                console.error(error)
+                if (error.status === 400) {
+                  mensaje(`⚠️ ${error.message}. Te redirigimos al inicio de sesión`)
+
+                  setTimeout(() => {
+                    navigate("/login")
+                  }, 3000)
+
+                } else {
+                  mensaje("❌ Ocurrió un error inesperado. Intentá más tarde.")
+                }
               } finally {
                 actions.setSubmitting(false);
               }
@@ -316,7 +327,7 @@ const Registro = () => {
                     mensaje("🙌 Sesión iniciada (cuenta sin verificar)")
                     setTimeout(() => {
                       setPermitirRedirect(true)
-                    }, 2200)
+                    }, 3200)
                   } catch (error) {
                     mensaje("❌ Error al iniciar sesión: " + error)
                   }
@@ -339,7 +350,7 @@ const Registro = () => {
 
                     setTimeout(() => {
                       setPermitirRedirect(true)
-                    }, 2200)
+                    }, 3200)
                   } catch (error) {
                     mensaje("❌ Código incorrecto o vencido: " + error)
                   }

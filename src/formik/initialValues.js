@@ -6,3 +6,9 @@ export const registerInitialValues = {
     celular: "",
     ciudad: ""
 }
+
+// Valores iniciales para el login
+export const loginInitialValues = {
+    email: "",
+    password: ""
+}

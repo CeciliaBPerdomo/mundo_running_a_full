@@ -40,16 +40,11 @@ export const transporter = nodemailer.createTransport({
     user: process.env.BREVO_USER,
     pass: process.env.BREVO_PASS
   },
-  tls: {
-    ciphers: 'SSLv3',
-    rejectUnauthorized: false
-  },
-  // Configuración optimizada para entornos cloud
   pool: true,
   maxConnections: 2,
   maxMessages: 50,
-  connectionTimeout: 30000,
-  socketTimeout: 30000
+  connectionTimeout: 15000,
+  socketTimeout: 15000
 });
 
 // Función para verificar SMTP que puedes llamar explícitamente
@@ -67,8 +62,3 @@ export const verifySMTPConnection = async () => {
     return false;
   }
 };
-
-// Si estás en desarrollo, verifica inmediatamente
-if (process.env.NODE_ENV !== 'production') {
-  verifySMTPConnection();
-}

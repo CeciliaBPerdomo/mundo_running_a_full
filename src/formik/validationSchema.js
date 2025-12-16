@@ -1,5 +1,6 @@
 import * as Yup from "yup"
 
+// Validaciones del registro
 export const registerValidationSchema = Yup.object({
     nombre: Yup.string()
         .required("Tu nombre completo es un campo obligatorio."),
@@ -18,4 +19,16 @@ export const registerValidationSchema = Yup.object({
 
     ciudad: Yup.string()
         .required("Tu ciudad es un campo obligatorio.")
+})
+
+
+// Validaciones del inicio de sesion
+export const loginValidationSchema = Yup.object({
+    email: Yup.string()
+        .email("Ingrese un email válido")
+        .required("Tu correo electrónico es un campo obligatorio."),
+
+    password: Yup.string()
+        .min(6, "Debes ingresar 6 caracteres mínimo")
+        .required("El password es un campo requerido")
 })

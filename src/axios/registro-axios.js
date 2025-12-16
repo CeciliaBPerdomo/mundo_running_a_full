@@ -3,20 +3,35 @@ import axios from "axios"
 const ruta = import.meta.env.VITE_RUTA
 
 // Registro de usuario
-export const crearUsuario = async (nombre, email, password, celular, ciudad) => {
+export const crearUsuario = async (nombre, email, password, celular, ciudad, codigoAdmin) => {
     try {
         const url = `${ruta}auth/register`
 
         const user = { nombre, email, password, celular, ciudad }
-        const response = await axios.post(url, user)
+
+        const config = {}
+
+        // 👇 Si hay código admin
+        if (codigoAdmin && codigoAdmin.trim() !== "") {
+            config.headers = {
+                "admin-key": codigoAdmin
+            }
+        }
+
+        const response = await axios.post(url, user, config)
         return response.data
     } catch (error) {
-        console.error('Error en crearUsuario:', {
-            message: error.message,
-            response: error.response?.data,
-            status: error.response?.status
-        });
-        return false
+        if (error.response) {
+            throw {
+                status: error.response.status,
+                message: error.response.data?.errors?.[0]?.msg || "Error al crear usuario"
+            }
+        }
+
+        throw {
+            status: 500,
+            message: "Error de conexión con el servidor"
+        }
     }
 }
 
