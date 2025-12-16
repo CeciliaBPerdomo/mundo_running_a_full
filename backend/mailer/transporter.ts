@@ -29,6 +29,9 @@ import 'dotenv/config';
 //   }
 // });
 
+
+
+// Configuración robusta para Render
 export const transporter = nodemailer.createTransport({
   host: 'smtp-relay.brevo.com',
   port: 587,
@@ -36,18 +39,36 @@ export const transporter = nodemailer.createTransport({
   auth: {
     user: process.env.BREVO_USER,
     pass: process.env.BREVO_PASS
-  }
+  },
+  tls: {
+    ciphers: 'SSLv3',
+    rejectUnauthorized: false
+  },
+  // Configuración optimizada para entornos cloud
+  pool: true,
+  maxConnections: 2,
+  maxMessages: 50,
+  connectionTimeout: 30000,
+  socketTimeout: 30000
 });
 
-// Función para probar la conexión inmediatamente
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("❌ Error de autenticación SMTP:", {
-      error: error.message,
-    //  code: error.code,
-      usuario: process.env.BREVO_USER
+// Función para verificar SMTP que puedes llamar explícitamente
+export const verifySMTPConnection = async () => {
+  try {
+    await transporter.verify();
+    console.log(`✅ SMTP configurado correctamente en ${process.env.NODE_ENV} para:`, process.env.BREVO_USER);
+    return true;
+  } catch (error) {
+    console.error('❌ Error SMTP en', process.env.NODE_ENV, ':', {
+      error: error,
+      usuario: process.env.BREVO_USER,
+      claveDefinida: process.env.BREVO_PASS ? 'SÍ' : 'NO'
     });
-  } else {
-    console.log("✅ SMTP configurado correctamente para:", process.env.BREVO_USER);
+    return false;
   }
-});
+};
+
+// Si estás en desarrollo, verifica inmediatamente
+if (process.env.NODE_ENV !== 'production') {
+  verifySMTPConnection();
+}
