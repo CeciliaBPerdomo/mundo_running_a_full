@@ -15,5 +15,6 @@ export const sendEmail = async (to: string, code: string, nombre: string): Promi
     console.log("Correo electrónico enviado ✔️")
   } catch (error) {
     console.error("Error al envío del correo:", error)
+    throw new Error ("Error al envío del correo");
   }
 }

@@ -11,7 +11,11 @@ export const crearUsuario = async (nombre, email, password, celular, ciudad) => 
         const response = await axios.post(url, user)
         return response.data
     } catch (error) {
-        console.error(error.response?.data || error)
+        console.error('Error en crearUsuario:', {
+            message: error.message,
+            response: error.response?.data,
+            status: error.response?.status
+        });
         return false
     }
 }
