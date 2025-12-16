@@ -7,23 +7,18 @@ export const transporter = nodemailer.createTransport({
     user: process.env.GMAILEMAIL,
     pass: process.env.GMAILPASS
   },
-  tls: {
-    rejectUnauthorized: false // Para desarrollo, en producción es false
-  },
   from: 'cecilia.perdomo@gmail.com',
 
-  secure: true, // Usa SSL
+  // CONFIGURACIÓN CRÍTICA PARA RENDER
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false, // true para 465, false para 587
   requireTLS: true,
-
-  // Opciones importantes para evitar timeouts
-  connectionTimeout: 10000, // 10 segundos
+  tls: { ciphers: 'SSLv3', rejectUnauthorized: false },
+  connectionTimeout: 10000,
   greetingTimeout: 10000,
   socketTimeout: 10000,
-  pool: true, // Usar conexiones persistentes
-
-  // Agrega más opciones de debugging
-  debug: process.env.NODE_ENV !== 'production',
-  logger: process.env.NODE_ENV !== 'production'
+  debug: true
 })
 
 transporter.verify((error, success) => {
