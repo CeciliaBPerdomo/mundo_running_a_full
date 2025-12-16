@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router'
-import { useNavigate } from 'react-router';
+// import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 
 // Formik
 import { Formik } from 'formik';
@@ -12,7 +13,6 @@ import { loginInitialValues } from "../../../formik/initialValues"
 
 // Redux y axios
 import { setUsuarioActual } from "../../../redux/usuario/usuarioSlice"
-import { crearUsuario, verificarCodigo } from '../../../axios/registro-axios';
 import { loginUsuario } from '../../../axios/login-axios';
 
 import useRedirect from "../../../hooks/useRedirect"
@@ -24,7 +24,9 @@ import Loader from '../../UI/Loader/Loader';
 const InicioSesion = () => {
 
   const [permitirRedirect, setPermitirRedirect] = useState(false)
-  const navigate = useNavigate()
+
+  // const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   function mensaje(mensaje) {
     toast(mensaje, {
@@ -61,7 +63,7 @@ const InicioSesion = () => {
           <Formik
             initialValues={loginInitialValues}
             validationSchema={loginValidationSchema}
-            onSubmit={async (values) => {
+            onSubmit={async (values, actions) => {
               try {
                 const user = await loginUsuario(
                   values.email,
@@ -69,6 +71,7 @@ const InicioSesion = () => {
                 )
                 if (user) {
                   mensaje("✅ Sesión iniciada")
+                  dispatch(setUsuarioActual(user))
                   setTimeout(() => {
                     setPermitirRedirect(true)
                   }, 3200)
@@ -77,55 +80,45 @@ const InicioSesion = () => {
                 }
               } catch (error) {
                 console.error(error)
+              } finally {
+                actions.setSubmitting(false);
               }
             }}
           >
-            <FormikForm className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
-                  Email
-                </label>
-                <Field
-                  type="email"
-                  name="email"
-                  placeholder="Ingresá tu email"
-                  className="w-full p-3 rounded-md border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] outline-none bg-transparent"
-                />
-                <ErrorMessage
-                  name="email"
-                  component="p"
-                  className="text-red-500 text-sm mt-1"
-                />
-              </div>
 
-              <div>
-                <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
-                  Contraseña
-                </label>
-                <Field
-                  type="password"
-                  name="password"
-                  placeholder="••••••••"
-                  className="w-full p-3 rounded-md border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] outline-none bg-transparent"
-                />
-                <ErrorMessage
-                  name="password"
-                  component="p"
-                  className="text-red-500 text-sm mt-1"
-                />
-              </div>
+            {({ isSubmitting }) => (
+              <FormikForm className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
+                    Email
+                  </label>
+                  <Field
+                    type="email"
+                    name="email"
+                    placeholder="Ingresá tu email"
+                    className="w-full p-3 rounded-md border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] outline-none bg-transparent"
+                  />
+                  <ErrorMessage name="email" component="p" className="text-[var(--text-errors)] text-sm mt-1" />
+                </div>
 
-              <button
-                type="submit"
-                className="
-                w-full bg-[var(--botones-rojos)] 
-                text-[var(--p-blanco)] font-semibold py-3 rounded-md
-                hover:bg-[var(--botones-rojos-hover)]
-                transition-all
-              " >
-                Iniciar sesión
-              </button>
-            </FormikForm>
+                <div>
+                  <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
+                    Contraseña
+                  </label>
+                  <Field
+                    type="password"
+                    name="password"
+                    placeholder="••••••••"
+                    className="w-full p-3 rounded-md border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] outline-none bg-transparent"
+                  />
+                  <ErrorMessage name="password" component="p" className="text-[var(--text-errors)] text-sm mt-1" />
+                </div>
+
+                <button type="submit" className="w-full bg-[var(--botones-rojos)]  text-[var(--p-blanco)] font-semibold py-3 rounded-md hover:bg-[var(--botones-rojos-hover)] transition-all" >
+                  {isSubmitting ? <Loader /> : " Iniciar sesión"}
+                </button>
+              </FormikForm>
+            )}
           </Formik>
 
           {/* Registrarse */}
@@ -138,7 +131,6 @@ const InicioSesion = () => {
 
         </div>
       </div>
-
       <ToastContainer />
     </section>
   )
