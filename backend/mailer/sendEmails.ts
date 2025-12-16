@@ -1,9 +1,14 @@
-import { transporter } from "./transporter.js"
+import 'dotenv/config';
 import { verificationCodeTemplate } from "./templates/verificationCode.template.js"
+
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 export const sendEmail = async (to: string, code: string, nombre: string): Promise<void> => {
   const mailOptions = {
-    from: '"Mundo Running a Full" <cecilia.perdomo@gmail.com>',
+    from: '"Mundo Running a Full" <onboarding@resend.dev>',
     to,
     subject: "Código de verificación de registro",
     text: `Tu código de verificación es: ${code}`,
@@ -11,10 +16,9 @@ export const sendEmail = async (to: string, code: string, nombre: string): Promi
   }
 
   try {
-    await transporter.sendMail(mailOptions)
+    await resend.emails.send(mailOptions)
     console.log("Correo electrónico enviado ✔️")
   } catch (error) {
-    console.error("Error al envío del correo:", error)
-    throw new Error ("Error al envío del correo");
+    console.error("⚠️ Error al enviar mail (no crítico): ", error)
   }
 }
