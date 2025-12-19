@@ -4,23 +4,20 @@ import ServiciosBicicleta from "../../components/Home/Servicios/ServiciosBicicle
 import FotografiaEventos from "../../components/Home/Servicios/FotografiaEventos"
 
 const Services = () => {
-    return (
-        <div className='py-20 bg-[var(--color-background-secondary)]'>
-            <Servicios />
+  return (
+    <div className="py-4 bg-[var(--color-background-secondary)] mb-8">
+      <Servicios />
 
-            <div className="flex justify-center">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl w-full">
-                    <div>
-                        <ServiciosBicicleta />
-                    </div>
+     <div className="px-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
 
-                    <div>
-                       <FotografiaEventos />
-                    </div>
-                </div>
-            </div>
+          <ServiciosBicicleta />
+          <FotografiaEventos />
+
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default Services

@@ -1,0 +1,7 @@
+[
+  { "titulo": "INICIO", "link": "/" },
+  { "titulo": "TIENDA DEPORTIVA", "link": "/tienda_deportiva" },
+  { "titulo": "SERVICIOS", "link": "/servicios" },
+  { "titulo": "QUIÉNES SOMOS", "link": "/quienes_somos" },
+  { "titulo": "CONTACTO", "link": "/contacto" }
+]

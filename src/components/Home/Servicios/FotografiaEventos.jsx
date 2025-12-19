@@ -2,7 +2,7 @@ import React from "react";
 
 const FotografiaEventos = () => {
   return (
-    <section className="space-y-6 text-[var(--p-negro)] max-w-4xl mx-auto">
+    <section className="space-y-6 text-[var(--p-negro)] max-w-4xl mx-auto px-12">
 
       <h2 className="text-2xl font-bold">
         📸 Fotografía de eventos deportivos

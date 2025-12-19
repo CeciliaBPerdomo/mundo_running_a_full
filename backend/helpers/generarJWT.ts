@@ -1,9 +1,9 @@
 // helpers - generarJWT.ts
 import jwt from "jsonwebtoken"
 
-export const generarJWT = (email: string = ""): Promise<string> => {
+export const generarJWT = (id: string = ""): Promise<string> => {
     return new Promise((res, rej) => {
-        const payload = { email } // lo mejor es enviar el id
+        const payload = { id } 
 
         jwt.sign(
             // payload // clave secreta // objt de config, callback de resolucion

@@ -31,7 +31,7 @@ export const register = async (req: Request, res: Response) => {
     await usuario.save()
 
     // 🔑 token inmediato
-    const token = await generarJWT(usuario.email)
+    const token = await generarJWT(usuario._id.toString())
 
     res.status(201).json({
         msg: "Usuario creado con éxito",
@@ -68,7 +68,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             return
         }
 
-        const token = await generarJWT(usuario.email)
+    const token = await generarJWT(usuario._id.toString())
         res.status(202).json({
             usuario,
             token
