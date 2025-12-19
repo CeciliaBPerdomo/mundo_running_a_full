@@ -44,7 +44,7 @@ Este proyecto tiene como objetivo desarrollar la plataforma web oficial de Mundo
 | ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white) ![MongoDB Atlas](https://img.shields.io/badge/MongoDB_Atlas-47A248?style=flat&logo=mongodb&logoColor=white) ![MongoDB Compass](https://img.shields.io/badge/MongoDB_Compass-47A248?style=flat&logo=mongodb&logoColor=white) ![Nodemon](https://img.shields.io/badge/Nodemon-76D04B?style=flat&logo=nodemon&logoColor=white) ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white) ![Express](https://img.shields.io/badge/Express-000000?style=flat&logo=express&logoColor=white) ![Mongoose](https://img.shields.io/badge/Mongoose-880000?style=flat&logo=mongoose&logoColor=white) ![Express Validator](https://img.shields.io/badge/express--validator-3B82F6?style=flat&logo=express&logoColor=white) ![Dotenv](https://img.shields.io/badge/dotenv-ECD53F?style=flat&logo=dotenv&logoColor=black) ![JWT](https://img.shields.io/badge/JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white) ![jsonwebtoken](https://img.shields.io/badge/jsonwebtoken-000000?style=flat&logo=jsonwebtokens&logoColor=white) ![bcryptjs](https://img.shields.io/badge/bcryptjs-3381FF?style=flat&logo=lock&logoColor=white) ![CORS](https://img.shields.io/badge/CORS-5A67D8?style=flat&logo=cloudflare&logoColor=white) ![randomstring](https://img.shields.io/badge/randomstring-6A5ACD?style=flat&logo=key&logoColor=white) ![Nodemailer](https://img.shields.io/badge/Nodemailer-2F855A?style=flat&logo=minutemailer&logoColor=white) ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat&logo=postman&logoColor=white) ![Render](https://img.shields.io/badge/Render-46E3B7?style=flat&logo=render&logoColor=black) | 
 
 
-## 📍 Documentación utilizada
+<!-- ## 📍 Documentación utilizada
 
 |       | Tema | Enlace | Instalación |
 | ----- | ---- | ------ | ---------- |
@@ -58,7 +58,7 @@ Este proyecto tiene como objetivo desarrollar la plataforma web oficial de Mundo
 | ![bcryptjs](https://img.shields.io/badge/bcryptjs-3381FF?style=flat&logo=lock&logoColor=white) | **Bcrypt** | `https://www.npmjs.com/package/bcryptjs` | `npm i bcryptjs` |
 | ![jsonwebtoken](https://img.shields.io/badge/jsonwebtoken-000000?style=flat&logo=jsonwebtokens&logoColor=white) | **Json web token** | `https://www.npmjs.com/package/jsonwebtoken` | `npm i jsonwebtoken` |
 | ![JWT](https://img.shields.io/badge/JWT-000000?style=flat&logo=jsonwebtokens&logoColor=white) | **JWT Debugger**  | `https://jwt.io/` | |
-| ![Express Validator](https://img.shields.io/badge/express--validator-3B82F6?style=flat&logo=express&logoColor=white) | **Express-validator** | `https://express-validator.github.io/docs/` | `npm i express-validator` |
+| ![Express Validator](https://img.shields.io/badge/express--validator-3B82F6?style=flat&logo=express&logoColor=white) | **Express-validator** | `https://express-validator.github.io/docs/` | `npm i express-validator` | -->
 
 
 <!-- ## Instalaciones de backend

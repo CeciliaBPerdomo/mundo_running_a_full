@@ -29,23 +29,26 @@ export const register = async (req: Request, res: Response) => {
     usuario.code = newCode
 
     await usuario.save()
-   // await sendEmail(email, newCode, nombre)
+
+    // 🔑 token inmediato
+    const token = await generarJWT(usuario.email)
 
     res.status(201).json({
         msg: "Usuario creado con éxito",
-        usuario
+        usuario,
+        token
     })
 
     // ENVIAR EMAIL EN SEGUNDO PLANO (no bloqueante)
-    setTimeout(async () => {
-      try {
-        await sendEmail( email, newCode, nombre );
-        console.log(`✅ Email enviado a ${email}`);
-      } catch (emailError) {
-        console.error('❌ Error enviando email (background):', emailError);
-        // Puedes registrar este error en una DB para reintentar después
-      }
-    }, 0);
+    Promise.resolve().then(async () => {
+        try {
+            await sendEmail(email, newCode, nombre)
+            console.log(`📨 Email enviado a ${email}`)
+        } catch (err) {
+            console.error("❌ Error enviando email:", err)
+        }
+    })
+
 }
 
 export const login = async (req: Request, res: Response): Promise<void> => {

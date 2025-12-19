@@ -1,3 +1,4 @@
+import { sendEmail } from "../mailer/sendEmails.js"
 import type { IUsuarioMR } from "../models/usuario.js"
 import UsuarioMR from "../models/usuario.js"
 
@@ -5,8 +6,13 @@ import UsuarioMR from "../models/usuario.js"
 export const existeEmail = async (email: string): Promise<void> => {
     const emailEnDB: IUsuarioMR | null = await UsuarioMR.findOne({email})
 
-    if (emailEnDB) { 
+    if (emailEnDB && emailEnDB.verified) {
         throw new Error(`El correo: ${email} ya está registrado`)
+    }
+
+    if (emailEnDB && !emailEnDB.verified) {
+        await sendEmail(email, emailEnDB.code as string, emailEnDB.nombre)
+        throw new Error(`El correo: ${email} ya está registrado. Se envío nuevamente el código de verificación`)
     }
 }
 

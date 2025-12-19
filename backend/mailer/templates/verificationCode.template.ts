@@ -1,4 +1,6 @@
 export const verificationCodeTemplate = (code: string, nombre: string): string => {
+  const verifyUrl = `https://mundo-running-a-full.vercel.app/verify-code`
+
   return `
     <div style="font-family: Arial, sans-serif; background-color:#f4f4f4; padding: 20px;">
       <div style="max-width: 520px; margin: auto; background: #ffffff; padding: 25px; border-radius: 8px;">
@@ -19,8 +21,33 @@ export const verificationCodeTemplate = (code: string, nombre: string): string =
           ${code}
         </div>
 
+        <div style="text-align:center; margin: 30px 0;">
+          <a 
+            href="${verifyUrl}"
+            style="
+              background-color:#e63946;
+              color:#ffffff;
+              padding:12px 24px;
+              border-radius:6px;
+              text-decoration:none;
+              font-weight:bold;
+              display:inline-block;
+            "
+          >
+            Verificar mi cuenta 🚀
+          </a>
+        </div>
+
         <p style="font-size: 13px; color:#777; text-align:center;">
           Este código es válido por tiempo limitado.
+        </p>
+
+         <p style="font-size: 12px; color:#777; text-align:center;">
+          Si el botón no funciona, copiá y pegá este link en tu navegador:
+          <br />
+          <a href="${verifyUrl}" style="color:#e63946;">
+            ${verifyUrl}
+          </a>
         </p>
 
         <hr style="border:none; border-top:1px solid #eee; margin:20px 0;" />
