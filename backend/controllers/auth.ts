@@ -1,3 +1,4 @@
+// controllers - auth.ts
 import type { Request, Response } from "express";
 import type { IUsuarioMR } from "../models/usuario.js";
 import UsuarioMR from "../models/usuario.js";
@@ -58,7 +59,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             return
         }
 
-        const validarPass = bcryptjs.compareSync(password, usuario.password)
+        const validarPass = await bcryptjs.compare(password, usuario.password)
         if (!validarPass) {
             res.status(401).json({ "msg": "Password incorrecto" })
             return

@@ -1,3 +1,4 @@
+// helpers - generarJWT.ts
 import jwt from "jsonwebtoken"
 
 export const generarJWT = (email: string = ""): Promise<string> => {
