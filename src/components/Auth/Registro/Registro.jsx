@@ -14,11 +14,10 @@ import { registerInitialValues } from "../../../formik/initialValues"
 // Alertas y loader
 import { mensaje } from '../../UI/Toast/mensaje';
 import { ToastContainer } from "react-toastify"
-import Loader from '../../UI/Loader/Loader';
 
 // Boton
 import SubmitButton from "../../../components/UI/Form/BotonSubmit";
-
+import FormFooterLink from "../../UI/Form/FormFooterLink";
 
 // Redux y axios
 import { setUsuarioActual } from "../../../redux/usuario/usuarioSlice"
@@ -100,12 +99,7 @@ const Registro = () => {
             )}
           </Formik>
           {/* Link a login */}
-          <p className="text-center mt-6 text-sm text-[var(--p-negro)]">
-            ¿Ya tenés cuenta?{" "}
-            <Link to="/login" className="text-[var(--color-titulos)] font-semibold hover:underline">
-              Iniciá sesión
-            </Link>
-          </p>
+          <FormFooterLink text="¿Ya tenés cuenta?" linkText="Iniciá sesión" to="/login" />
         </div>
       </div>
 

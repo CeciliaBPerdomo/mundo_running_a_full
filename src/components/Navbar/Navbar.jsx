@@ -11,8 +11,8 @@ import { Moon, Sun } from 'lucide-react';
 
 const menuItems = [
   { "titulo": "INICIO", "link": "/" },
-  { "titulo": "TIENDA DEPORTIVA", "link": "" },
-  { "titulo": "SERVICIOS", "link": "" },
+  { "titulo": "TIENDA DEPORTIVA", "link": "/tienda_deportiva" },
+  { "titulo": "SERVICIOS", "link": "/servicios" },
   { "titulo": "QUIÉNES SOMOS", "link": "/quienes_somos" },
   { "titulo": "CONTACTO", "link": "/contacto" },
 ];
