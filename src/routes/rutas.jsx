@@ -11,18 +11,40 @@ import MasInfo from '../pages/Contacto/MasInfo';
 import Verificacion from '../components/Auth/VerificacionCodigo/Verificacion';
 import Services from '../pages/Servicios/Services';
 import TiendaDeportiva from '../components/Tienda/TiendaDeportiva';
+import PerfilUsuario from "../components/Auth/Perfil/PerfilUsuario"
+
+// Ruta protegida
+import ProtectedRoute from "../components/Auth/ProtectedRoutes/ProtectedRoute"
+import NotFound from '../pages/NotFound/NotFound';
 
 function Rutas() {
     return (
         <Routes>
             <Route path='/' element={<Home />} />
+            {/* Rutas de usuario  */}
             <Route path='/login' element={<InicioSesion />} />
-            <Route path='/signup' element={<Registro /> } />
+            <Route path='/signup' element={<Registro />} />
             <Route path='/verify-code' element={<Verificacion />} />
+            {/* Si esta logueado */}
+            <Route
+                path='/perfil'
+                element={
+                    <ProtectedRoute redirectTo={'/login'}>
+                        <PerfilUsuario />
+                    </ProtectedRoute>
+                }
+            />
+
+            {/* Rutas de info */}
             <Route path='/quienes_somos' element={<Somos />} />
             <Route path='/contacto' element={<MasInfo />} />
             <Route path='/servicios' element={<Services />} />
+
+            {/* Rutas de productos */}
             <Route path='/tienda_deportiva' element={<TiendaDeportiva />} />
+
+            {/* Pagina no encontrada */}
+            <Route path='*' element={<NotFound />} />
         </Routes>
     )
 }

@@ -1,6 +1,8 @@
 import React from "react";
 import { FiUser, FiHeart, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 import { Moon, Sun } from "lucide-react";
+import { useSelector } from "react-redux";
+
 
 const IconButton = ({ onClick, children, ariaLabel }) => (
   <button
@@ -16,26 +18,28 @@ const IconButton = ({ onClick, children, ariaLabel }) => (
   </button>
 );
 
-const NavbarIcons = ({
-  navigate,
-  mode,
-  toggleTheme,
-  isMenuOpen,
-  toggleMenu,
-}) => {
+const NavbarIcons = ({ navigate, mode, toggleTheme, isMenuOpen, toggleMenu }) => {
+
+  const usuarioActual = useSelector((state) => state.usuario.usuarioActual)
+
+
   return (
     <div className="flex items-center gap-5 text-[22px]">
-      <IconButton onClick={() => navigate("/login")} ariaLabel="Login">
+      <IconButton onClick={() => usuarioActual ? navigate("/perfil") : navigate("/login")} ariaLabel="Login">
         <FiUser size={22} className="text-[var(--color-encabezados)]" />
       </IconButton>
 
-      <IconButton onClick={() => console.log("Favoritos")} ariaLabel="Favoritos">
-        <FiHeart size={22} className="text-[var(--color-encabezados)]" />
-      </IconButton>
+      {usuarioActual && (
+        <>
+          <IconButton onClick={() => console.log("Favoritos")} ariaLabel="Favoritos">
+            <FiHeart size={22} className="text-[var(--color-encabezados)]" />
+          </IconButton>
 
-      <IconButton onClick={() => console.log("Carrito")} ariaLabel="Carrito">
-        <FiShoppingCart size={22} className="text-[var(--color-encabezados)]" />
-      </IconButton>
+          <IconButton onClick={() => console.log("Carrito")} ariaLabel="Carrito">
+            <FiShoppingCart size={22} className="text-[var(--color-encabezados)]" />
+          </IconButton>
+        </>
+      )}
 
       <IconButton onClick={toggleTheme} ariaLabel="Cambiar tema">
         {mode === "dark" ? (

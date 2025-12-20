@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router";
 import {
   FaMapMarkerAlt,
   FaEnvelope,
@@ -84,8 +85,8 @@ const Footer = () => {
             {/* SERVICIOS */}
             <h3 className="text-[var(--color-titulos)] font-semibold text-lg mb-4">SERVICIOS</h3>
             <ul className="space-y-1 mb-6">
-              <li>Mantenimiento y reparación de bicicletas</li>
-              <li>Fotografías para eventos deportivos</li>
+              <Link to="/servicios"><li>Mantenimiento y reparación de bicicletas</li></Link>
+              <Link to="/servicios"><li>Fotografías para eventos deportivos</li></Link>
             </ul>
 
             {/* EQUIPO */}

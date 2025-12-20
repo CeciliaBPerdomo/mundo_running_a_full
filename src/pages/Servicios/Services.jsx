@@ -5,7 +5,7 @@ import FotografiaEventos from "../../components/Home/Servicios/FotografiaEventos
 
 const Services = () => {
   return (
-    <div className="py-4 bg-[var(--color-background-secondary)] mb-8">
+    <div className="py-4 bg-[var(--color-background-secondary)] pb-8">
       <Servicios />
 
      <div className="px-8 max-w-6xl mx-auto">

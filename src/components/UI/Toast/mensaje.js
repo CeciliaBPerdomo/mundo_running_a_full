@@ -1,3 +1,5 @@
+// components - UI - Toast - mensaje.js
+
 import { toast } from 'react-toastify';
 
 export function mensaje(mensaje) {
