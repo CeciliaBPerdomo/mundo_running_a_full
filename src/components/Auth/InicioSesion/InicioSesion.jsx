@@ -1,3 +1,4 @@
+// components > Auth > InicioSesion > InicioSesion.jsx
 import React, { useState } from 'react'
 import { Link } from 'react-router'
 import { useDispatch } from 'react-redux';
@@ -22,6 +23,9 @@ import { mensaje } from '../../UI/Toast/mensaje';
 import SubmitButton from "../../UI/Form/BotonSubmit";
 import FormFooterLink from "../../UI/Form/FormFooterLink";
 
+// Expiración del token
+import { jwtDecode } from "jwt-decode"
+
 
 const InicioSesion = () => {
 
@@ -33,13 +37,36 @@ const InicioSesion = () => {
   const handleLogin = async (values, actions) => {
     try {
       const user = await loginUsuario(values.email, values.password)
-      if (user) {
-        mensaje("✅ Sesión iniciada correctamente")
-        dispatch(setUsuarioActual(user))
-        setTimeout(() => { setPermitirRedirect(true) }, 3200)
-      } else {
+      // if (user) {
+      //   mensaje("✅ Sesión iniciada correctamente")
+      //   dispatch(setUsuarioActual(user))
+      //   setTimeout(() => { setPermitirRedirect(true) }, 3200)
+      // } else {
+      //   mensaje("❌ Error al ingresar con tu usuario")
+      // }
+      if (!user) {
         mensaje("❌ Error al ingresar con tu usuario")
+        return
       }
+
+      const { usuario, token } = user
+      const decoded = jwtDecode(token)
+      const expirationTime = decoded.exp * 1000
+      const usuarioConSesion = {
+        ...usuario,
+        token,
+        expirationTime
+      }
+
+      // persistencia en localStorage
+      localStorage.setItem("token", token)
+      localStorage.setItem("expirationTime", expirationTime)
+      localStorage.setItem("usuario", JSON.stringify(usuarioConSesion))
+
+      dispatch(setUsuarioActual(usuarioConSesion))
+
+      mensaje("✅ Sesión iniciada correctamente")
+      setTimeout(() => setPermitirRedirect(true), 2000)
     } catch (error) {
       console.error(error)
     } finally {
@@ -85,7 +112,7 @@ const InicioSesion = () => {
 
           {/* Registrarse */}
           <FormFooterLink text="¿No tenés cuenta?" linkText="Registrate" to="/signup" />
-          
+
         </div>
       </div>
       <ToastContainer />

@@ -2,46 +2,33 @@ import React from "react";
 import { FiUser, FiHeart, FiShoppingCart, FiMenu, FiX } from "react-icons/fi";
 import { Moon, Sun } from "lucide-react";
 import { useSelector } from "react-redux";
-
-
-const IconButton = ({ onClick, children, ariaLabel }) => (
-  <button
-    onClick={onClick}
-    aria-label={ariaLabel}
-    className="
-      p-2 rounded-full 
-      bg-[var(--color-background-black)] 
-      hover:bg-[var(--color-titulos)] 
-      transition-transform hover:scale-110
-    ">
-    {children}
-  </button>
-);
+import IconButton from "../UI/IconButton/IconButton";
 
 const NavbarIcons = ({ navigate, mode, toggleTheme, isMenuOpen, toggleMenu }) => {
-
   const usuarioActual = useSelector((state) => state.usuario.usuarioActual)
 
+  //  const esAdmin = usuarioActual?.rol === "admin";
+  const esUser = usuarioActual?.rol === "user";
 
   return (
-    <div className="flex items-center gap-5 text-[22px]">
-      <IconButton onClick={() => usuarioActual ? navigate("/perfil") : navigate("/login")} ariaLabel="Login">
+    <div className="flex items-center gap-2 text-[22px]">
+      <IconButton onClick={() => usuarioActual ? navigate("/perfil") : navigate("/login")} ariaLabel="Login" className="rounded-full">
         <FiUser size={22} className="text-[var(--color-encabezados)]" />
       </IconButton>
 
-      {usuarioActual && (
+      {esUser && (
         <>
-          <IconButton onClick={() => console.log("Favoritos")} ariaLabel="Favoritos">
+          <IconButton onClick={() => console.log("Favoritos")} ariaLabel="Favoritos" className="rounded-full">
             <FiHeart size={22} className="text-[var(--color-encabezados)]" />
           </IconButton>
 
-          <IconButton onClick={() => console.log("Carrito")} ariaLabel="Carrito">
+          <IconButton onClick={() => console.log("Carrito")} ariaLabel="Carrito" className="rounded-full">
             <FiShoppingCart size={22} className="text-[var(--color-encabezados)]" />
           </IconButton>
         </>
       )}
 
-      <IconButton onClick={toggleTheme} ariaLabel="Cambiar tema">
+      <IconButton onClick={toggleTheme} ariaLabel="Cambiar tema" className="rounded-full">
         {mode === "dark" ? (
           <Sun size={22} className="text-[var(--color-encabezados)]" />
         ) : (

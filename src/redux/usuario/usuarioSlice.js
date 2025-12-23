@@ -1,3 +1,4 @@
+// redux > usuario > usuarioSlice.js
 import { createSlice } from "@reduxjs/toolkit"
 
 const initial_state = {
@@ -16,6 +17,14 @@ export const usuarioSlice = createSlice({
             }
         },
 
+        logout: (state) => {
+            state.usuarioActual = null
+            state.hiddenMenu = true
+            localStorage.removeItem("token")
+            localStorage.removeItem("usuario")
+            localStorage.removeItem("expirationTime")
+        },
+
         toggleHiddenMenu: (state) => {
             return {
                 ...state,
@@ -27,6 +36,7 @@ export const usuarioSlice = createSlice({
 
 export const {
     setUsuarioActual,
+    logout,
     toggleHiddenMenu
 } = usuarioSlice.actions
 

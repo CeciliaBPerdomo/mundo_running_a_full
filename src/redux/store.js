@@ -1,3 +1,4 @@
+// redux > store.js
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 
 // Persistencia
@@ -10,6 +11,8 @@ import persistStore from "redux-persist/lib/persistStore";
 import themeReducer from "./theme/themeSlice"
 // Usuarios
 import usuarioReducer from "./usuario/usuarioSlice"
+import { sessionMiddleware } from "./usuario/sessionMiddleware" //token
+
 
 const reducers = combineReducers({
     theme: themeReducer,
@@ -31,7 +34,7 @@ export const store = configureStore({
     // para interactuar con la api externa
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false // redux no guardaba bien los datos serializable
-    })
+    }).concat(sessionMiddleware),
 })
 
 
