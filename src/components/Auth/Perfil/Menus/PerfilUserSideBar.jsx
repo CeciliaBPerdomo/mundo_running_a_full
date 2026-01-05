@@ -2,7 +2,7 @@ import React from "react";
 import LogoutButton from "../LogoutButton"
 import { NavLink } from "react-router";
 
-const PerfilUserSidebar = () => {
+const PerfilUserSidebar = ({setVista, vista}) => {
     const menu = [
         { titulo: "Mis datos", url: "/perfil" },
         { titulo: "Mis favoritos", url: "/" }, ///perfil/favoritos

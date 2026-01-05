@@ -1,0 +1,8 @@
+[
+  { "titulo": "Mis datos", "url": "/perfil", "key": "datos" },
+  { "titulo": "Productos", "url": "/admin/productos", "key": "productos"},
+  { "titulo": "Carritos pendientes", "url": "/admin/carritos", "key": "carrito" },
+  { "titulo": "Compras", "url": "/admin/compras", "key": "compras" },
+  { "titulo": "Mensajes", "url": "/admin/mensajes", "key": "mensajes" },
+  { "titulo": "Reportar problema", "url": "/admin/reportar", "key": "problemas" }
+]

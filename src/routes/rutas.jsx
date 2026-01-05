@@ -25,6 +25,7 @@ function Rutas() {
             <Route path='/login' element={<InicioSesion />} />
             <Route path='/signup' element={<Registro />} />
             <Route path='/verify-code' element={<Verificacion />} />
+
             {/* Si esta logueado */}
             <Route
                 path='/perfil'
@@ -32,8 +33,7 @@ function Rutas() {
                     <ProtectedRoute redirectTo={'/login'}>
                         <PerfilUsuario />
                     </ProtectedRoute>
-                }
-            />
+                } />
 
             {/* Rutas de info */}
             <Route path='/quienes_somos' element={<Somos />} />
