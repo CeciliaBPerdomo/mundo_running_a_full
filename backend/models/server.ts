@@ -9,18 +9,21 @@ import { dbConnection } from "../database/config.js"
 // Rutas
 import authRoutes from "../routes/auth.js"
 import issuesRoutes from "../routes/issue.js"
+import productRoutes from "../routes/productos.js"
 
 export class Server {
     app: Express
     port: string | number | undefined
     authPath: string
     issuesPath: string
+    productsPath: string
 
     constructor() {
         this.app = express()
         this.port = process.env.PORT
         this.authPath = '/auth'
         this.issuesPath = "/issues"
+        this.productsPath = "/products"
 
         // Conexión con la base de datos de mongo
         this.conectarDB()
@@ -45,6 +48,7 @@ export class Server {
     routes(): void {
         this.app.use(this.authPath, authRoutes)
         this.app.use(this.issuesPath, issuesRoutes)
+        this.app.use(this.productsPath, productRoutes)
     }
 
     listen(): void {
