@@ -47,12 +47,16 @@ export const getProductsbyId = async (req: Request, res: Response) => {
 }
 
 export const getProductsbyCategory = async (req: Request, res: Response) => {
-    const { categoria } = req.body
-    const producto = await Producto.find({ categoria, delete: false })
 
-    if (!producto) {
+    const producto = await Producto.find({ 
+        categoria: req.params.categoria ?? "", 
+        delete: false 
+    })
+
+    if (producto.length === 0) {
         res.status(404).json({ msg: "No hay productos para la categoria" })
         return
     }
+    
     res.status(200).json({ producto })
 }

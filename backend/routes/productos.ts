@@ -30,7 +30,7 @@ router.get(
 )
 
 router.get(
-    "/category",
+    "/category/:categoria",
     getProductsbyCategory
 )
 
