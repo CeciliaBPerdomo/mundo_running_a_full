@@ -11,7 +11,9 @@ export interface IProducto {
     talles: string[],   // ["S", "M", "L", "XL"]
     colores: string[],  // ["negro", "azul", "rojo"]
 
-    createdAt: Date
+    createdAt: Date,
+    modifiedAt: Date,
+    delete: boolean
 }
 
 const ProductoSchema = new Schema<IProducto>({
@@ -22,7 +24,10 @@ const ProductoSchema = new Schema<IProducto>({
     foto: { type: String, required: [true, "La foto es obligatoria"] },
     talles: [{ type: String, required: true, trim: true }],
     colores: [{ type: String, required: true, trim: true }],
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now }, 
+    modifiedAt: { type: Date, default: Date.now }, 
+    delete: { type: Boolean, default: false }
+
 })
 
 ProductoSchema.methods.toJSON = function() {

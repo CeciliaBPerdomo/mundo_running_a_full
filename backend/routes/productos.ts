@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProducts } from "../controllers/productos.js";
+import { createProducts, getProducts, getProductsbyCategory, getProductsbyId } from "../controllers/productos.js";
 import { check } from "express-validator";
 import { recoletarErrores } from "../middlewares/recoletarErrores.js";
 import validarJWT from "../middlewares/validarJWT.js";
@@ -22,6 +22,21 @@ router.post(
         recoletarErrores
     ],
     createProducts
+)
+
+router.get(
+    "/",
+    getProducts
+)
+
+router.get(
+    "/category",
+    getProductsbyCategory
+)
+
+router.get(
+    "/:id",
+    getProductsbyId
 )
 
 export default router
