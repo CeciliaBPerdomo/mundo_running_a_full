@@ -32,5 +32,12 @@ const IssueSchema = new Schema<IIssue>({
     }
 })
 
+
+IssueSchema.methods.toJSON = function() {
+    //  → lo que no quiero mostrarle al usuario (lo que esta destructurado es lo que no va a mostrar)
+    const {__v, _id, ...issue } = this.toObject()
+    return issue
+}
+
 const Issue: Model<IIssue> = model<IIssue>("Issue", IssueSchema);
 export default Issue;

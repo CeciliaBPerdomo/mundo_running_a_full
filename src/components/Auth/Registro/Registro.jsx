@@ -40,7 +40,6 @@ const Registro = () => {
   const handleRegister = async (values, actions) => {
     try {
       const user = await crearUsuario(values.nombre, values.email, values.password, values.celular, values.ciudad, codigoAdmin);
-
       if (!user) {
         mensaje("❌ Error al guardar tu usuario, intentá más tarde");
         return;

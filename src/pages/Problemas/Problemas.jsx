@@ -1,96 +1,62 @@
-import React, { useState } from "react";
+import React from "react";
+import { Formik, Form as FormikForm } from "formik";
+
+import { issueInitialValues } from "../../formik/initialValues";
+import { issueValidationSchema } from "../../formik/validationSchema";
+
+import IssueFields from "./IssueFields";
+import SubmitButton from "../../components/UI/Form/BotonSubmit";
+import { ToastContainer } from "react-toastify";
+import { mensaje } from "../../components/UI/Toast/mensaje";
+import { crearIssue } from "../../axios/issue-axios";
 
 const Problemas = () => {
-  const [form, setForm] = useState({
-    title: "",
-    description: "",
-    priority: "2",
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-  };
+    const handleSubmit = async (values, actions) => {
+        try {
+            const problema = await crearIssue(values.titulo, values.descripcion, values.prioridad )
+            
+            if (!problema) {
+                mensaje("❌ Error al enviar el reporte de la incidencia");
+                return;
+            }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Incidencia enviada:", form);
-  };
+            mensaje("✔️ El reporte del problema fue correctamente enviado a la programadora estrella ✨");
+            actions.resetForm();
+        } catch (error) {
+            mensaje(`⚠️ ${error.message}.`)
+        } finally {
+            actions.setSubmitting(false);
+        }
+    };
 
-  return (
-    <div className="flex justify-center">
+    return (
+        <div className="flex justify-center">
+            <div className="w-full max-w-xl">
+                <h2 className="text-2xl font-semibold mb-6 text-center text-[var(--p-negro)]">
+                    Reportar problema 🛠️
+                </h2>
 
-      <div className="w-full max-w-xl">
-        <h2 className="text-2xl font-semibold mb-6 text-center">
-          Reportar problema 🛠️
-        </h2>
+                <Formik
+                    initialValues={issueInitialValues}
+                    validationSchema={issueValidationSchema}
+                    onSubmit={handleSubmit}
+                >
+                    {({ isSubmitting }) => (
+                        <FormikForm className="space-y-4">
+                            <IssueFields />
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                            <SubmitButton loading={isSubmitting}>
+                                Enviar incidencia
+                            </SubmitButton>
+                        </FormikForm>
+                    )}
+                </Formik>
+            </div>
 
-          {/* TÍTULO */}
-          <div>
-            <label className="block mb-1 font-medium">Título</label>
-            <input
-              type="text"
-              name="title"
-              value={form.title}
-              onChange={handleChange}
-               placeholder="Ej: Error al cargar productos"
-              className="w-full px-3 py-2 rounded-md border"
-              required
-            />
-          </div>
-
-          {/* DESCRIPCIÓN */}
-          <div>
-            <label className="block mb-1 font-medium">Descripción</label>
-            <textarea
-              name="description"
-              value={form.description}
-              onChange={handleChange}
-              rows="4"
-              className="w-full px-3 py-2 rounded-md border resize-none"
-              placeholder="Contanos qué pasó, sin miedo 😅"
-              required
-            />
-          </div>
-
-          {/* PRIORIDAD */}
-          <div>
-            <label className="block mb-1 font-medium">Prioridad</label>
-            <select
-              name="priority"
-              value={form.priority}
-              onChange={handleChange}
-              className="w-full px-3 py-2 rounded-md border"
-            >
-              <option value="1">Baja</option>
-              <option value="2">Media</option>
-              <option value="3">Alta</option>
-            </select>
-          </div>
-
-          <button
-            type="submit"
-            className="
-              mt-4
-              bg-[var(--color-titulos)]
-              text-[var(--p-blanco)]
-              py-2
-              rounded-md
-              font-semibold
-              hover:opacity-90
-              transition
-            "
-          >
-            Enviar incidencia
-          </button>
-
-        </form>
-      </div>
-
-    </div>
-  );
+            <ToastContainer />
+        </div>
+    );
 };
 
 export default Problemas;

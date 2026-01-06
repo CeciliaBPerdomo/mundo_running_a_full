@@ -12,3 +12,10 @@ export const loginInitialValues = {
     email: "",
     password: ""
 }
+
+// Valores iniciales para reportar la incidencia
+export const issueInitialValues = {
+    titulo: "",
+    descripcion: "",
+    prioridad: 2
+}

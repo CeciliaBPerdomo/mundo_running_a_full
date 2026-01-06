@@ -31,8 +31,8 @@ const PerfilUsuario = () => {
 
         {vista === "datos" && (
           <>
-            <h1>Mis datos</h1>
-            <p>Acá van mis datos 👀 (modo zen)</p>
+            <h1 className='text-[var(--p-negro)]'>Mis datos</h1>
+            <p className='text-[var(--p-negro)]'>Acá van mis datos 👀 (modo zen)</p>
           </>
         )}
 

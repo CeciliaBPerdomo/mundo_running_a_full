@@ -32,3 +32,13 @@ export const loginValidationSchema = Yup.object({
         .min(6, "Debes ingresar 6 caracteres mínimo")
         .required("El password es un campo requerido")
 })
+
+// Validacion para reportar la incidencia
+export const issueValidationSchema = Yup.object({
+    titulo: Yup.string()
+        .required("El título es un campo obligatorio."),
+    descripcion: Yup.string()
+        .required("La descripción es un campo obligatorio."),
+    prioridad: Yup.number()
+        .required("La proridad es un campo obligatorio.")
+})

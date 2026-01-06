@@ -15,14 +15,14 @@ const validarJWT = async (req: Request, res: Response, next: NextFunction) => {
         const claveSecreta = process.env.CLAVE_SECRETA as string
         const payload = jwt.verify(token, claveSecreta) as JwtPayload
 
-        const { uid } = payload;
+        const { id } = payload;
 
-        if (!uid) {
+        if (!id) {
             res.status(401).json({ msg: "Token inválido (sin uid)" });
             return;
         }
 
-        const usuarioConfirmado: IUsuarioMR | null = await Usuario.findById(uid);
+        const usuarioConfirmado: IUsuarioMR | null = await Usuario.findById(id);
 
         if (!usuarioConfirmado) {
             res.status(404).json({ msg: "El usuario no se ha encontrado en la BD" })

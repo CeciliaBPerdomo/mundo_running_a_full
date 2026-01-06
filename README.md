@@ -29,12 +29,12 @@ Este proyecto tiene como objetivo desarrollar la plataforma web oficial de Mundo
 ## 🚀 Instalación y uso local del código
 - Cloná el repositorio: `git clone https://github.com/CeciliaBPerdomo/mundo_running_a_full` 
 - Ingresá al directorio del proyecto: `cd mundorunning`
-- 📍 Front End
+- 📍 **Front End**
     - Instalá las dependencias: `npm install`
     - Levantá el servidor de desarrollo: `npm run dev`
     - Abrí tu navegador en: `http://localhost:5173`
-- 📍Back End
-    - - Ingresá al directorio `backend`
+- 📍**Back End**
+    - Ingresá al directorio `backend`
     - Levantá el servidor de desarrollo: `tsc --watch` y `nodemon ./dist/index.js`
 
 ## ⚙️ Tecnologías utilizadas para este proyecto

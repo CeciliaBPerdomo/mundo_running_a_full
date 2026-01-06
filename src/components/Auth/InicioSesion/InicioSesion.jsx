@@ -37,13 +37,6 @@ const InicioSesion = () => {
   const handleLogin = async (values, actions) => {
     try {
       const user = await loginUsuario(values.email, values.password)
-      // if (user) {
-      //   mensaje("✅ Sesión iniciada correctamente")
-      //   dispatch(setUsuarioActual(user))
-      //   setTimeout(() => { setPermitirRedirect(true) }, 3200)
-      // } else {
-      //   mensaje("❌ Error al ingresar con tu usuario")
-      // }
       if (!user) {
         mensaje("❌ Error al ingresar con tu usuario")
         return
