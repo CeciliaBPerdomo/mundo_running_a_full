@@ -60,3 +60,22 @@ export const getProductsbyCategory = async (req: Request, res: Response) => {
     
     res.status(200).json({ producto })
 }
+
+export const deleteProduct =  async (req: Request, res: Response) => {
+    const { id } = req.params
+
+    if (!isValidObjectId(id)) {
+        res.status(400).json({ msg: "El id no es válido, no te hagas el hacker ruso" })
+        return
+    }
+
+    const producto: IProducto | null = await Producto.findById(id)
+
+    if (!producto) {
+        res.status(404).json({ msg: "No existe el producto" })
+        return
+    }
+
+    await Producto.findOneAndUpdate( { id }, { delete: true } )
+    res.status(200).json({ msg: "El producto fue eliminado" })
+}

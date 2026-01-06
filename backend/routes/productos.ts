@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProducts, getProducts, getProductsbyCategory, getProductsbyId } from "../controllers/productos.js";
+import { createProducts, deleteProduct, getProducts, getProductsbyCategory, getProductsbyId } from "../controllers/productos.js";
 import { check } from "express-validator";
 import { recoletarErrores } from "../middlewares/recoletarErrores.js";
 import validarJWT from "../middlewares/validarJWT.js";
@@ -39,4 +39,8 @@ router.get(
     getProductsbyId
 )
 
+router.delete(
+    "/:id",
+    deleteProduct
+)
 export default router
