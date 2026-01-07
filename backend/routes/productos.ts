@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { createProducts, deleteProduct, getProducts, getProductsbyCategory, getProductsbyId } from "../controllers/productos.js";
+import { createProducts,  getProducts, getProductsbyCategory, productsController } from "../controllers/productos.js";
 import { check } from "express-validator";
 import { recoletarErrores } from "../middlewares/recoletarErrores.js";
 import validarJWT from "../middlewares/validarJWT.js";
 import { isAdmin } from "../middlewares/validarRol.js";
+import { cargarProducto } from "../middlewares/productos/cargarProducto.js";
 
 const router = Router()
 
@@ -36,7 +37,7 @@ router.get(
 
 router.get(
     "/:id",
-    getProductsbyId
+    cargarProducto, productsController
 )
 
 router.delete(
@@ -46,6 +47,18 @@ router.delete(
         isAdmin,
         recoletarErrores
     ],
-    deleteProduct
+    cargarProducto, productsController
 )
+
+
+router.patch(
+    "/:id",
+    [
+        validarJWT,
+        isAdmin,
+        recoletarErrores
+    ],
+    cargarProducto, productsController
+)
+
 export default router
