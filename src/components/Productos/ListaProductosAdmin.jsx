@@ -1,38 +1,39 @@
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import TablaProductosHeader from "./TablaProductosHeader";
 
 const ListaProductosAdmin = ({ productos }) => {
   return (
     <table className="min-w-full border border-[var(--border-gray-300)] border-collapse rounded-lg overflow-hidden">
-      <thead className="bg-[var(--color-background-third)] text-[var(--p-blanco)]">
-        <tr>
-          <th className="px-4 py-3 text-left">Marca</th>
-          <th className="px-4 py-3 text-left">Descripción</th>
-          <th className="px-4 py-3 text-left">Precio</th>
-          <th className="px-4 py-3 text-left">Categoría</th>
-          <th className="px-4 py-3 text-left">Talles</th>
-          <th className="px-4 py-3 text-left">Colores</th>
-          <th className="px-4 py-3 text-center">Acciones</th>
-        </tr>
-      </thead>
+
+      <TablaProductosHeader />
 
       <tbody className="bg-[var(--color-background)] text-[var(--p-negro)]">
-        {productos.map((producto) => (
+        {productos.map((producto, id) => (
           <tr
-            key={producto.id}
+            key={id}
             className="border-t hover:bg-[var(--border-gray-50)] transition"
           >
             <td className="px-4 py-3">{producto.marca}</td>
             <td className="px-4 py-3">{producto.descripcion}</td>
             <td className="px-4 py-3 font-medium">
-              ${producto.precio}
+              $ {producto.precio}
             </td>
             <td className="px-4 py-3">{producto.categoria}</td>
             <td className="px-4 py-3">
               {producto.talles.join(", ")}
             </td>
             <td className="px-4 py-3">
-              {producto.colores.join(", ")}
+              <div className="flex gap-2">
+                {producto.colores.map((color, index) => (
+                  <span
+                    key={index}
+                    className="w-4 h-4 rounded-full border border-[var(--border-gray-300)]"
+                    style={{ backgroundColor: color }}
+                    title={color}
+                  />
+                ))}
+              </div>
             </td>
             <td className="px-4 py-3">
               <div className="flex justify-center gap-4">
