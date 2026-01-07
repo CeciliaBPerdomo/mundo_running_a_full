@@ -41,6 +41,11 @@ router.get(
 
 router.delete(
     "/:id",
+    [
+        validarJWT,
+        isAdmin,
+        recoletarErrores
+    ],
     deleteProduct
 )
 export default router
