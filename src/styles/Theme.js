@@ -14,7 +14,9 @@ export const themeColors = {
         '--botones-rojos-hover':'#B91C1C',
         '--fondo-cards': '#F1F1F3',
         '--bordes-botones-negro': '#000000',
+        '--bordes-botones-blanco': '#FFFFFF',
         '--border-gray-300': '#D1D5DC',
+        '--border-gray-50': '#111827',
         '--color-placeholder': '#8d8d8d',
         '--text-errors': '#fb2c36'
     },
@@ -34,7 +36,9 @@ export const themeColors = {
         '--botones-rojos-hover':'#1C4FB9',
         '--fondo-cards': '#1A1A1A',                   // Cards en oscuro
         '--bordes-botones-negro': '#707070',           // Bordes sutiles
+        '--bordes-botones-blanco': '#000000',
         '--border-gray-300': '#D1D5DC',
+        '--border-gray-50': '#f9fafb',
         '--color-placeholder': '#8d8d8d',
         '--text-errors': '#004CFF'
     },
