@@ -1,111 +1,87 @@
 import React from "react";
 
+// Formik 
+import { Formik } from 'formik';
+import { Form as FormikForm } from 'formik';
+
+import { productInitialValues } from "../../formik/initialValues";
+import { productValidationSchema } from "../../formik/validationSchema";
+
+import FormProductoFields from "./FormProductoFields";
+import { postProductos } from "../../axios/productos-axios";
+
+// UI
+import SubmitButton from "../UI/Form/BotonSubmit";
+import { mensaje } from "../UI/Toast/mensaje";
+
 const FormProducto = ({ onClose }) => {
+
+    const handleSubmit = async (values, actions) => {
+        console.log(values)
+        try {
+            const productoFormateado = {
+                ...values,
+                talles: values.talles
+                    .split(",")
+                    .map(t => t.trim())
+                    .filter(Boolean),
+
+                colores: values.colores
+                    .split(",")
+                    .map(c => c.trim())
+                    .filter(Boolean),
+            };
+
+            const producto = await postProductos(
+                productoFormateado.marca,
+                productoFormateado.descripcion,
+                productoFormateado.precio,
+                productoFormateado.categoria,
+                productoFormateado.foto,
+                productoFormateado.talles,
+                productoFormateado.colores
+            )
+            
+            if (!producto) {
+                mensaje("❌ Error al guardar el producto, intentá más tarde");
+                return;
+            }
+            mensaje("✔️ Tú producto ha sido guardado con éxito total");
+            actions.resetForm();
+        } catch (error) {
+            mensaje("❌ Ocurrió un error inesperado. Intentá más tarde.");
+            console.error(error)
+        } finally {
+            actions.setSubmitting(false);
+        }
+    }
+
     return (
-        <form className="space-y-6">
+        <Formik
+            initialValues={productInitialValues}
+            validationSchema={productValidationSchema}
+            onSubmit={handleSubmit}
+        >
+            {({ isSubmitting }) => (
+                <FormikForm className="space-y-6">
 
-            {/* Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormProductoFields />
 
-                {/* Marca */}
-                <div>
-                    <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
-                        Marca
-                    </label>
-                    <input
-                        type="text"
-                        placeholder="Giro"
-                        className="w-full h-10 px-4 border border-[var(--border-gray-300)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-background-third)] placeholder-[var(--color-placeholder)]"
-                    />
-                </div>
+                    {/* Botones */}
+                    <div className="flex flex-col sm:flex-row gap-3 justify-end pt-4">
 
-                {/* Precio */}
-                <div>
-                    <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
-                        Precio
-                    </label>
-                    <input
-                        type="number"
-                        placeholder="$ 0"
-                        className="placeholder-[var(--color-placeholder)] w-full h-10 px-4 border border-[var(--border-gray-300)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-background-third)]"
-                    />
-                </div>
+                        <button type="button" className="text-[var(--p-negro)] w-full sm:w-auto px-4 py-2 border border-[var(--border-gray-300)] rounded-md hover:bg-[var(--border-gray-50)] transition" onClick={onClose} >
+                            Cancelar
+                        </button>
 
-                {/* Categoría */}
-                <div>
-                    <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
-                        Categoría
-                    </label>
-                    <select
-                        className="text-[var(--p-negro)] placeholder-[var(--color-placeholder)] w-full h-10 px-4 border border-[var(--border-gray-300)] rounded-md bg-[var(--color-background)] focus:outline-none focus:ring-2 focus:ring-[var(--color-background-third)]"
-                    >
-                        <option>Seleccionar</option>
-                        <option>Running</option>
-                        <option>Ciclismo</option>
-                        <option>Natación</option>
-                    </select>
-                </div>
+                        <SubmitButton loading={isSubmitting}>
+                            Guardar producto
+                        </SubmitButton>
 
-                {/* Talles */}
-                <div>
-                    <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
-                        Talles
-                    </label>
-                    <input
-                        type="text"
-                        placeholder="S, M, L"
-                        className="w-full h-10 px-4 border border-[var(--border-gray-300)] rounded-md focus:outline-none focus:ring-2 placeholder-[var(--color-placeholder)] focus:ring-[var(--color-background-third)]"
-                    />
-                </div>
-            </div>
-
-            {/* Descripción */}
-            <div>
-                <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
-                    Descripción
-                </label>
-                <textarea
-                    rows={3}
-                    placeholder="Descripción del producto..."
-                    className="w-full px-4 py-2 border border-[var(--border-gray-300)] rounded-md resize-none focus:outline-none focus:ring-2 placeholder-[var(--color-placeholder)] focus:ring-[var(--color-background-third)]"
-                />
-            </div>
-
-            {/* Colores */}
-            <div>
-                <label className="block text-sm font-medium mb-1 text-[var(--p-negro)]">
-                    Colores (hex)
-                </label>
-                <input
-                    type="text"
-                    placeholder="#000000, #ffffff"
-                    className="w-full h-10 px-4 border border-[var(--border-gray-300)] rounded-md focus:outline-none focus:ring-2 placeholder-[var(--color-placeholder)] focus:ring-[var(--color-background-third)]"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                    Separados por coma
-                </p>
-            </div>
-
-            {/* Botones */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-end pt-4">
-
-                <button
-                    type="button"
-                    className="text-[var(--p-negro)] w-full sm:w-auto px-4 py-2 border border-[var(--border-gray-300)] rounded-md hover:bg-[var(--border-gray-50)] transition"
-                    onClick={onClose}
-                >
-                    Cancelar
-                </button>
-
-                <button
-                    type="button"
-                    className="w-full sm:w-auto px-6 py-2 bg-[var(--botones-rojos)] text-[var(--p-blanco)] rounded-md hover:opacity-90 transition"
-                >
-                    Guardar producto
-                </button>
-
-            </div>
-        </form>
+                    </div>
+                </FormikForm>
+            )}
+        </Formik>
     );
 };
 

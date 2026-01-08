@@ -42,3 +42,35 @@ export const issueValidationSchema = Yup.object({
     prioridad: Yup.number()
         .required("La proridad es un campo obligatorio.")
 })
+
+// Validación al agregar producto
+export const productValidationSchema = Yup.object({
+    marca: Yup.string()
+        .required("La marca es un campo obligatorio."),
+    precio: Yup.number()
+        .typeError("El precio debe ser un número válido.")
+        .moreThan(0, "El precio debe ser mayor a 0.")
+        .required("El precio es un campo obligatorio."),
+    categoria: Yup.string()
+        .required("La categoría es un campo obligatorio."),
+    talles: Yup.string()
+        .test(
+            "talles-validos",
+            "Ingresá al menos un talle válido",
+            value =>
+                value?.split(",").map(t => t.trim()).filter(Boolean).length > 0
+        )
+        .required(),
+    descripcion: Yup.string()
+        .required("La descripcion es un campo obligatorio."),
+    colores: Yup.string()
+        .test(
+            "colores-validos",
+            "Ingresá al menos un color válido",
+            value =>
+                value?.split(",").map(c => c.trim()).filter(Boolean).length > 0
+        )
+        .required(),
+    foto: Yup.string()
+        .required("La url de la foto es requerida."),
+})

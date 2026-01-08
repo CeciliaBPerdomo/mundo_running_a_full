@@ -19,3 +19,14 @@ export const issueInitialValues = {
     descripcion: "",
     prioridad: 2
 }
+
+// Valores iniciales para agregar productos 
+export const productInitialValues = {
+    marca: "",
+    precio: "",
+    categoria: "",
+    talles: "",
+    descripcion: "",
+    colores: "",
+    foto: ""
+}

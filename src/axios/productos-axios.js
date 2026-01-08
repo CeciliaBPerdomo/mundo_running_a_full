@@ -9,7 +9,7 @@ export const getProductos = async () => {
         const token = localStorage.getItem("token");
 
         const response = await axios.get(url, {
-                headers: {
+            headers: {
                 "x-token": token,
             },
         })
@@ -18,7 +18,38 @@ export const getProductos = async () => {
         if (error.response) {
             throw {
                 status: error.response.status,
-                message: error.response.data?.errors?.[0]?.msg || "Error al crear usuario"
+                message: error.response.data?.errors?.[0]?.msg || "Error al traer los productos"
+            }
+        }
+
+        throw {
+            status: 500,
+            message: "Error de conexión con el servidor"
+        }
+    }
+}
+
+// Guardar los productos 
+
+export const postProductos = async (marca, descripcion, precio, categoria, foto, talles, colores) => {
+    try {
+        const url = `${ruta}products/createProduct`
+        const data = { marca, descripcion, precio, categoria, foto, talles, colores }
+        const token = localStorage.getItem("token");
+
+        const response = await axios.post(url, data, {
+            headers: {
+                "x-token": token,
+            },
+        });
+
+        console.log(response.data)
+        return response.data
+    } catch (error) {
+        if (error.response) {
+            throw {
+                status: error.response.status,
+                message: error.response.data?.errors?.[0]?.msg || "Error al guardar el producto"
             }
         }
 

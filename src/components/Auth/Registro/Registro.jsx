@@ -58,6 +58,7 @@ const Registro = () => {
         setTimeout(() => navigate("/login"), 3500);
       } else {
         mensaje("❌ Ocurrió un error inesperado. Intentá más tarde.");
+        console.error(error)
       }
     } finally {
       actions.setSubmitting(false);
