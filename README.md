@@ -36,6 +36,7 @@ Este proyecto tiene como objetivo desarrollar la plataforma web oficial de Mundo
 - 📍**Back End**
     - Ingresá al directorio `backend`
     - Levantá el servidor de desarrollo: `tsc --watch` y `nodemon ./dist/index.js`
+    - La documentación de como funcionan los endpoints la encontras en: `teladebo.com`
 
 ## ⚙️ Tecnologías utilizadas para este proyecto
 

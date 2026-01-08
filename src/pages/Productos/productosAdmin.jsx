@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ListaProductosAdmin from "../../components/Productos/ListaProductosAdmin";
 import { getProductos } from "../../axios/productos-axios";
+import ModalProducto from "../../components/Productos/ModalProducto";
 
 
 const ProductosAdmin = () => {
     const [productosMock, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [openModal, setOpenModal] = useState(false);  // Modal de agregar / modificar productos
+
 
     const cargarProductos = async () => {
         try {
@@ -40,7 +43,7 @@ const ProductosAdmin = () => {
                 </h2>
 
 
-                <button className="w-full sm:w-auto px-4 py-3 sm:py-2 bg-[var(--botones-rojos)] text-[var(--p-blanco)] rounded-md hover:opacity-90 transition" >
+                <button className="w-full sm:w-auto px-4 py-3 sm:py-2 bg-[var(--botones-rojos)] text-[var(--p-blanco)] rounded-md hover:opacity-90 transition" onClick={() => setOpenModal(true)}>
                     + Agregar producto
                 </button>
             </div>
@@ -86,6 +89,14 @@ const ProductosAdmin = () => {
                     Siguiente →
                 </button>
             </div>
+
+            {openModal && (
+  <ModalProducto
+    onClose={() => setOpenModal(false)}
+    titulo="Agregar producto"
+  />
+)}
+
         </div>
     );
 };

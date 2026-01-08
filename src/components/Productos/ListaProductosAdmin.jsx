@@ -11,7 +11,7 @@ const ListaProductosAdmin = ({ productos }) => {
 
       <tbody className="bg-[var(--color-background)] text-[var(--p-negro)]">
         {productos.map((producto, id) => (
-          <tr key={id} className="border-t hover:bg-[var(--border-gray-50)] transition" >
+          <tr key={id} className="border-t hover:bg-[var(--border-gray-50)] hover:text-white transition" >
             <td className="px-4 py-3">{producto.marca}</td>
             <td className="px-4 py-3 hidden md:table-cell">{producto.descripcion}</td>
             <td className="px-4 py-3 whitespace-nowrap">$ {producto.precio}</td>
