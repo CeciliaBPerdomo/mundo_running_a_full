@@ -14,22 +14,15 @@ import { postProductos } from "../../axios/productos-axios";
 import SubmitButton from "../UI/Form/BotonSubmit";
 import { mensaje } from "../UI/Toast/mensaje";
 
-const FormProducto = ({ onClose }) => {
+const FormProducto = ({ onClose, onSuccess }) => {
 
     const handleSubmit = async (values, actions) => {
         console.log(values)
         try {
             const productoFormateado = {
                 ...values,
-                talles: values.talles
-                    .split(",")
-                    .map(t => t.trim())
-                    .filter(Boolean),
-
-                colores: values.colores
-                    .split(",")
-                    .map(c => c.trim())
-                    .filter(Boolean),
+                talles: values.talles.split(",").map(t => t.trim()).filter(Boolean),
+                colores: values.colores.split(",").map(c => c.trim()).filter(Boolean),
             };
 
             const producto = await postProductos(
@@ -41,13 +34,14 @@ const FormProducto = ({ onClose }) => {
                 productoFormateado.talles,
                 productoFormateado.colores
             )
-            
+
             if (!producto) {
                 mensaje("❌ Error al guardar el producto, intentá más tarde");
                 return;
             }
-            mensaje("✔️ Tú producto ha sido guardado con éxito total");
+            
             actions.resetForm();
+            onSuccess()
         } catch (error) {
             mensaje("❌ Ocurrió un error inesperado. Intentá más tarde.");
             console.error(error)

@@ -38,7 +38,7 @@ const ProductoSchema = new Schema<IProducto>(
 )
 
 ProductoSchema.methods.toJSON = function () {
-    const { __v, _id, ...producto } = this.toObject()
+    const { __v, createdAt, updatedAt, ...producto } = this.toObject()
     return producto
 }
 

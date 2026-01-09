@@ -30,7 +30,6 @@ export const getProductos = async () => {
 }
 
 // Guardar los productos 
-
 export const postProductos = async (marca, descripcion, precio, categoria, foto, talles, colores) => {
     try {
         const url = `${ruta}products/createProduct`
@@ -44,6 +43,33 @@ export const postProductos = async (marca, descripcion, precio, categoria, foto,
         });
 
         console.log(response.data)
+        return response.data
+    } catch (error) {
+        if (error.response) {
+            throw {
+                status: error.response.status,
+                message: error.response.data?.errors?.[0]?.msg || "Error al guardar el producto"
+            }
+        }
+
+        throw {
+            status: 500,
+            message: "Error de conexión con el servidor"
+        }
+    }
+}
+
+// Borrar productos
+export const deleteProducto = async (id) => {
+    try {
+        const url = `${ruta}products/${id}`
+        const token = localStorage.getItem("token");
+
+        const response = await axios.delete(url, {
+            headers: {
+                "x-token": token,
+            },
+        })
         return response.data
     } catch (error) {
         if (error.response) {

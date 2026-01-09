@@ -1,7 +1,7 @@
 import React from "react";
 import FormProducto from "./FormProducto";
 
-const ModalProducto = ({ onClose, titulo }) => {
+const ModalProducto = ({ onClose, titulo, onSuccess }) => {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       
@@ -22,7 +22,7 @@ const ModalProducto = ({ onClose, titulo }) => {
         </div>
 
         {/* Form */}
-        <FormProducto onClose={onClose}/>
+        <FormProducto onClose={onClose} onSuccess={onSuccess}/>
 
       </div>
     </div>

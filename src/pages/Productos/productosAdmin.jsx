@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import ListaProductosAdmin from "../../components/Productos/ListaProductosAdmin";
 import { getProductos } from "../../axios/productos-axios";
 import ModalProducto from "../../components/Productos/ModalProducto";
+import { mensaje } from "../../components/UI/Toast/mensaje";
+import { ToastContainer } from "react-toastify";
 
 
 const ProductosAdmin = () => {
     const [productosMock, setProductos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [openModal, setOpenModal] = useState(false);  // Modal de agregar / modificar productos
-
 
     const cargarProductos = async () => {
         try {
@@ -65,14 +66,23 @@ const ProductosAdmin = () => {
                         <option>Natación</option>
                     </select>
                 </div>
-
-
             </div>
 
+            {openModal && (
+                <ModalProducto
+                    onClose={() => setOpenModal(false)}
+                    titulo="Agregar producto"
+                    onSuccess={() => {
+                        mensaje("✔️ Tú producto ha sido guardado con éxito total");
+                        setOpenModal(false);
+                        cargarProductos();
+                    }}
+                />
+            )}
 
             {/* Tabla */}
             <div className="w-full overflow-x-auto">
-                <ListaProductosAdmin productos={productosMock} />
+                <ListaProductosAdmin productos={productosMock} cargarProductos={cargarProductos} />
             </div>
 
             {/* Paginación */}
@@ -89,14 +99,7 @@ const ProductosAdmin = () => {
                     Siguiente →
                 </button>
             </div>
-
-            {openModal && (
-  <ModalProducto
-    onClose={() => setOpenModal(false)}
-    titulo="Agregar producto"
-  />
-)}
-
+            <ToastContainer />
         </div>
     );
 };
