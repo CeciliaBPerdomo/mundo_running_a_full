@@ -4,17 +4,23 @@ import { getProductos } from "../../axios/productos-axios";
 import ModalProducto from "../../components/Productos/ModalProducto";
 import { mensaje } from "../../components/UI/Toast/mensaje";
 import { ToastContainer } from "react-toastify";
+import BuscadorProductos from "../../components/UI/Buscador/BuscadorProductos";
 
 
 const ProductosAdmin = () => {
-    const [productosMock, setProductos] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [openModal, setOpenModal] = useState(false);  // Modal de agregar / modificar productos
+    const [productosMock, setProductos] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [openModal, setOpenModal] = useState(false)  // Modal de agregar / modificar productos
+    const [busqueda, setBusqueda] = useState("")
+    const [categoria, setCategoria] = useState("todas")
+    const [productosOriginales, setProductosOriginales] = useState([])
 
     const cargarProductos = async () => {
         try {
             const data = await getProductos();
-            setProductos(data.productos || data);
+            const productos = data.productos || data
+            setProductosOriginales(productos)
+            setProductos(productos)
         } catch (error) {
             console.error(error);
         } finally {
@@ -25,6 +31,26 @@ const ProductosAdmin = () => {
     useEffect(() => {
         cargarProductos()
     }, [])
+
+    const productosFiltrados = productosMock.filter((producto) =>
+        producto.marca.toLowerCase().includes(busqueda.toLowerCase()) ||
+        producto.descripcion.toLowerCase().includes(busqueda.toLowerCase())
+    );
+
+    const productosFiltradosCategorias = (categoriaSeleccionada) => {
+    setCategoria(categoriaSeleccionada);
+
+    if (categoriaSeleccionada === "todas") {
+        setProductos(productosOriginales)
+        return;
+    }
+
+    const filtrados = productosOriginales.filter(
+        (p) => p.categoria?.toLowerCase() === categoriaSeleccionada
+    );
+
+    setProductos(filtrados)
+}
 
     if (loading) {
         return (
@@ -51,19 +77,28 @@ const ProductosAdmin = () => {
 
             {/* Buscador + filtro */}
             <div className="flex flex-col md:flex-row gap-4 mb-6">
-                <div className="w-full md:w-1/2">
-                    <input
-                        type="text"
-                        placeholder="Buscar productos..."
-                        className="w-full h-10 px-4 border border-[var(--border-gray-300)] rounded-md focus:outline-none focus:ring-2 placeholder-[var(--color-placeholder)] focus:ring-[var(--color-background-third)]"
+                <div className="w-full md:w-1/2 ml-0">
+
+                    <BuscadorProductos
+                        value={busqueda}
+                        onChange={setBusqueda}
+                        onSubmit={() => {
+                            if (busqueda === "") cargarProductos()
+                            setProductos(productosFiltrados)
+                        }}
                     />
                 </div>
+
                 <div className="w-full md:w-1/4 md:ml-auto">
-                    <select className="w-full h-10 px-4 border border-[var(--border-gray-300)] rounded-md bg-[var(--color-background)] focus:outline-none focus:ring-2 text-[var(--p-negro)] focus:ring-[var(--color-background-third)]">
-                        <option>Todas las categorías</option>
-                        <option>Running</option>
-                        <option>Ciclismo</option>
-                        <option>Natación</option>
+                    <select
+                        value={categoria}
+                        onChange={(e) => productosFiltradosCategorias(e.target.value)}
+                        className="w-full h-10 px-4 border border-[var(--border-gray-300)] rounded-md bg-[var(--color-background)] focus:outline-none focus:ring-2 text-[var(--p-negro)] focus:ring-[var(--color-background-third)]"
+                    >
+                        <option value="todas">Todas las categorías</option>
+                        <option value="running">Running</option>
+                        <option value="ciclismo">Ciclismo</option>
+                        <option value="natacion">Natación</option>
                     </select>
                 </div>
             </div>

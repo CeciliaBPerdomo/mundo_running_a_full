@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FiSearch } from "react-icons/fi";
+import BuscadorProductos from "../../UI/Buscador/BuscadorProductos";
 
 const Productos = () => {
   const cards = [
@@ -9,34 +10,23 @@ const Productos = () => {
     { title: "RUNNING", img: "/productos/running.jpg" },
   ];
 
+  const [busqueda, setBusqueda] = useState("")
+
   return (
     <section className="w-full py-16 bg-[var(--color-background-secondary)] flex justify-center">
       <div className="w-[95%] max-w-6xl">
 
         {/* Título */}
-        <h2 className="text-[45px] font-bold text-center text-[var(--color-titulos)] mb-10">
+        <h2 className="text-[45px] font-bold text-center text-[var(--color-titulos)] mb-4">
           NUESTROS PRODUCTOS
         </h2>
 
-        {/* Input de búsqueda */}
-        <div className="flex justify-center mb-12">
-          <div className="relative w-full md:w-[60%]">
-            <input
-              type="text"
-              placeholder="¿Qué estás buscando?"
-              className=" w-full p-3 pr-14 rounded-full border placeholder-[var(--color-placeholder)]
-        border-[var(--border-gray-300)] outline-none text-[18px] text-[var(--p-negro)]"
-            />
-
-            {/* Botoncito dentro del input */}
-            <button
-              className="absolute right-1 top-1/2 -translate-y-1/2
-        bg-[var(--botones-rojos)] text-[var(--p-blanco)] 
-        w-10 h-10 rounded-full flex items-center justify-center text-lg"
-            >
-              <FiSearch />
-            </button>
-          </div>
+        <div className="flex justify-center mb-8">
+          <BuscadorProductos
+            value={busqueda}
+            onChange={setBusqueda}
+            onSubmit={() => console.log("hola")}
+          />
         </div>
 
         {/* Grid de Cards */}

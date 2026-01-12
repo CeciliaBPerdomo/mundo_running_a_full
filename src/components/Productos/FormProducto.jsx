@@ -17,7 +17,6 @@ import { mensaje } from "../UI/Toast/mensaje";
 const FormProducto = ({ onClose, onSuccess }) => {
 
     const handleSubmit = async (values, actions) => {
-        console.log(values)
         try {
             const productoFormateado = {
                 ...values,
@@ -39,7 +38,6 @@ const FormProducto = ({ onClose, onSuccess }) => {
                 mensaje("❌ Error al guardar el producto, intentá más tarde");
                 return;
             }
-            
             actions.resetForm();
             onSuccess()
         } catch (error) {
