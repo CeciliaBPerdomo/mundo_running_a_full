@@ -8,13 +8,14 @@ import { productInitialValues } from "../../formik/initialValues";
 import { productValidationSchema } from "../../formik/validationSchema";
 
 import FormProductoFields from "./FormProductoFields";
-import { postProductos } from "../../axios/productos-axios";
+import { postProductos, updateProductos } from "../../axios/productos-axios";
 
 // UI
 import SubmitButton from "../UI/Form/BotonSubmit";
 import { mensaje } from "../UI/Toast/mensaje";
 
-const FormProducto = ({ onClose, onSuccess }) => {
+const FormProducto = ({ onClose, onSuccess, producto }) => {
+    const esEdicion = Boolean(producto);
 
     const handleSubmit = async (values, actions) => {
         try {
@@ -24,17 +25,19 @@ const FormProducto = ({ onClose, onSuccess }) => {
                 colores: values.colores.split(",").map(c => c.trim()).filter(Boolean),
             };
 
-            const producto = await postProductos(
-                productoFormateado.marca,
-                productoFormateado.descripcion,
-                productoFormateado.precio,
-                productoFormateado.categoria,
-                productoFormateado.foto,
-                productoFormateado.talles,
-                productoFormateado.colores
-            )
+            const response = esEdicion
+                ? await updateProductos(producto._id, productoFormateado)
+                : await postProductos(
+                    productoFormateado.marca,
+                    productoFormateado.descripcion,
+                    productoFormateado.precio,
+                    productoFormateado.categoria,
+                    productoFormateado.foto,
+                    productoFormateado.talles,
+                    productoFormateado.colores
+                );
 
-            if (!producto) {
+            if (!response) {
                 mensaje("❌ Error al guardar el producto, intentá más tarde");
                 return;
             }
@@ -50,7 +53,20 @@ const FormProducto = ({ onClose, onSuccess }) => {
 
     return (
         <Formik
-            initialValues={productInitialValues}
+            enableReinitialize
+            initialValues={
+                esEdicion
+                    ? {
+                        marca: producto.marca,
+                        descripcion: producto.descripcion,
+                        precio: producto.precio,
+                        categoria: producto.categoria,
+                        foto: producto.foto,
+                        talles: producto.talles.join(", "),
+                        colores: producto.colores.join(", "),
+                    }
+                    : productInitialValues
+            }
             validationSchema={productValidationSchema}
             onSubmit={handleSubmit}
         >
@@ -67,7 +83,7 @@ const FormProducto = ({ onClose, onSuccess }) => {
                         </button>
 
                         <SubmitButton loading={isSubmitting}>
-                            Guardar producto
+                            {esEdicion ? "Actualizar productos" : "Guardar producto"}
                         </SubmitButton>
 
                     </div>

@@ -41,8 +41,6 @@ export const postProductos = async (marca, descripcion, precio, categoria, foto,
                 "x-token": token,
             },
         });
-
-        console.log(response.data)
         return response.data
     } catch (error) {
         if (error.response) {
@@ -70,6 +68,41 @@ export const deleteProducto = async (id) => {
                 "x-token": token,
             },
         })
+        return response.data
+    } catch (error) {
+        if (error.response) {
+            throw {
+                status: error.response.status,
+                message: error.response.data?.errors?.[0]?.msg || "Error al guardar el producto"
+            }
+        }
+
+        throw {
+            status: 500,
+            message: "Error de conexión con el servidor"
+        }
+    }
+}
+
+
+// Actualizar información de los productos 
+export const updateProductos = async (id, data) => {
+    try {
+        const url = `${ruta}products/${id}`
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+            throw {
+                status: 401,
+                message: "Token no encontrado"
+            }
+        }
+
+        const response = await axios.patch(url, data, {
+            headers: {
+                "x-token": token,
+            },
+        });
         return response.data
     } catch (error) {
         if (error.response) {

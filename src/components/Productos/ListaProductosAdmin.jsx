@@ -4,10 +4,12 @@ import TablaProductosHeader from "./TablaProductosHeader";
 import { mensaje } from "../UI/Toast/mensaje";
 import { deleteProducto } from "../../axios/productos-axios";
 import ModalConfirmacion from "./ModalConfirmacion"
+import ModalProducto from "./ModalProducto";
 
 const ListaProductosAdmin = ({ productos, cargarProductos }) => {
   const [productoAbierto, setProductoAbierto] = useState(null);
   const [productoABorrar, setProductoABorrar] = useState(null); // Modal para borrar
+const [productoAEditar, setProductoAEditar] = useState(null);
 
   return (
     <>
@@ -38,7 +40,7 @@ const ListaProductosAdmin = ({ productos, cargarProductos }) => {
                     <FaEye />
                   </button>
 
-                  <button className="text-blue-600 hover:text-blue-800 transition" title="Editar producto">
+                  <button className="text-blue-600 hover:text-blue-800 transition" title="Editar producto" onClick={() => setProductoAEditar(producto)}>
                     <FaEdit />
                   </button>
 
@@ -69,6 +71,20 @@ const ListaProductosAdmin = ({ productos, cargarProductos }) => {
           }}
         />
       )}
+
+      {productoAEditar && (
+  <ModalProducto
+    titulo="Editar producto"
+    producto={productoAEditar}
+    onClose={() => setProductoAEditar(null)}
+    onSuccess={() => {
+      mensaje("✏️ Producto actualizado correctamente");
+      setProductoAEditar(null);
+      cargarProductos();
+    }}
+  />
+)}
+
     </>
   );
 };
