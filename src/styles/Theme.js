@@ -18,7 +18,8 @@ export const themeColors = {
         '--border-gray-300': '#D1D5DC',
         '--border-gray-50': '#111827',
         '--color-placeholder': '#8d8d8d',
-        '--text-errors': '#fb2c36'
+        '--text-errors': '#fb2c36',
+        '--text-gray-500': '#6A7282'
     },
 
     dark: {
@@ -40,6 +41,7 @@ export const themeColors = {
         '--border-gray-300': '#D1D5DC',
         '--border-gray-50': '#f9fafb',
         '--color-placeholder': '#8d8d8d',
-        '--text-errors': '#004CFF'
+        '--text-errors': '#004CFF', 
+        '--text-gray-500': '#AEB4C2'
     },
 }

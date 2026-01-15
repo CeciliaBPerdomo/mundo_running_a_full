@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useSelector } from "react-redux";
 import { FaEdit, FaCheckCircle } from "react-icons/fa";
 
+import Dato from "../../Usuario/Datos"
+import ModalEditarUsuario from '../../Usuario/ModalEditarUsuario';
+
 const DatosUsuario = () => {
-  const usuario = {
-    nombre: "Cecilia Perdomo",
-    email: "cecilia@email.com",
-    celular: "099 123 456",
-    ciudad: "Colonia del Sacramento",
-    verified: false,
-    newsletter: true,
-  };
+  const usuario = useSelector((state) => state.usuario.usuarioActual)
+  const [openModal, setOpenModal] = useState(false);
+
+  if (!usuario) {
+    return (
+      <p className="text-center py-20 text-gray-500">
+        Cargando datos del usuario…
+      </p>
+    )
+  }
 
   return (
     <section className="max-w-3xl mx-auto px-6">
@@ -25,6 +31,14 @@ const DatosUsuario = () => {
         <Dato label="Email" value={usuario.email} />
         <Dato label="Celular" value={usuario.celular} />
         <Dato label="Ciudad" value={usuario.ciudad} />
+
+        {/* Acciones */}
+        <div className="flex justify-end pt-4">
+          <button onClick={() => setOpenModal(true)} className="flex items-center gap-2 px-4 py-2 rounded-md border bg-[var(--botones-rojos)] text-[var(--p-blanco)] hover:bg-[var(--botones-rojos-hover)]  transition">
+            <FaEdit />
+            Modificar datos
+          </button>
+        </div>
 
         {/* Estado verificación */}
         <div className="flex items-center justify-between pt-4 border-t border-[var(--border-gray-300)]">
@@ -42,24 +56,16 @@ const DatosUsuario = () => {
             </button>
           )}
         </div>
-
-        {/* Acciones */}
-        <div className="flex justify-end pt-4">
-          <button className="flex items-center gap-2 px-4 py-2 rounded-md border border-[var(--border-gray-300)] text-[var(--p-negro)] hover:bg-[var(--border-gray-50)] transition">
-            <FaEdit />
-            Modificar datos
-          </button>
-        </div>
       </div>
+
+      {openModal && (
+        <ModalEditarUsuario
+          usuario={usuario}
+          onClose={() => setOpenModal(false)}
+        />
+      )}
+
     </section>
   )
 }
-
-const Dato = ({ label, value }) => (
-  <div className="flex flex-col sm:flex-row sm:justify-between gap-1">
-    <span className="text-sm text-gray-500">{label}</span>
-    <span className="font-medium text-[var(--p-negro)]">{value}</span>
-  </div>
-);
-
 export default DatosUsuario

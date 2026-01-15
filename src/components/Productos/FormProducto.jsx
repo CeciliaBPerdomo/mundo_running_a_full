@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 // Formik 
 import { Formik } from 'formik';
@@ -14,10 +15,26 @@ import { postProductos, updateProductos } from "../../axios/productos-axios";
 import SubmitButton from "../UI/Form/BotonSubmit";
 import { mensaje } from "../UI/Toast/mensaje";
 
+// Token
+import { isTokenExpired } from "../../helpers/auth/TokenValido"
+
 const FormProducto = ({ onClose, onSuccess, producto }) => {
     const esEdicion = Boolean(producto);
+    const navigate = useNavigate()
 
     const handleSubmit = async (values, actions) => {
+
+        if (isTokenExpired()) {
+            mensaje("⏳ Tu sesión venció. Volvé a iniciar sesión.")
+            localStorage.removeItem("token")
+
+            setTimeout(() => {
+                navigate("/login");
+            }, 1500)
+
+            return
+        }
+
         try {
             const productoFormateado = {
                 ...values,

@@ -5,11 +5,14 @@ import { mensaje } from "../UI/Toast/mensaje";
 import { deleteProducto } from "../../axios/productos-axios";
 import ModalConfirmacion from "./ModalConfirmacion"
 import ModalProducto from "./ModalProducto";
+import { isTokenExpired } from "../../helpers/auth/TokenValido";
+import { useNavigate } from "react-router";
 
 const ListaProductosAdmin = ({ productos, cargarProductos }) => {
   const [productoAbierto, setProductoAbierto] = useState(null);
   const [productoABorrar, setProductoABorrar] = useState(null); // Modal para borrar
-const [productoAEditar, setProductoAEditar] = useState(null);
+  const [productoAEditar, setProductoAEditar] = useState(null);
+  const navigate = useNavigate()
 
   return (
     <>
@@ -64,6 +67,17 @@ const [productoAEditar, setProductoAEditar] = useState(null);
           descripcion={`¿Seguro que querés borrar "${productoABorrar.marca}"?`}
           onCancel={() => setProductoABorrar(null)}
           onConfirm={async () => {
+            if (isTokenExpired()) {
+              mensaje("⏳ Tu sesión venció. Volvé a iniciar sesión.")
+              localStorage.removeItem("token")
+
+              setTimeout(() => {
+                navigate("/login");
+              }, 1500)
+
+              return
+            }
+
             await deleteProducto(productoABorrar._id);
             mensaje("🗑️ Producto eliminado");
             setProductoABorrar(null);
@@ -73,17 +87,17 @@ const [productoAEditar, setProductoAEditar] = useState(null);
       )}
 
       {productoAEditar && (
-  <ModalProducto
-    titulo="Editar producto"
-    producto={productoAEditar}
-    onClose={() => setProductoAEditar(null)}
-    onSuccess={() => {
-      mensaje("✏️ Producto actualizado correctamente");
-      setProductoAEditar(null);
-      cargarProductos();
-    }}
-  />
-)}
+        <ModalProducto
+          titulo="Editar producto"
+          producto={productoAEditar}
+          onClose={() => setProductoAEditar(null)}
+          onSuccess={() => {
+            mensaje("✏️ Producto actualizado correctamente");
+            setProductoAEditar(null);
+            cargarProductos();
+          }}
+        />
+      )}
 
     </>
   );

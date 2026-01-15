@@ -47,3 +47,4 @@ export const verificarCodigo = async (email, code) => {
         throw error
     }
 }
+

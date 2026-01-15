@@ -38,18 +38,3 @@ const validarJWT = async (req: Request, res: Response, next: NextFunction) => {
 }
 
 export default validarJWT
-
-
-export const tokenEsValido = (token?: string | null): boolean => {
-    if (typeof token !== "string") return false;
-
-    const [, payload] = token.split(".");
-    if (!payload) return false;
-
-    try { 
-        const { exp } = JSON.parse(atob(payload));
-        return typeof exp === "number" && Date.now() < exp * 1000;
-    } catch {
-        return false;
-    }
-};

@@ -122,9 +122,9 @@ export const updateProductos = async (id, data) => {
 // Productos por categoria
 export const getProductosPorCategoria = async (categoria) => {
     try {
-         const url = `${ruta}products/category/${categoria}`
+        const url = `${ruta}products/category/${categoria}`
         const token = localStorage.getItem("token");
-         if (!token) {
+        if (!token) {
             throw {
                 status: 401,
                 message: "Token no encontrado"
