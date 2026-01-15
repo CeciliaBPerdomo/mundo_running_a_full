@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FiSearch } from "react-icons/fi";
 import BuscadorProductos from "../../UI/Buscador/BuscadorProductos";
 
 const Productos = () => {
+  const navigate = useNavigate()
+
   const cards = [
-    { title: "CICLISMO", img: "/productos/ciclismo.jpg" },
-    { title: "NATACIÓN", img: "/productos/natacion.jpg" },
-    { title: "RUNNING", img: "/productos/running.jpg" },
+    { title: "CICLISMO", slug: "ciclismo", img: "/productos/ciclismo.jpg" },
+    { title: "NATACIÓN", slug: "natacion", img: "/productos/natacion.jpg" },
+    { title: "RUNNING", slug: "running", img: "/productos/running.jpg" },
   ];
 
   const [busqueda, setBusqueda] = useState("")
@@ -31,11 +33,12 @@ const Productos = () => {
 
         {/* Grid de Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {cards.map((card, index) => (
+          {cards.map((card) => (
             <motion.div
-              key={index}
+              key={card.slug}
               whileHover={{ scale: 1.03, boxShadow: "0px 10px 25px rgba(0,0,0,0.25)" }}
               transition={{ duration: 0.3 }}
+              onClick={() => navigate(`/tienda/${card.slug}`)}
               className="rounded-xl overflow-hidden cursor-pointer"
             >
               <div className="w-full h-[540px] relative">

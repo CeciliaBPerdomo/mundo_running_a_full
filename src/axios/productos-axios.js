@@ -118,3 +118,35 @@ export const updateProductos = async (id, data) => {
         }
     }
 }
+
+// Productos por categoria
+export const getProductosPorCategoria = async (categoria) => {
+    try {
+         const url = `${ruta}products/category/${categoria}`
+        const token = localStorage.getItem("token");
+         if (!token) {
+            throw {
+                status: 401,
+                message: "Token no encontrado"
+            }
+        }
+        const response = await axios.get(url, {
+            headers: {
+                "x-token": token,
+            },
+        })
+        return response.data
+    } catch (error) {
+        if (error.response) {
+            throw {
+                status: error.response.status,
+                message: error.response.data?.errors?.[0]?.msg || "Error al guardar el producto"
+            }
+        }
+
+        throw {
+            status: 500,
+            message: "Error de conexión con el servidor"
+        }
+    }
+}

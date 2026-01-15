@@ -36,12 +36,7 @@ export const getProductsbyCategory = async (req: Request, res: Response) => {
         delete: false
     })
 
-    if (producto.length === 0) {
-        res.status(404).json({ msg: "No hay productos para la categoria" })
-        return
-    }
-
-    res.status(200).json({ producto })
+    res.status(200).json({ productos: producto })
 }
 
 export const productsController = async (req: Request, res: Response) => {
@@ -78,58 +73,3 @@ export const productsController = async (req: Request, res: Response) => {
             res.status(405).json({ msg: "Método no permitido" });
     }
 };
-
-// export const getProductsbyId = async (req: Request, res: Response) => {
-//     const { id } = req.params
-
-//     if (!isValidObjectId(id)) {
-//         res.status(400).json({ msg: "El id no es válido, no te hagas el hacker ruso" })
-//         return
-//     }
-
-//     const producto: IProducto | null = await Producto.findById(id)
-
-//     if (!producto) {
-//         res.status(404).json({ msg: "No existe el producto" })
-//         return
-//     }
-//     res.status(200).json({ producto })
-// }
-
-
-// export const deleteProduct =  async (req: Request, res: Response) => {
-//     const { id } = req.params
-
-//     if (!isValidObjectId(id)) {
-//         res.status(400).json({ msg: "El id no es válido, no te hagas el hacker ruso" })
-//         return
-//     }
-
-//     const producto: IProducto | null = await Producto.findById(id)
-
-//     if (!producto) {
-//         res.status(404).json({ msg: "No existe el producto" })
-//         return
-//     }
-
-//     await Producto.findOneAndUpdate( { id }, { delete: true } )
-//     res.status(200).json({ msg: "El producto fue eliminado" })
-// }
-
-
-// aca me avive que estaba repitiendo codigo, un poco tarde
-// export const updateProduct = async (res: Response, req: Request) => {
-//     const { id } = req.params
-
-//     if (!isValidObjectId(id)) {
-//         res.status(400).json({ msg: "El id no es válido, no te hagas el hacker ruso" })
-//         return
-//     }
-
-//     const producto: IProducto | null = await Producto.findById(id)
-
-//     if (!producto) {
-//         res.status(404).json({ msg: "No existe el producto" })
-//         return
-//     }
-// }

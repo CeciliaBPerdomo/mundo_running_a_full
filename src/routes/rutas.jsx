@@ -16,6 +16,7 @@ import PerfilUsuario from "../components/Auth/Perfil/PerfilUsuario"
 // Ruta protegida
 import ProtectedRoute from "../components/Auth/ProtectedRoutes/ProtectedRoute"
 import NotFound from '../pages/NotFound/NotFound';
+import TiendaCategoria from '../pages/Productos/TiendaCategoria';
 
 function Rutas() {
     return (
@@ -42,6 +43,7 @@ function Rutas() {
 
             {/* Rutas de productos */}
             <Route path='/tienda_deportiva' element={<TiendaDeportiva />} />
+            <Route path="/tienda/:categoria" element={<TiendaCategoria />} />
 
             {/* Pagina no encontrada */}
             <Route path='*' element={<NotFound />} />
