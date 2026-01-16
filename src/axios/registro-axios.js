@@ -48,3 +48,25 @@ export const verificarCodigo = async (email, code) => {
     }
 }
 
+
+// Modificar información del usuario
+export const updateUser = async (data, usuario) => {
+    try {
+        const url = `${ruta}auth/updateUser`
+        const token = localStorage.getItem("token");
+        const payload = {
+            email: usuario.email, // 👈 mail anterior, el que ya está guardado
+            ...data               // 👈 datos nuevos del form
+        }
+
+        const response = await axios.patch(url, payload, {
+            headers: {
+                "x-token": token,
+            },
+        })
+        return response.data
+    } catch (error) {
+        console.error(error.response?.data || error)
+        throw error
+    }
+}

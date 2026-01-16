@@ -22,7 +22,6 @@ const ModalVerificarCodigo = ({ onClose }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-
   const handleSubmit = async (values, actions) => {
     try {
       await verificarCodigo(usuario.email, values.codigo)
@@ -41,7 +40,6 @@ const ModalVerificarCodigo = ({ onClose }) => {
       actions.setSubmitting(false)
     }
   }
-
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">

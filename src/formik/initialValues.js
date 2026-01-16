@@ -34,3 +34,11 @@ export const productInitialValues = {
 export const verifiedInitialValues = {
     codigo: ""
 }
+
+// Valores iniciales para modificar info de usuario
+export const modifiedUserInitialValues = {
+    nombre: "",
+    email: "",
+    celular: "",
+    ciudad: ""
+}

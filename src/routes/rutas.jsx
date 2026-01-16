@@ -8,7 +8,6 @@ import InicioSesion from '../components/Auth/InicioSesion/InicioSesion';
 import Registro from "../components/Auth/Registro/Registro"
 import Somos from '../pages/Somos/QuienesSomos';
 import MasInfo from '../pages/Contacto/MasInfo';
-import Verificacion from '../components/Auth/VerificacionCodigo/Verificacion';
 import Services from '../pages/Servicios/Services';
 import TiendaDeportiva from '../components/Tienda/TiendaDeportiva';
 import PerfilUsuario from "../components/Auth/Perfil/PerfilUsuario"
@@ -25,7 +24,6 @@ function Rutas() {
             {/* Rutas de usuario  */}
             <Route path='/login' element={<InicioSesion />} />
             <Route path='/signup' element={<Registro />} />
-            <Route path='/verify-code' element={<Verificacion />} />
 
             {/* Si esta logueado */}
             <Route
