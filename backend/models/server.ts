@@ -10,6 +10,7 @@ import { dbConnection } from "../database/config.js"
 import authRoutes from "../routes/auth.js"
 import issuesRoutes from "../routes/issue.js"
 import productRoutes from "../routes/productos.js"
+import carritoRoutes from "../routes/carrito.js"
 
 export class Server {
     app: Express
@@ -17,6 +18,7 @@ export class Server {
     authPath: string
     issuesPath: string
     productsPath: string
+    carritoPath: string
 
     constructor() {
         this.app = express()
@@ -24,6 +26,8 @@ export class Server {
         this.authPath = '/auth'
         this.issuesPath = "/issues"
         this.productsPath = "/products"
+        this.carritoPath = "/carrito"
+
 
         // Conexión con la base de datos de mongo
         this.conectarDB()
@@ -49,6 +53,7 @@ export class Server {
         this.app.use(this.authPath, authRoutes)
         this.app.use(this.issuesPath, issuesRoutes)
         this.app.use(this.productsPath, productRoutes)
+        this.app.use(this.carritoPath, carritoRoutes)
     }
 
     listen(): void {
