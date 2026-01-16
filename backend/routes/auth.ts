@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { login, register, usuarioVerificado } from "../controllers/auth.js";
+import { login, modifiedUser, register, usuarioVerificado } from "../controllers/auth.js";
 import { check } from "express-validator";
 import { existeEmail, existeUsuario } from "../helpers/validaciones.js";
 import { recoletarErrores } from "../middlewares/recoletarErrores.js";
+import validarJWT from "../middlewares/validarJWT.js";
 
 const router = Router()
 
@@ -45,6 +46,18 @@ router.patch(
         recoletarErrores
     ],
     usuarioVerificado
+)
+
+router.patch(
+    '/updateUser',
+    [
+        validarJWT,
+        check("email", "El email es obligatorio").not().isEmpty(),
+        check("email", "El email no es válido").isEmail(),
+        check("email").custom(existeUsuario), 
+        recoletarErrores
+    ],
+    modifiedUser
 )
 
 export default router

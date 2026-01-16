@@ -68,7 +68,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
             return
         }
 
-    const token = await generarJWT(usuario._id.toString())
+        const token = await generarJWT(usuario._id.toString())
         res.status(202).json({
             usuario,
             token
@@ -113,6 +113,37 @@ export const usuarioVerificado = async (req: Request, res: Response): Promise<vo
             msg: "Usuario verificado correctamente",
             usuario
         })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({
+            msg: "Te pido mildis, error en el servidor"
+        })
+    }
+}
+
+export const modifiedUser = async (req: Request, res: Response) => {
+    try {
+        const { email, ...dataToUpdate }: IUsuarioMR = req.body
+
+        if (!email) {
+            return res.status(400).json({ msg: "El email es obligatorio" })
+        }
+
+        const usuarioActualizado = await UsuarioMR.findOneAndUpdate(
+            { email },
+            { $set: dataToUpdate },
+            { new: true, runValidators: true }
+        )
+
+        if (!usuarioActualizado) {
+            return res.status(404).json({ msg: "Usuario no encontrado" })
+        }
+
+        res.status(201).json({
+            msg: "Usuario actualizado correctamente",
+            usuario: usuarioActualizado
+        })
+
     } catch (error) {
         console.error(error)
         res.status(500).json({
