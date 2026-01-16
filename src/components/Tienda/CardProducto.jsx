@@ -1,8 +1,19 @@
 import React from "react";
+import { FiHeart, FiShoppingCart } from "react-icons/fi";
 
 const CardProducto = ({ producto }) => {
     return (
-        <div className="bg-white p-1 rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden border border-[var(--p-gris-claro)]">
+        <div className="relative bg-white p-1 rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden border border-[var(--p-gris-claro)]">
+
+            {/* ICONOS */}
+            <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
+                <button className="p-1 hover:scale-110 transition">
+                    <FiHeart className="text-[var(--botones-rojos)] text-xl" />
+                </button>
+                <button className="p-1 hover:scale-110 transition">
+                    <FiShoppingCart className="text-[var(--botones-rojos)] text-xl" />
+                </button>
+            </div>
 
             {/* Imagen */}
             <div className="h-56 overflow-hidden">
@@ -15,7 +26,10 @@ const CardProducto = ({ producto }) => {
 
             {/* Info */}
             <div className="p-4 space-y-2">
-                <h3 className="font-semibold text-lg text-[var(--color-titulos)]">{producto.marca}</h3>
+                <h3 className="font-semibold text-lg text-[var(--color-titulos)]">
+                    {producto.marca}
+                </h3>
+
                 <p className="text-sm text-gray-500 line-clamp-2">
                     {producto.descripcion}
                 </p>
