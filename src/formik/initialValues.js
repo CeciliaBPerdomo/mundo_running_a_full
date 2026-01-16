@@ -30,3 +30,7 @@ export const productInitialValues = {
     colores: "",
     foto: ""
 }
+
+export const verifiedInitialValues = {
+    codigo: ""
+}

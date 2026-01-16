@@ -102,6 +102,7 @@ export const usuarioVerificado = async (req: Request, res: Response): Promise<vo
             res.status(401).json({
                 msg: "El código ingresado no es el correcto"
             })
+            return
         }
 
         await UsuarioMR.findOneAndUpdate(

@@ -74,3 +74,8 @@ export const productValidationSchema = Yup.object({
     foto: Yup.string()
         .required("La url de la foto es requerida."),
 })
+
+export const verifiedValidationSchema = Yup.object({
+    codigo: Yup.string()
+        .required("El código es un campo obligatorio.")
+})
