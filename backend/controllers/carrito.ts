@@ -25,11 +25,23 @@ export const agregarAlCarrito = async (req: Request, res: Response) => {
         return res.status(201).json({ carrito });
     }
 
-    // si existe, agregar item
-    carrito.items.push({ producto, cantidad, precio });
+    const itemExistente = carrito.items.find(
+        (item: any) => item.producto.toString() === producto
+    );
+
+    if (itemExistente) {
+        // si existe → sumar cantidad
+        itemExistente.cantidad += cantidad;
+    } else {
+        // si no existe → agregar nuevo item
+        carrito.items.push({ producto, cantidad, precio });
+    }
+
+    // actualizar envio si viene
     if (envio) {
         carrito.envio = envio;
     }
+
     await carrito.save();
 
     res.status(200).json({ carrito });
