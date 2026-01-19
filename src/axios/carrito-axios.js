@@ -23,3 +23,22 @@ export const agregarAlCarrito = async ({ producto, cantidad = 1, envio = null, p
         throw error;
     }
 };
+
+// Obtener carrito activo del usuario
+export const obtenerCarrito = async () => {
+  try {
+    const url = `${ruta}carrito`;
+    const token = localStorage.getItem("token");
+
+    const response = await axios.get(url, {
+      headers: {
+        "x-token": token
+      }
+    });
+
+    return response.data.carrito;
+  } catch (error) {
+    console.error("Error al obtener el carrito", error);
+    throw error;
+  }
+};

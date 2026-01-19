@@ -22,7 +22,7 @@ const NavbarIcons = ({ navigate, mode, toggleTheme, isMenuOpen, toggleMenu }) =>
             <FiHeart size={22} className="text-[var(--color-encabezados)]" />
           </IconButton>
 
-          <IconButton onClick={() => console.log("Carrito")} ariaLabel="Carrito" className="rounded-full">
+          <IconButton onClick={() => navigate("/carrito")} ariaLabel="Carrito" className="rounded-full">
             <FiShoppingCart size={22} className="text-[var(--color-encabezados)]" />
           </IconButton>
         </>

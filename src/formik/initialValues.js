@@ -42,3 +42,13 @@ export const modifiedUserInitialValues = {
     celular: "",
     ciudad: ""
 }
+
+// Valores iniciales del envío
+export const envioInitialValues = {
+    nombre: "",
+    celular: "",
+    ciudad: "",
+    direccion: "",
+    departamento: "",
+    notas: ""
+}

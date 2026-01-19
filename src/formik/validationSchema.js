@@ -96,3 +96,19 @@ export const modifiedUserValidationSchema = Yup.object({
     ciudad: Yup.string()
         .required("Tu ciudad es un campo obligatorio.")
 })
+
+
+// Validaciones para el envio 
+export const envioValidationSchema = Yup.object({
+    nombre: Yup.string()
+        .required("Tu nombre completo es un campo obligatorio."),
+    celular: Yup.string()
+        .matches(/^[0-9]{9}$/, "El celular debe tener exactamente 9 números.")
+        .required("Tu celular es un campo obligatorio."),
+    ciudad: Yup.string()
+        .required("Tu ciudad es un campo obligatorio."),
+    departamento: Yup.string()
+        .required("El departamento es un campo obligatorio."),
+    direccion: Yup.string()
+        .required("La dirección es un campo obligatorio.")
+})
