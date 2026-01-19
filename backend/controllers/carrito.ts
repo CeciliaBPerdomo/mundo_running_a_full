@@ -1,12 +1,14 @@
 import type { Request, Response } from "express";
 import Carrito from "../models/carrito.js";
+import type { ObjectId } from "mongoose";
 
 export const agregarAlCarrito = async (req: Request, res: Response) => {
-    const { user, producto, cantidad = 1, precio } = req.body;
+    const { producto, cantidad = 1, precio, envio } = req.body;
+    const userId: ObjectId = (req as any).usuarioConfirmado._id
 
     // buscar carrito activo del usuario
     let carrito = await Carrito.findOne({
-        user,
+        user: userId,
         estado: "activo",
         deleted: false
     });
@@ -14,8 +16,9 @@ export const agregarAlCarrito = async (req: Request, res: Response) => {
     // si no existe, crear uno nuevo
     if (!carrito) {
         carrito = new Carrito({
-            user,
-            items: [{ producto, cantidad, precio }]
+            user: userId,
+            items: [{ producto, cantidad, precio }],
+            envio
         });
 
         await carrito.save();
@@ -24,7 +27,9 @@ export const agregarAlCarrito = async (req: Request, res: Response) => {
 
     // si existe, agregar item
     carrito.items.push({ producto, cantidad, precio });
-
+    if (envio) {
+        carrito.envio = envio;
+    }
     await carrito.save();
 
     res.status(200).json({ carrito });
