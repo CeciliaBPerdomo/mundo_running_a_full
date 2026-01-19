@@ -1,7 +1,25 @@
 import React from "react";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
+import { agregarAlCarrito } from "../../axios/carrito-axios";
+import { mensaje } from "../../components/UI/Toast/mensaje"
+import { ToastContainer } from "react-toastify";
 
 const CardProducto = ({ producto }) => {
+
+    const handleAgregarCarrito = async () => {
+        try {
+            await agregarAlCarrito({
+                producto: producto._id,
+                cantidad: 1,
+                precio: producto.precio
+            });
+            mensaje("Producto agregado al carrito");
+        } catch (error) {
+            mensaje("Error al agregar al carrito, probá más tarde.")
+            console.error("Error al agregar al carrito", error);
+        }
+    };
+
     return (
         <div className="relative bg-white p-1 rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden border border-[var(--p-gris-claro)]">
 
@@ -11,7 +29,7 @@ const CardProducto = ({ producto }) => {
                     <FiHeart className="text-[var(--botones-rojos)] text-xl" />
                 </button>
                 <button className="p-1 hover:scale-110 transition">
-                    <FiShoppingCart className="text-[var(--botones-rojos)] text-xl" />
+                    <FiShoppingCart onClick={handleAgregarCarrito} className="text-[var(--botones-rojos)] text-xl" />
                 </button>
             </div>
 
@@ -44,6 +62,7 @@ const CardProducto = ({ producto }) => {
                     </button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

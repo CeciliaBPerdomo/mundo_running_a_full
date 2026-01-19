@@ -11,11 +11,8 @@ export const crearIssue = async (title, description, priority) => {
         const token = localStorage.getItem("token");
 
         const response = await axios.post(url, data, {
-            headers: {
-                "x-token": token,
-            },
+            headers: { "x-token": token },
         });
-
 
         return response.data
     } catch (error) {

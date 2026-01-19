@@ -3,24 +3,20 @@ import axios from "axios"
 const ruta = import.meta.env.VITE_RUTA
 
 // Agregar al carrito
-export const agregarAlCarrito = async ({ producto, cantidad = 1, envio = null }) => {
+export const agregarAlCarrito = async ({ producto, cantidad = 1, envio = null, precio }) => {
     try {
-        const token = localStorage.getItem("token");
-        const body = { producto, cantidad }
+        const url = `${ruta}carrito`
+        const token = localStorage.getItem("token")
+        const data = { producto, cantidad, precio }
 
         // solo mandamos envio si existe
         if (envio) {
-            body.envio = envio;
+            data.envio = envio;
         }
 
-        const response = await axios.post(`${ruta}/carrito`, body, {
-            headers: {
-                "Content-Type": "application/json",
-                "x-token": token
-            }
-        }
-        );
-        console.log(response.data)
+        const response = await axios.post(url, data, {
+            headers: { "x-token": token }
+        })
         return response.data;
     } catch (error) {
         console.error("Error al agregar al carrito", error);

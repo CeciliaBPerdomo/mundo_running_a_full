@@ -46,3 +46,22 @@ export const agregarAlCarrito = async (req: Request, res: Response) => {
 
     res.status(200).json({ carrito });
 };
+
+export const getCarritoActual = async (req: Request, res: Response) => {
+  const userId: ObjectId = (req as any).usuarioConfirmado._id;
+
+  const carrito = await Carrito.findOne({
+    user: userId,
+    estado: "activo",
+    deleted: false
+  }).populate("items.producto");
+
+  if (!carrito) {
+    return res.status(200).json({
+      carrito: null,
+      msg: "El usuario no tiene carrito activo"
+    });
+  }
+
+  res.status(200).json({ carrito });
+};

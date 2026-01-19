@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { agregarAlCarrito } from "../controllers/carrito.js";
+import { agregarAlCarrito, getCarritoActual } from "../controllers/carrito.js";
 import validarJWT from "../middlewares/validarJWT.js";
 import { recoletarErrores } from "../middlewares/recoletarErrores.js";
 import validarProductoExiste from "../middlewares/productos/validarProductoExiste.js";
@@ -18,6 +18,15 @@ router.post(
         recoletarErrores
     ],
     agregarAlCarrito
+)
+
+router.get(
+    "/",
+    [
+        validarJWT,
+        recoletarErrores
+    ],
+    getCarritoActual
 )
 
 export default router
