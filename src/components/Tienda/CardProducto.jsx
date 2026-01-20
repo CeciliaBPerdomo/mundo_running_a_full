@@ -4,7 +4,12 @@ import { agregarAlCarrito } from "../../axios/carrito-axios";
 import { mensaje } from "../../components/UI/Toast/mensaje"
 import { ToastContainer } from "react-toastify";
 
+// redux
+import { useDispatch } from "react-redux";
+import { fetchCarrito } from "../../redux/carrito/carritoSlice";
+
 const CardProducto = ({ producto }) => {
+     const dispatch = useDispatch();
 
     const handleAgregarCarrito = async () => {
         try {
@@ -13,7 +18,8 @@ const CardProducto = ({ producto }) => {
                 cantidad: 1,
                 precio: producto.precio
             });
-            mensaje("Producto agregado al carrito");
+            mensaje("Producto agregado al carrito")
+              dispatch(fetchCarrito());
         } catch (error) {
             mensaje("Error al agregar al carrito, probá más tarde.")
             console.error("Error al agregar al carrito", error);

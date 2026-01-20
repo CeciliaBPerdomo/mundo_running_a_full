@@ -42,3 +42,19 @@ export const obtenerCarrito = async () => {
     throw error;
   }
 };
+
+export const confirmarCarrito = async (envio) => {
+  try {
+    const url = `${ruta}carrito/confirmar`
+    const token = localStorage.getItem("token")
+
+    const response = await axios.patch(url,{ envio },
+      { headers: { "x-token": token } }
+    )
+console.log(response.data)
+    return response.data
+  } catch (error) {
+    console.error("Error al confirmar carrito", error)
+    throw error
+  }
+}

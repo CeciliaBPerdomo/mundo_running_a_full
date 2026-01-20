@@ -1,40 +1,29 @@
-import React from "react";
+import React from "react"
 
-export const CardProductos = ({ carrito }) => {
+const CardProductos = ({ item }) => {
+  const { producto, cantidad, precio } = item
+
   return (
-    <div>
-      <h2 className="text-xl font-semibold text-[var(--color-titulos)]">
-        Tus productos:
-      </h2>
+    <div className="flex gap-4 border-b pb-4">
+      <img
+        src={producto.foto}
+        alt={producto.marca}
+        className="w-20 h-20 object-contain"
+      />
 
-      {carrito.items.map((item) => (
-        <div
-          key={item._id}
-          className="flex gap-4 items-center pb-4"
-        >
-          <img
-            src={item.producto.foto}
-            alt={item.producto.marca}
-            className="w-20 h-20 object-contain"
-          />
+      <div className="flex-1">
+        <h3 className="font-semibold">{producto.marca}</h3>
+        <p className="text-sm text-gray-500">{producto.descripcion}</p>
 
-          <div className="flex-1">
-            <p className="font-medium">{item.producto.marca}</p>
-            <p className="text-sm text-[var(--text-gray-500)]">
-              Cantidad: {item.cantidad}
-            </p>
-          </div>
-
+        <div className="flex justify-between mt-2">
+          <span>Cantidad: {cantidad}</span>
           <span className="font-semibold">
-            u$s {item.precio * item.cantidad}
+            u$s {precio * cantidad}
           </span>
         </div>
-      ))}
-
-      <div className="flex justify-between pt-4 text-lg font-bold border-t border-[var(--botones-rojos)]">
-        <span>Total:</span>
-        <span>u$s {carrito.total}</span>
       </div>
     </div>
-  );
-};
+  )
+}
+
+export default CardProductos

@@ -1,6 +1,7 @@
 import type { Request, Response } from "express";
 import Carrito from "../models/carrito.js";
 import type { ObjectId } from "mongoose";
+import { ESTADOS } from "../helpers/constantes.js";
 
 export const agregarAlCarrito = async (req: Request, res: Response) => {
     const { producto, cantidad = 1, precio, envio } = req.body;
@@ -48,20 +49,42 @@ export const agregarAlCarrito = async (req: Request, res: Response) => {
 };
 
 export const getCarritoActual = async (req: Request, res: Response) => {
-  const userId: ObjectId = (req as any).usuarioConfirmado._id;
+    const userId: ObjectId = (req as any).usuarioConfirmado._id;
 
-  const carrito = await Carrito.findOne({
-    user: userId,
-    estado: "activo",
-    deleted: false
-  }).populate("items.producto");
+    const carrito = await Carrito.findOne({
+        user: userId,
+        estado: "activo",
+        deleted: false
+    }).populate("items.producto");
 
-  if (!carrito) {
-    return res.status(200).json({
-      carrito: null,
-      msg: "El usuario no tiene carrito activo"
-    });
-  }
+    if (!carrito) {
+        return res.status(200).json({
+            carrito: null,
+            msg: "El usuario no tiene carrito activo"
+        });
+    }
 
-  res.status(200).json({ carrito });
+    res.status(200).json({ carrito });
 };
+
+export const confirmarCarrito = async (req: Request, res: Response) => {
+    const { envio } = req.body
+    const userId = (req as any).usuarioConfirmado._id
+
+    const carrito = await Carrito.findOne({
+        user: userId,
+        estado: "activo",
+        deleted: false
+    })
+
+    if (!carrito) {
+        return res.status(404).json({ msg: "No hay carrito activo" })
+    }
+
+    carrito.envio = envio
+    carrito.estado = ESTADOS.pendientepago
+
+    await carrito.save()
+
+    res.status(200).json({ carrito })
+}

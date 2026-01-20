@@ -4,13 +4,14 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { envioInitialValues } from '../../formik/initialValues';
 import { envioValidationSchema } from '../../formik/validationSchema';
 import EnvioFields from "./EnvioFields"
+import { confirmarCarrito } from '../../axios/carrito-axios';
 
 
 const DatosEnvio = ({ envio }) => {
   const handleSubmitEnvio = async (values, actions) => {
     try {
-      console.log("Datos de envío:", values)
-      // await actualizarEnvio(values)
+      await confirmarCarrito(values)
+      actions.setSubmitting(false)
     } catch (error) {
       console.error("Error al guardar envío", error)
     }
