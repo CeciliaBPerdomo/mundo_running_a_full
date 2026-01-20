@@ -8,6 +8,7 @@ import PerfilAdminSidebar from './Menus/PerfilAdminSidebar'
 import Problemas from '../../../pages/Problemas/Problemas';
 import ProductosAdmin from '../../../pages/Productos/productosAdmin';
 import DatosUsuario from './DatosUsuario';
+import { Carrito } from '../../../pages/Carrito/Carrito';
 
 const PerfilUsuario = () => {
   const [vista, setVista] = useState("datos");
@@ -31,13 +32,20 @@ const PerfilUsuario = () => {
           ☰
         </button>
 
-        <h1 className="text-3xl font-bold text-[var(--color-titulos)] mb-6 text-center">
-          Hola, {nombre?.split(" ")[0]} ✨
-        </h1>
+       {vista !== "carrito" && (
+  <h1 className="text-3xl font-bold text-[var(--color-titulos)] mb-6 text-center">
+    Hola, {nombre?.split(" ")[0]} ✨
+  </h1>
+)}
 
         {vista === "datos" && <DatosUsuario />}
         {vista === "productos" && <ProductosAdmin />}
         {vista === "problemas" && <Problemas />}
+
+        {vista === "carrito" && <Carrito margen={5}/>}
+        {vista === "favoritos" && <div>Favoritos (pendiente)</div>}
+        {vista === "compras" && <div>Compras (pendiente)</div>}
+
       </main>
 
     </div>

@@ -1,0 +1,18 @@
+[
+  {
+    "titulo": "Mis datos",
+    "key": "datos"
+  },
+  {
+    "titulo": "Mis favoritos",
+    "key": "favoritos"
+  },
+  {
+    "titulo": "Mi carrito",
+    "key": "carrito"
+  },
+  {
+    "titulo": "Mis compras",
+    "key": "compras"
+  }
+]
