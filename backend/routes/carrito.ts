@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { agregarAlCarrito, confirmarCarrito, getCarritoActual } from "../controllers/carrito.js";
+import { agregarAlCarrito, confirmarCarrito, getCarritoActual, getCarritosUsuario } from "../controllers/carrito.js";
 import validarJWT from "../middlewares/validarJWT.js";
 import { recoletarErrores } from "../middlewares/recoletarErrores.js";
 import validarProductoExiste from "../middlewares/productos/validarProductoExiste.js";
@@ -38,5 +38,12 @@ router.patch(
     confirmarCarrito
 )
 
+router.get(
+    "/historial", 
+    [
+        validarJWT,
+        recoletarErrores
+    ], 
+    getCarritosUsuario);
 
 export default router

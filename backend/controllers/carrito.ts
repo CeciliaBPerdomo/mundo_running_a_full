@@ -88,3 +88,18 @@ export const confirmarCarrito = async (req: Request, res: Response) => {
 
     res.status(200).json({ carrito })
 }
+
+
+export const getCarritosUsuario = async (req: Request, res: Response) => {
+    const userId: ObjectId = (req as any).usuarioConfirmado._id;
+
+    const carritos = await Carrito.find({
+        user: userId,
+        deleted: false,
+        estado: { $ne: ESTADOS.activo } // 👈 todo menos el activo
+    })
+        .populate("items.producto")
+        .sort({ createdAt: -1 }); // último primero
+
+    res.status(200).json({ carritos });
+};
