@@ -4,7 +4,7 @@ const CardProductos = ({ item }) => {
   const { producto, cantidad, precio } = item
 
   return (
-    <div className="flex gap-4 border-b pb-4">
+    <div className="flex gap-4 pb-4">
       <img
         src={producto.foto}
         alt={producto.marca}

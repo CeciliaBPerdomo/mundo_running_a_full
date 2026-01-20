@@ -12,11 +12,11 @@ const ListaProductosCarrito = ({ items, total }) => {
         <CardProductos key={item._id} item={item} />
       ))}
 
-      <div className="flex justify-between text-lg font-semibold">
+      <div className="flex justify-between text-lg font-semibold border-t border-[var(--botones-rojos)] py-3">
         <span>Total</span>
-        <span>u$s {total}</span>
+        <span className='text-[var(--color-titulos)]'>u$s {total}</span>
       </div>
-      
+
     </div>
   )
 }

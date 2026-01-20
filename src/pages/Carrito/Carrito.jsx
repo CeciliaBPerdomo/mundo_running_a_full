@@ -27,7 +27,7 @@ export const Carrito = ({ margen = 20 }) => {
     return (
         <div className={`py-${margen} px-4 max-w-7xl mx-auto`}>
             <h1 className="text-3xl font-bold mb-10 text-[var(--color-titulos)]">
-                {nombre?.split(" ")[0]}: tu carrito 🛒
+                {nombre?.split(" ")[0]}: tu carrito 🛒 te está esperando!
             </h1>
 
             {items.length === 0 ? (
