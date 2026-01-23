@@ -76,10 +76,8 @@ const CardProducto = ({ producto }) => {
                     </button>
                 </div>
             </div>
-            
-            {openInfo && (
-                <ProductoInfoModal onClose={() => setOpenInfo(false)} />
-            )}
+
+            {openInfo && (<ProductoInfoModal  producto={producto} onClose={() => setOpenInfo(false)} /> )}
 
             <ToastContainer />
         </div>

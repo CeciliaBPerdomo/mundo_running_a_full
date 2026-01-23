@@ -155,11 +155,8 @@ export const getProductosPorCategoria = async (categoria) => {
 export const getProductosDestacados = async () => {
   try {
     const url = `${ruta}products/destacados`;
-
     const response = await axios.get(url);
-    console.log(response.data)
     return response.data.productos;
-
   } catch (error) {
     console.error(error)
     throw {
