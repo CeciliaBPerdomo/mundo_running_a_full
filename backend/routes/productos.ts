@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProducts,  getProducts, getProductsbyCategory, productsController } from "../controllers/productos.js";
+import { createProducts, getProductosDestacados, getProducts, getProductsbyCategory, productsController } from "../controllers/productos.js";
 import { check } from "express-validator";
 import { recoletarErrores } from "../middlewares/recoletarErrores.js";
 import validarJWT from "../middlewares/validarJWT.js";
@@ -28,6 +28,11 @@ router.post(
 router.get(
     "/",
     getProducts
+)
+
+router.get(
+    "/destacados",
+    getProductosDestacados
 )
 
 router.get(

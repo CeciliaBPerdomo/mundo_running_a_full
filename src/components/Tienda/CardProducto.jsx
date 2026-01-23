@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
+
+// Axios 
 import { agregarAlCarrito } from "../../axios/carrito-axios";
+
+// UI
 import { mensaje } from "../../components/UI/Toast/mensaje"
 import { ToastContainer } from "react-toastify";
+
+// Modal
+import ProductoInfoModal from "./ProductoInfoModal";
 
 // redux
 import { useDispatch } from "react-redux";
 import { fetchCarrito } from "../../redux/carrito/carritoSlice";
 
 const CardProducto = ({ producto }) => {
+    const [openInfo, setOpenInfo] = useState(false);
      const dispatch = useDispatch();
 
     const handleAgregarCarrito = async () => {
@@ -27,7 +35,7 @@ const CardProducto = ({ producto }) => {
     };
 
     return (
-        <div className="relative bg-white p-1 rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden border border-[var(--p-gris-claro)]">
+        <div className="relative bg-white p-1 rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden border border-[var(--recuadro)]">
 
             {/* ICONOS */}
             <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">

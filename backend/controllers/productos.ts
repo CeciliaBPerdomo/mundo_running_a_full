@@ -73,3 +73,11 @@ export const productsController = async (req: Request, res: Response) => {
             res.status(405).json({ msg: "Método no permitido" });
     }
 };
+
+export const getProductosDestacados = async (req: Request, res: Response) => {
+  const productos = await Producto.find({ delete: false })
+    .sort({ createdAt: -1 }) // últimos primero
+    .limit(4);               // solo 4
+
+  res.status(200).json({ productos });
+};

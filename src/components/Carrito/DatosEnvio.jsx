@@ -44,7 +44,7 @@ const DatosEnvio = ({ envio }) => {
   }
 
   return (
-    <div className="bg-white border border-[var(--recuadro)] rounded-2xl shadow-md p-6 space-y-6">
+    <div className="bg-[var(--color-background)] border border-[var(--recuadro)] rounded-2xl shadow-md p-6 space-y-6">
       <h2 className="text-xl font-semibold text-[var(--color-titulos)] mb-3">Datos de envío:</h2>
       {/* <span className='text-[var(--text-gray-500)]'>Si tu datos de envío son distintos a los de tu usuario, completa la siguiente información: </span> */}
 

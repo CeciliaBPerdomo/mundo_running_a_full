@@ -150,3 +150,21 @@ export const getProductosPorCategoria = async (categoria) => {
         }
     }
 }
+
+// Trae los últimos 4 como destacados
+export const getProductosDestacados = async () => {
+  try {
+    const url = `${ruta}products/destacados`;
+
+    const response = await axios.get(url);
+    console.log(response.data)
+    return response.data.productos;
+
+  } catch (error) {
+    console.error(error)
+    throw {
+      status: error.response?.status || 500,
+      message: "Error al traer productos destacados"
+    };
+  }
+};
