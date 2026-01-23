@@ -9,6 +9,7 @@ import Problemas from '../../../pages/Problemas/Problemas';
 import ProductosAdmin from '../../../pages/Productos/productosAdmin';
 import DatosUsuario from './DatosUsuario';
 import { Carrito } from '../../../pages/Carrito/Carrito';
+import Compras from '../../Usuario/Compras';
 
 const PerfilUsuario = () => {
   const [vista, setVista] = useState("datos");
@@ -44,7 +45,7 @@ const PerfilUsuario = () => {
 
         {vista === "carrito" && <Carrito margen={5} />}
         {vista === "favoritos" && <div>Favoritos (pendiente)</div>}
-        {vista === "compras" && <div>Compras (pendiente)</div>}
+        {vista === "compras" && <Compras />}
 
       </main>
 

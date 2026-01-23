@@ -33,7 +33,7 @@ const DatosEnvio = ({ envio }) => {
 
             <EnvioFields />
 
-            <SubmitButton disabled={isSubmitting}>
+            <SubmitButton loading={isSubmitting}>
               Confirmar compra
             </SubmitButton>
 
