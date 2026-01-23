@@ -1,8 +1,11 @@
 import { Field, ErrorMessage } from "formik"
+import departamentos from "../../data/ciudades.json";
+
 
 const EnvioFields = () => {
   return (
     <>
+      {/* Nombre completo */}
       <div>
         <Field
           name="nombre"
@@ -17,6 +20,7 @@ const EnvioFields = () => {
         />
       </div>
 
+      {/* Telefono */}
       <div>
         <Field
           name="celular"
@@ -31,6 +35,7 @@ const EnvioFields = () => {
         />
       </div>
 
+      {/* Dirección */}
       <div>
         <Field
           name="direccion"
@@ -46,6 +51,7 @@ const EnvioFields = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Ciudad */}
         <div>
           <Field
             name="ciudad"
@@ -60,21 +66,28 @@ const EnvioFields = () => {
           />
         </div>
 
+        {/* Departamento */}
         <div>
           <Field
+            as="select"
             name="departamento"
-            type="text"
-            placeholder="Departamento"
-            className="w-full border rounded-lg px-4 py-2"
-          />
-          <ErrorMessage
-            name="departamento"
-            component="p"
-            className="text-sm text-[var(--text-errors)]"
-          />
+            className="w-full border rounded-lg px-4 py-2 bg-white"
+          >
+            <option value="">Seleccioná un departamento</option>
+
+            {departamentos.map((dep) => (
+              <option key={dep} value={dep}>
+                {dep}
+              </option>
+            ))}
+          </Field>
+
+          <ErrorMessage name="departamento" component="p" className="text-sm text-[var(--text-errors)]" />
         </div>
+
       </div>
 
+      {/* Notas: opcional */}
       <div>
         <Field
           as="textarea"

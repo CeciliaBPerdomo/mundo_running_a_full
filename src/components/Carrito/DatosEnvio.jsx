@@ -1,19 +1,45 @@
 import React from 'react'
-import SubmitButton from "../UI/Form/BotonSubmit"
-import { Formik, Form, Field, ErrorMessage } from "formik";
+// Formik
+import { Formik, Form } from "formik";
 import { envioInitialValues } from '../../formik/initialValues';
 import { envioValidationSchema } from '../../formik/validationSchema';
 import EnvioFields from "./EnvioFields"
+
+// Guardar carrito
 import { confirmarCarrito } from '../../axios/carrito-axios';
+
+// UI
+import SubmitButton from "../UI/Form/BotonSubmit"
+import { mensaje } from "../UI/Toast/mensaje"
+import { ToastContainer } from 'react-toastify';
+
+// Confirmacion del carrito 
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { limpiarCarrito } from "../../redux/carrito/carritoSlice";
 
 
 const DatosEnvio = ({ envio }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleSubmitEnvio = async (values, actions) => {
     try {
       await confirmarCarrito(values)
+      mensaje("Compra confirmada. Queda pendiente de pago 💳")
+
+      dispatch(limpiarCarrito())
+
       actions.setSubmitting(false)
+
+      setTimeout(() => {
+        navigate("/")
+      }, 1500)
+
     } catch (error) {
       console.error("Error al guardar envío", error)
+      mensaje("Error al confirmar la compra. Probá nuevamente.")
+      actions.setSubmitting(false)
     }
   }
 
@@ -40,6 +66,7 @@ const DatosEnvio = ({ envio }) => {
           </Form>
         )}
       </Formik>
+      <ToastContainer />
     </div>
   )
 }

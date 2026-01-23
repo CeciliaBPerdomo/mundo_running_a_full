@@ -13,17 +13,17 @@ const NavbarIcons = ({ navigate, mode, toggleTheme, isMenuOpen, toggleMenu }) =>
   const dispatch = useDispatch();
 
   const usuarioActual = useSelector((state) => state.usuario.usuarioActual)
-  const itemsCarrito = useSelector((state) => state.carrito.carritoActual);
-  const cantidadProductos = contarProductosCarrito(itemsCarrito);
+  const carritoActual = useSelector((state) => state.carrito.carritoActual);
+  const cantidadProductos = contarProductosCarrito(carritoActual);
 
   //  const esAdmin = usuarioActual?.rol === "admin";
   const esUser = usuarioActual?.rol === "user";
 
   useEffect(() => {
-  if (usuarioActual) {
-    dispatch(fetchCarrito());
-  }
-}, [usuarioActual, dispatch]);
+    if (usuarioActual) {
+      dispatch(fetchCarrito());
+    }
+  }, [usuarioActual, dispatch]);
 
   return (
     <div className="flex items-center gap-2 text-[22px]">
@@ -45,13 +45,7 @@ const NavbarIcons = ({ navigate, mode, toggleTheme, isMenuOpen, toggleMenu }) =>
             <FiShoppingCart size={22} className="text-[var(--color-encabezados)]" />
 
             {cantidadProductos > 0 && (
-              <span className="
-      absolute -top-1 -right-1
-      bg-red-500 text-white
-      text-[11px] font-bold
-      w-5 h-5
-      flex items-center justify-center
-      rounded-full">
+              <span className="absolute -top-1 -right-1 bg-[var(--text-errors)] text-[var(--p-blanco)] text-[11px] font-bold w-5 h-5 flex items-center justify-center rounded-full">
                 {cantidadProductos}
               </span>
             )}
