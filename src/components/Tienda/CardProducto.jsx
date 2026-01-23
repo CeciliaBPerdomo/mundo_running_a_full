@@ -17,7 +17,7 @@ import { fetchCarrito } from "../../redux/carrito/carritoSlice";
 
 const CardProducto = ({ producto }) => {
     const [openInfo, setOpenInfo] = useState(false);
-     const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
     const handleAgregarCarrito = async () => {
         try {
@@ -27,7 +27,7 @@ const CardProducto = ({ producto }) => {
                 precio: producto.precio
             });
             mensaje("Producto agregado al carrito")
-              dispatch(fetchCarrito());
+            dispatch(fetchCarrito());
         } catch (error) {
             mensaje("Error al agregar al carrito, probá más tarde.")
             console.error("Error al agregar al carrito", error);
@@ -71,11 +71,16 @@ const CardProducto = ({ producto }) => {
                         u$s {producto.precio}
                     </span>
 
-                    <button className="px-4 py-2 text-sm rounded-full bg-[var(--botones-rojos)] text-[var(--p-blanco)] hover:bg-[var(--botones-rojos-hover)] transition">
+                    <button onClick={() => setOpenInfo(true)} className="px-4 py-2 text-sm rounded-full bg-[var(--botones-rojos)] text-[var(--p-blanco)] hover:bg-[var(--botones-rojos-hover)] transition">
                         + info
                     </button>
                 </div>
             </div>
+            
+            {openInfo && (
+                <ProductoInfoModal onClose={() => setOpenInfo(false)} />
+            )}
+
             <ToastContainer />
         </div>
     );
