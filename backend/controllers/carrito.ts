@@ -89,7 +89,6 @@ export const confirmarCarrito = async (req: Request, res: Response) => {
     res.status(200).json({ carrito })
 }
 
-
 export const getCarritosUsuario = async (req: Request, res: Response) => {
     const userId: ObjectId = (req as any).usuarioConfirmado._id;
 
@@ -102,4 +101,21 @@ export const getCarritosUsuario = async (req: Request, res: Response) => {
         .sort({ createdAt: -1 }); // último primero
 
     res.status(200).json({ carritos });
+};
+
+export const getCarritosPendientes = async (req: Request, res: Response) => {
+  try {
+    const carritos = await Carrito.find({
+      deleted: false,
+      estado: ESTADOS.pendientepago, 
+    })
+      .populate("user", "nombre email") 
+      .populate("items.producto")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json({ carritos });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Error al obtener carritos pendientes" });
+  }
 };

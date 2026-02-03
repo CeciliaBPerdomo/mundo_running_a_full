@@ -5,7 +5,9 @@ import ModalProducto from "../../components/Productos/ModalProducto";
 import { mensaje } from "../../components/UI/Toast/mensaje";
 import { ToastContainer } from "react-toastify";
 import BuscadorProductos from "../../components/UI/Buscador/BuscadorProductos";
+import Pagination from "../../components/UI/Pagination/Pagination"
 
+const PAGE_SIZE = 10;
 
 const ProductosAdmin = () => {
     const [productosMock, setProductos] = useState([])
@@ -14,6 +16,7 @@ const ProductosAdmin = () => {
     const [busqueda, setBusqueda] = useState("")
     const [categoria, setCategoria] = useState("todas")
     const [productosOriginales, setProductosOriginales] = useState([])
+    const [page, setPage] = useState(0)
 
     const cargarProductos = async () => {
         try {
@@ -21,6 +24,7 @@ const ProductosAdmin = () => {
             const productos = data.productos || data
             setProductosOriginales(productos)
             setProductos(productos)
+            setPage(0)
         } catch (error) {
             console.error(error);
         } finally {
@@ -38,19 +42,25 @@ const ProductosAdmin = () => {
     );
 
     const productosFiltradosCategorias = (categoriaSeleccionada) => {
-    setCategoria(categoriaSeleccionada);
+        setCategoria(categoriaSeleccionada)
+        setPage(0)
 
-    if (categoriaSeleccionada === "todas") {
-        setProductos(productosOriginales)
-        return;
+        if (categoriaSeleccionada === "todas") {
+            setProductos(productosOriginales)
+            return
+        }
+
+        const filtrados = productosOriginales.filter(
+            (p) => p.categoria?.toLowerCase() === categoriaSeleccionada
+        );
+
+        setProductos(filtrados)
     }
 
-    const filtrados = productosOriginales.filter(
-        (p) => p.categoria?.toLowerCase() === categoriaSeleccionada
-    );
-
-    setProductos(filtrados)
-}
+    // paginación
+    const start = page * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+    const productosPaginados = productosMock.slice(start, end)
 
     if (loading) {
         return (
@@ -81,10 +91,14 @@ const ProductosAdmin = () => {
 
                     <BuscadorProductos
                         value={busqueda}
-                        onChange={setBusqueda}
+                        onChange={(val) => {
+                            setBusqueda(val);
+                            setPage(0)
+                        }}
                         onSubmit={() => {
-                            if (busqueda === "") cargarProductos()
-                            setProductos(productosFiltrados)
+                            if (busqueda === "") cargarProductos();
+                            setProductos(productosFiltrados);
+                            setPage(0)
                         }}
                     />
                 </div>
@@ -117,23 +131,22 @@ const ProductosAdmin = () => {
 
             {/* Tabla */}
             <div className="w-full overflow-x-auto">
-                <ListaProductosAdmin productos={productosMock} cargarProductos={cargarProductos} />
+                <ListaProductosAdmin productos={productosPaginados} cargarProductos={cargarProductos} />
             </div>
 
             {/* Paginación */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6 text-center">
-                <button className="w-full sm:w-auto text-[var(--p-blanco)] px-4 py-2 border border-[var(--bordes-botones-blanco)] rounded-md hover:bg-[var(--botones-rojos-hover)] transition bg-[var(--botones-rojos)]">
-                    ← Anterior
-                </button>
-
-                <span className="text-sm text-gray-600">
-                    Mostrando <strong>1</strong> de <strong>{productosMock.length}</strong> productos
-                </span>
-
-                <button className="w-full sm:w-auto text-[var(--p-blanco)] px-4 py-2 border border-[var(--bordes-botones-blanco)] rounded-md hover:bg-[var(--botones-rojos-hover)] transition bg-[var(--botones-rojos)]">
-                    Siguiente →
-                </button>
-            </div>
+            <Pagination
+                page={page}
+                pageSize={PAGE_SIZE}
+                total={productosMock.length}
+                onPrev={() => setPage((p) => Math.max(p - 1, 0))}
+                onNext={() =>
+                    setPage((p) =>
+                        (p + 1) * PAGE_SIZE < productosMock.length ? p + 1 : p
+                    )
+                }
+                itemLabel="producto"
+            />
             <ToastContainer />
         </div>
     );

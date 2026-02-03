@@ -73,5 +73,19 @@ export const obtenerHistorialCarritos = async () => {
     console.error("Error al confirmar carrito", error)
     throw error
   }
+}
 
-};
+export const carritosPendientesPago = async () => {
+  try {
+    const token = localStorage.getItem("token")
+    const url = `${ruta}carrito/pendientes`;
+
+    const response = await axios.get(url, {
+      headers: { "x-token": token }
+    })
+    return response.data
+  } catch (error) {
+    console.error("Error al confirmar carrito", error)
+    throw error
+  }
+}

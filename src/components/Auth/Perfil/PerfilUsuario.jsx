@@ -10,6 +10,9 @@ import ProductosAdmin from '../../../pages/Productos/productosAdmin';
 import DatosUsuario from './DatosUsuario';
 import { Carrito } from '../../../pages/Carrito/Carrito';
 import Compras from '../../Usuario/Compras';
+import CarritosPendientes from '../../Admin/Carritos Pendientes/CarritosPendientes';
+import ComprasRealizadas from '../../Admin/Compras/ComprasRealizadas';
+import HistorialCompras from '../../Admin/Historial/HistorialCompras';
 
 const PerfilUsuario = () => {
   const [vista, setVista] = useState("datos");
@@ -43,10 +46,20 @@ const PerfilUsuario = () => {
         {vista === "productos" && <ProductosAdmin />}
         {vista === "problemas" && <Problemas />}
 
-        {vista === "carrito" && <Carrito margen={5} />}
-        {vista === "favoritos" && <div>Favoritos (pendiente)</div>}
-        {vista === "compras" && <Compras />}
+        {vista === "carrito" && (
+          rol === "admin"
+            ? <CarritosPendientes nombre={nombre} />
+            : <Carrito margen={5} />
+        )}
+        {vista === "favoritos" && <div>Favoritos (estamos trabajando para usted)</div>}
 
+        {vista === "compras" && (
+          rol === "admin"
+            ? <ComprasRealizadas />
+            : <Compras />
+        )}
+
+        {vista === "historial" && (<HistorialCompras />)}
       </main>
 
     </div>
