@@ -13,7 +13,8 @@ export const ESTADOS = {
     activo: "activo",
     pendientepago: "pendiente de pago",
     pendienteenvio: "pendiente de envio",
-    enviado: "enviado"
+    enviado: "enviado",
+    cancelado: "cancelado",
 } as const;
 
 export type EstadoCarrito = typeof ESTADOS[keyof typeof ESTADOS];

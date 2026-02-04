@@ -3,10 +3,13 @@ export const isTokenExpired = () => {
   if (!token) return true;
 
   try {
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    const now = Date.now() / 1000;
+    const payloadBase64 = token.split(".")[1];
+    const payloadJson = atob(payloadBase64.replace(/-/g, "+").replace(/_/g, "/"));
+    const payload = JSON.parse(payloadJson);
+    if (!payload.exp) return true;
 
-    return payload.exp < now;
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp <= now;
   } catch (error) {
     console.error(error)
     return true;

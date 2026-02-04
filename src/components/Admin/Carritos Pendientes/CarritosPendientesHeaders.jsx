@@ -4,6 +4,7 @@ const CARRITOS_PENDIENTES_HEADERS = [
     { key: "envio", label: "Datos de envío", className: "px-4 py-3 text-left" },
     { key: "total", label: "Total", className: "px-4 py-3 text-right" },
     { key: "estado", label: "Estado", className: "px-4 py-3 text-center" },
+    { key: "acciones", label: "Acciones", className: "px-4 py-3 text-center" },
 ];
 
 

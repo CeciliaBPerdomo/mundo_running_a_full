@@ -6,8 +6,9 @@ import { mensaje } from "../../components/UI/Toast/mensaje";
 import { ToastContainer } from "react-toastify";
 import BuscadorProductos from "../../components/UI/Buscador/BuscadorProductos";
 import Pagination from "../../components/UI/Pagination/Pagination"
+import ListaProductosAdminSkeleton from "../../components/Productos/ListaProductosAdminSkeleton"
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 6;
 
 const ProductosAdmin = () => {
     const [productosMock, setProductos] = useState([])
@@ -61,14 +62,6 @@ const ProductosAdmin = () => {
     const start = page * PAGE_SIZE;
     const end = start + PAGE_SIZE;
     const productosPaginados = productosMock.slice(start, end)
-
-    if (loading) {
-        return (
-            <p className="text-center text-gray-500">
-                Cargando productos…
-            </p>
-        );
-    }
 
     return (
         <div className="w-full">
@@ -131,7 +124,10 @@ const ProductosAdmin = () => {
 
             {/* Tabla */}
             <div className="w-full overflow-x-auto">
-                <ListaProductosAdmin productos={productosPaginados} cargarProductos={cargarProductos} />
+                {loading 
+                    ? <ListaProductosAdminSkeleton />
+                    : <ListaProductosAdmin productos={productosPaginados} cargarProductos={cargarProductos} />
+                }
             </div>
 
             {/* Paginación */}

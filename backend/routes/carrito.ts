@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { agregarAlCarrito, confirmarCarrito, getCarritoActual, getCarritosPendientes, getCarritosUsuario } from "../controllers/carrito.js";
+import { agregarAlCarrito, confirmarCarrito, getCarritoActual, getCarritosPendientes, getCarritosPendientesEnvio, getCarritosUsuario, patchEstadoCarrito } from "../controllers/carrito.js";
 import validarJWT from "../middlewares/validarJWT.js";
 import { recoletarErrores } from "../middlewares/recoletarErrores.js";
 import validarProductoExiste from "../middlewares/productos/validarProductoExiste.js";
 import { check } from "express-validator";
+import { isAdmin } from "../middlewares/validarRol.js";
 
 const router = Router()
 
@@ -55,5 +56,25 @@ router.get(
     ],
     getCarritosPendientes
 )
+
+router.get(
+    "/pendientes-envio",
+    [
+        validarJWT,
+        isAdmin,
+        recoletarErrores
+    ],
+    getCarritosPendientesEnvio
+)
+
+router.patch(
+    "/:carritoId/estado",
+    [
+        validarJWT,
+        isAdmin,
+        recoletarErrores
+    ],
+    patchEstadoCarrito
+);
 
 export default router

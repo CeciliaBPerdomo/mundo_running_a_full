@@ -89,3 +89,24 @@ export const carritosPendientesPago = async () => {
     throw error
   }
 }
+
+// Actualizar estado del carrito
+export const actualizarEstadoCarrito = async (carritoId, estado) => {
+  try {
+    const token = localStorage.getItem("token")
+    const url = `${ruta}carrito/${carritoId}/estado`
+
+    const response = await axios.patch(
+      url,
+      { estado },
+      {
+        headers: { "x-token": token },
+      }
+    );
+
+    return response.data
+  } catch (error) {
+    console.error("Error al actualizar estado del carrito", error);
+    throw error;
+  }
+};

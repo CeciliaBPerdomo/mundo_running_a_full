@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { carritosPendientesPago } from '../../../axios/carrito-axios'
+import { actualizarEstadoCarrito, carritosPendientesPago } from '../../../axios/carrito-axios'
 import CarritosPendientesHeaders from './CarritosPendientesHeaders';
 import CarritosPendientesTable from './CarritosPendientesTable';
 import Pagination from "../../UI/Pagination/Pagination"
 import CarritosPendientesSkeleton from './CarritosPendientesSkeleton';
+import { mensaje } from "../../UI/Toast/mensaje";
 
 const PAGE_SIZE = 10
 
@@ -28,6 +29,25 @@ const CarritosPendientes = ({ nombre }) => {
         carritosPendientesDePago()
     }, [])
 
+    const cambiarEstado = async (carritoId, nuevoEstado) => {
+    const prev = carritos;
+
+    setCarritos((list) =>
+      list.map((c) =>
+        c._id === carritoId ? { ...c, estado: nuevoEstado } : c
+      )
+    );
+
+    try {
+      await actualizarEstadoCarrito(carritoId, nuevoEstado);
+      mensaje("✅ Estado actualizado");
+    } catch (error) {
+      setCarritos(prev); // rollback
+      mensaje("❌ No se pudo actualizar el estado");
+      console.error(error)
+    }
+  };
+
     const start = page * PAGE_SIZE;
     const end = start + PAGE_SIZE;
     const carritosPagina = carritos.slice(start, end);
@@ -44,7 +64,10 @@ const CarritosPendientes = ({ nombre }) => {
                 {loading ? <CarritosPendientesSkeleton /> :
                     <table className="min-w-full text-sm">
                         <CarritosPendientesHeaders />
-                        <CarritosPendientesTable carritos={carritosPagina} />
+                        <CarritosPendientesTable
+                            carritos={carritosPagina}
+                             onChangeEstado={cambiarEstado}
+                        />
                     </table>
                 }
             </div>

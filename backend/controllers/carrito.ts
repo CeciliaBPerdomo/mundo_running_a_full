@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import Carrito from "../models/carrito.js";
 import type { ObjectId } from "mongoose";
 import { ESTADOS } from "../helpers/constantes.js";
+import type { EstadoCarrito } from "../helpers/constantes.js";
 
 export const agregarAlCarrito = async (req: Request, res: Response) => {
     const { producto, cantidad = 1, precio, envio } = req.body;
@@ -95,7 +96,7 @@ export const getCarritosUsuario = async (req: Request, res: Response) => {
     const carritos = await Carrito.find({
         user: userId,
         deleted: false,
-        estado: { $ne: ESTADOS.activo } // 👈 todo menos el activo
+        estado: { $ne: ESTADOS.activo } // todo menos el activo
     })
         .populate("items.producto")
         .sort({ createdAt: -1 }); // último primero
@@ -104,18 +105,100 @@ export const getCarritosUsuario = async (req: Request, res: Response) => {
 };
 
 export const getCarritosPendientes = async (req: Request, res: Response) => {
-  try {
-    const carritos = await Carrito.find({
-      deleted: false,
-      estado: ESTADOS.pendientepago, 
-    })
-      .populate("user", "nombre email") 
-      .populate("items.producto")
-      .sort({ createdAt: -1 });
+    try {
+        const carritos = await Carrito.find({
+            deleted: false,
+            estado: ESTADOS.pendientepago,
+        })
+            .populate("user", "nombre email")
+            .populate("items.producto")
+            .sort({ createdAt: -1 });
 
-    res.status(200).json({ carritos });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ msg: "Error al obtener carritos pendientes" });
-  }
+        res.status(200).json({ carritos });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Error al obtener carritos pendientes" });
+    }
+};
+
+export const getCarritosPendientesEnvio = async (req: Request, res: Response) => {
+    try {
+        const carritos = await Carrito.find({
+            deleted: false,
+            estado: ESTADOS.pendienteenvio,
+        })
+            .populate("user", "nombre email")
+            .populate("items.producto")
+            .sort({ createdAt: -1 });
+
+        res.status(200).json({ carritos });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Error al obtener carritos pendientes de envío" });
+    }
+};
+
+export const patchEstadoCarrito = async (req: Request, res: Response) => {
+    try {
+        const { carritoId } = req.params;
+        const { estado } = req.body as { estado?: EstadoCarrito };
+
+        if (!estado) {
+            return res.status(400).json({ msg: "El estado es obligatorio" });
+        }
+
+        const estadosPermitidos = Object.values(ESTADOS) as EstadoCarrito[];
+        if (!estadosPermitidos.includes(estado)) {
+            return res.status(400).json({
+                msg: "Estado inválido",
+                estadosPermitidos,
+            });
+        }
+
+        const carrito = await Carrito.findOne({
+            _id: carritoId,
+            deleted: false,
+        });
+
+        if (!carrito) {
+            return res.status(404).json({ msg: "Carrito no encontrado" });
+        }
+
+        const transicionesValidas: Record<EstadoCarrito, EstadoCarrito[]> = {
+            [ESTADOS.activo]: [ESTADOS.pendientepago],
+            [ESTADOS.pendientepago]: [ESTADOS.pendienteenvio, ESTADOS.cancelado],
+            [ESTADOS.pendienteenvio]: [ESTADOS.enviado, ESTADOS.cancelado],
+            [ESTADOS.enviado]: [],
+            [ESTADOS.cancelado]: [],
+        };
+
+        const estadoActual = carrito.estado;
+        const posibles = transicionesValidas[estadoActual] || [];
+
+        if (!posibles.includes(estado)) {
+            return res.status(400).json({
+                msg: `Transición no permitida`,
+                desde: estadoActual,
+                hacia: estado,
+                posibles,
+            });
+        }
+
+        carrito.estado = estado;
+        await carrito.save();
+
+        const carritoActualizado = await Carrito.findById(carrito._id)
+            .populate("user", "nombre email")
+            .populate("items.producto");
+
+        return res.status(200).json({
+            msg: "Estado del carrito actualizado correctamente",
+            carrito: carritoActualizado,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            msg: "Error al actualizar el estado del carrito",
+        });
+    }
 };
