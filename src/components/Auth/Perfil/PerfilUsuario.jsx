@@ -32,7 +32,7 @@ const PerfilUsuario = () => {
       )}
 
       <main className="flex-1 px-4 py-6 sm:px-10 sm:py-8 sm:ml-8 relative">
-        <button className="md:hidden fixed top-[70px] left-4 z-50 p-2 rounded-md border border-[var(--border-gray-300)] text-[var(--p-blanco)] bg-[var(--color-background)]" onClick={() => setOpenSidebar(!openSidebar)} >
+        <button className="md:hidden fixed top-[70px] left-4 z-50 p-2 rounded-md border border-[var(--border-gray-300)] text-[var(--p-negro)] bg-[var(--color-background)]" onClick={() => setOpenSidebar(!openSidebar)} >
           ☰
         </button>
 

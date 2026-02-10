@@ -1,7 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux"
-import { isTokenExpired } from "../../helpers/auth/TokenValido";
-import { logout } from "../../redux/usuario/usuarioSlice";
+import React from "react";
 
 // Secciones
 import Hero from '../../components/Home/Hero/Hero'
@@ -15,20 +12,10 @@ import Redes from '../../components/Home/Redes/Redes'
 import Contacto from '../../components/Home/Contacto/Contacto'
 
 // mensaje
-import { mensaje } from "../../components/UI/Toast/mensaje"
 import { ToastContainer } from "react-toastify";
 
 const Home = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token && isTokenExpired(token)) {
-      mensaje("⏳ Tu sesión expiró. Volvé a iniciar sesión.")
-      dispatch(logout())
-    }
-  }, [dispatch]);
-
+  
   return (
     <div>
 
