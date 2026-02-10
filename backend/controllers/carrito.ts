@@ -202,3 +202,23 @@ export const patchEstadoCarrito = async (req: Request, res: Response) => {
         });
     }
 };
+
+// Las compras pendientes de envio del usuario 
+export const getMisComprasPendientesEnvio = async (req: Request, res: Response) => {
+    try {
+        const userId: ObjectId = (req as any).usuarioConfirmado._id;
+
+        const carritos = await Carrito.find({
+            user: userId,
+            deleted: false,
+            estado: ESTADOS.pendienteenvio,
+        })
+            .populate("items.producto")
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({ carritos });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: "Error al obtener tus compras pendientes de envío" });
+    }
+};

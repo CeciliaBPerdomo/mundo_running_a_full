@@ -110,3 +110,20 @@ export const actualizarEstadoCarrito = async (carritoId, estado) => {
     throw error;
   }
 };
+
+
+export const carritosPendientesEnvio = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const url = `${ruta}carrito/pendientes-envio`;
+
+    const response = await axios.get(url, {
+      headers: { "x-token": token },
+    });
+
+    return response.data; 
+  } catch (error) {
+    console.error("Error al obtener carritos pendientes de envío", error);
+    throw error;
+  }
+};

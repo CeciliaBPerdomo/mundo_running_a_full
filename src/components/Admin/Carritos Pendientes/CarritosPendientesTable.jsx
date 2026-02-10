@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import EstadoCarrito from "./EstadoCarrito";
+import { getEstadoColor } from "../../../helpers/carrito/carritoEstado";
 
 const CarritosPendientesTable = ({ carritos, onChangeEstado }) => {
     const [carritoSeleccionado, setCarritoSeleccionado] = useState(null);
-    const estadoColor = {
-        "pendiente de pago": "text-yellow-600",
-        "pagado": "text-green-600",
-        "cancelado": "text-red-600",
-    };
 
     return (
         <>
@@ -41,8 +37,7 @@ const CarritosPendientesTable = ({ carritos, onChangeEstado }) => {
                                 <td className="px-4 py-3 text-center">{productos}</td>
                                 <td className="px-4 py-3">{envioText}</td>
                                 <td className="px-4 py-3 text-right font-semibold"> u$s {total} </td>
-                                <td className={`px-4 py-3 text-center font-semibold ${estadoColor[estado] || "text-gray-600"}`}> {estado} </td>
-
+                                <td className={`px-4 py-3 text-center font-semibold ${getEstadoColor(estado)}`}> {estado}</td>
                                 <td className="px-4 py-3 text-center">
                                     <button
                                         onClick={() => setCarritoSeleccionado(carrito)}
