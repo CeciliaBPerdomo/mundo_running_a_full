@@ -14,6 +14,9 @@ import CarritosPendientes from '../../Admin/Carritos Pendientes/CarritosPendient
 import ComprasRealizadas from '../../Admin/Compras/ComprasRealizadas';
 import HistorialCompras from '../../Admin/Historial/HistorialCompras';
 
+// token
+import { useAutoLogoutOnTokenExpiry } from "../../../hooks/useAutoLogoutOnTokenExpiry";
+
 const PerfilUsuario = () => {
   const [vista, setVista] = useState("datos");
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -21,6 +24,8 @@ const PerfilUsuario = () => {
 
   const rol = usuarioActual?.rol
   const nombre = usuarioActual?.nombre
+
+  useAutoLogoutOnTokenExpiry(30_000)
 
   return (
     <div className="min-h-screen pt-[60px] flex">

@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { toggleTheme } from "../../redux/theme/themeSlice";
-import { logout } from "../../redux/usuario/usuarioSlice";
-import { isTokenExpired } from "../../helpers/auth/TokenValido";
-import { mensaje } from "../UI/Toast/mensaje";
 
 // Menus
 import NavbarIcons from "./NavbarIcons";
@@ -15,6 +11,9 @@ import NavbarDesktopMenu from "./NavbarDesktopMenu";
 // Items menu
 import menuItems from "../../data/menuItems.json";
 
+// token
+import { useAutoLogoutOnTokenExpiry } from "../../hooks/useAutoLogoutOnTokenExpiry";
+
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,19 +21,7 @@ const Navbar = () => {
   const mode = useSelector((state) => state.theme.mode);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // ✅ chequeo de token
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token && isTokenExpired(token)) {
-      mensaje("⏳ Tu sesión expiró. Volvé a iniciar sesión.");
-
-      setTimeout(() => {
-        dispatch(logout());
-        navigate("/login");
-      }, 1200);
-    }
-  }, [dispatch, navigate]);
+  useAutoLogoutOnTokenExpiry(30_000)
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
