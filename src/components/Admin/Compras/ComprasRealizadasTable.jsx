@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaEdit, FaPlus } from "react-icons/fa";
 import { getEstadoColor } from "../../../helpers/carrito/carritoEstado";
 import EstadoCarrito from "../Carritos Pendientes/EstadoCarrito";
-// import DetalleCarrito from "./DetalleCarrito"; 
+import DetalleCarrito from "./DetalleCarrito";
 
 const ComprasRealizadasTable = ({ carritos, onChangeEstado }) => {
   const [carritoEstado, setCarritoEstado] = useState(null);
@@ -77,12 +77,12 @@ const ComprasRealizadasTable = ({ carritos, onChangeEstado }) => {
       </tbody>
 
       {/* Modal detalle */}
-      {/* {carritoDetalle && (
+      {carritoDetalle && (
         <DetalleCarrito
           carrito={carritoDetalle}
           onClose={() => setCarritoDetalle(null)}
         />
-      )} */}
+      )}
 
       {/* Modal estado */}
       <EstadoCarrito

@@ -5,6 +5,7 @@ import CarritosPendientesTable from './CarritosPendientesTable';
 import Pagination from "../../UI/Pagination/Pagination"
 import CarritosPendientesSkeleton from './CarritosPendientesSkeleton';
 import { mensaje } from "../../UI/Toast/mensaje";
+import { paginate } from "../../../helpers/pagination/paginate";
 
 const PAGE_SIZE = 10
 
@@ -30,27 +31,31 @@ const CarritosPendientes = ({ nombre }) => {
     }, [])
 
     const cambiarEstado = async (carritoId, nuevoEstado) => {
-    const prev = carritos;
+        const prev = carritos;
 
-    setCarritos((list) =>
-      list.map((c) =>
-        c._id === carritoId ? { ...c, estado: nuevoEstado } : c
-      )
-    );
+        setCarritos((list) =>
+            list.map((c) =>
+                c._id === carritoId ? { ...c, estado: nuevoEstado } : c
+            )
+        );
 
-    try {
-      await actualizarEstadoCarrito(carritoId, nuevoEstado);
-      mensaje("✅ Estado actualizado");
-    } catch (error) {
-      setCarritos(prev); // rollback
-      mensaje("❌ No se pudo actualizar el estado");
-      console.error(error)
-    }
-  };
+        try {
+            await actualizarEstadoCarrito(carritoId, nuevoEstado);
+            mensaje("✅ Estado actualizado");
+        } catch (error) {
+            setCarritos(prev); // rollback
+            mensaje("❌ No se pudo actualizar el estado");
+            console.error(error)
+        }
+    };
 
-    const start = page * PAGE_SIZE;
-    const end = start + PAGE_SIZE;
-    const carritosPagina = carritos.slice(start, end);
+    const { pageItems: carritosPagina } = paginate(carritos, page, PAGE_SIZE);
+
+    useEffect(() => {
+        const maxPage = Math.max(Math.ceil(carritos.length / PAGE_SIZE) - 1, 0);
+        if (page > maxPage) setPage(maxPage);
+    }, [carritos.length, page]);
+
 
     return (
         <div>
@@ -66,7 +71,7 @@ const CarritosPendientes = ({ nombre }) => {
                         <CarritosPendientesHeaders />
                         <CarritosPendientesTable
                             carritos={carritosPagina}
-                             onChangeEstado={cambiarEstado}
+                            onChangeEstado={cambiarEstado}
                         />
                     </table>
                 }

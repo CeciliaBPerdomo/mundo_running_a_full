@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { carritosPendientesEnvio, actualizarEstadoCarrito } from "../../../axios/carrito-axios";
+
+// Tabla
 import ComprasRealizadasHeaders from "./ComprasRealizadasHeaders";
 import ComprasRealizadasTable from "./ComprasRealizadasTable";
 import ComprasRealizadasSkeleton from "./ComprasRealizadasSkeleton"
 
+//  ui
 import { mensaje } from "../../UI/Toast/mensaje";
 import { ToastContainer } from "react-toastify";
+import Pagination from "../../UI/Pagination/Pagination";
+import { paginate } from "../../../helpers/pagination/paginate";
+
+const PAGE_SIZE = 6;
 
 const ComprasRealizadas = () => {
   const [carritos, setCarritos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     const fetchPendientesEnvio = async () => {
       try {
         const resp = await carritosPendientesEnvio();
         setCarritos(resp?.carritos || []);
+        setPage(0);
       } catch (e) {
         setCarritos([]);
         console.error(e)
@@ -27,7 +36,7 @@ const ComprasRealizadas = () => {
     fetchPendientesEnvio();
   }, []);
 
-   const onChangeEstado = async (carritoId, nuevoEstado) => {
+  const onChangeEstado = async (carritoId, nuevoEstado) => {
     const prev = carritos;
     setCarritos((list) => list.filter((c) => c._id !== carritoId));
 
@@ -36,10 +45,12 @@ const ComprasRealizadas = () => {
       mensaje("✅ Estado actualizado");
     } catch (e) {
       console.error(e);
-      setCarritos(prev); 
+      setCarritos(prev);
       mensaje("❌ No se pudo actualizar el estado");
     }
   };
+
+  const { pageItems: carritosPagina } = paginate(carritos, page, PAGE_SIZE);
 
   return (
     <div>
@@ -55,10 +66,32 @@ const ComprasRealizadas = () => {
         ) : (
           <table className="min-w-full text-sm">
             <ComprasRealizadasHeaders />
-            <ComprasRealizadasTable carritos={carritos} onChangeEstado={onChangeEstado} />
+            <ComprasRealizadasTable
+              carritos={carritosPagina}
+              onChangeEstado={onChangeEstado}
+            />
+
           </table>
         )}
       </div>
+
+      {!loading && (
+        <Pagination
+          page={page}
+          pageSize={PAGE_SIZE}
+          total={carritos.length}
+          onPrev={() => setPage(p => Math.max(p - 1, 0))}
+          onNext={() =>
+            setPage(p =>
+              (p + 1) * PAGE_SIZE < carritos.length ? p + 1 : p
+            )
+          }
+          itemLabel="compra"
+          itemLabelPlural="compras pendientes"
+        />
+      )}
+
+      <ToastContainer />
     </div>
   );
 };
