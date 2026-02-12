@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { agregarAlCarrito, confirmarCarrito, getCarritoActual, getCarritosPendientes, getCarritosPendientesEnvio, getCarritosUsuario, getMisComprasPendientesEnvio, patchEstadoCarrito } from "../controllers/carrito.js";
+import { agregarAlCarrito, confirmarCarrito, getCarritoActual, getCarritosPendientes, getCarritosPendientesEnvio, getCarritosUsuario, getComprasFinalizadas, getMisComprasPendientesEnvio, patchEstadoCarrito } from "../controllers/carrito.js";
 import validarJWT from "../middlewares/validarJWT.js";
 import { recoletarErrores } from "../middlewares/recoletarErrores.js";
 import validarProductoExiste from "../middlewares/productos/validarProductoExiste.js";
@@ -84,6 +84,16 @@ router.get(
         recoletarErrores
     ],
     getMisComprasPendientesEnvio
+)
+
+router.get(
+    "/historial-compras",
+    [
+        validarJWT,
+        isAdmin,
+        recoletarErrores
+    ],
+    getComprasFinalizadas
 )
 
 export default router

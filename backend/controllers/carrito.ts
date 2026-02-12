@@ -222,3 +222,44 @@ export const getMisComprasPendientesEnvio = async (req: Request, res: Response) 
         return res.status(500).json({ msg: "Error al obtener tus compras pendientes de envío" });
     }
 };
+
+// Historial de compras
+export const getComprasFinalizadas = async (req: Request, res: Response) => {
+    try {
+        const carritos = await Carrito.find({
+          //  deleted: false,
+            estado: { $in: [ESTADOS.enviado, ESTADOS.cancelado] },
+        })
+            .populate("user", "nombre email")
+            .populate("items.producto")
+            .sort({ createdAt: -1 });
+
+            console.log("ESTADOS.enviado:", ESTADOS.enviado);
+console.log("ESTADOS.cancelado:", (ESTADOS as any).cancelado);
+
+        return res.status(200).json({ carritos });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: "Error al obtener compras finalizadas" });
+    }
+};
+
+// compras realizadas de los usuarios
+export const getMisComprasFinalizadas = async (req: Request, res: Response) => {
+    try {
+        const userId: ObjectId = (req as any).usuarioConfirmado._id;
+
+        const carritos = await Carrito.find({
+            user: userId,
+            deleted: false,
+            estado: { $in: [ESTADOS.enviado, ESTADOS.cancelado] },
+        })
+            .populate("items.producto")
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({ carritos });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: "Error al obtener tus compras finalizadas" });
+    }
+};

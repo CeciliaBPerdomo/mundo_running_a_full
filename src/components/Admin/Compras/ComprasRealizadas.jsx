@@ -52,6 +52,11 @@ const ComprasRealizadas = () => {
 
   const { pageItems: carritosPagina } = paginate(carritos, page, PAGE_SIZE);
 
+  useEffect(() => {
+    const maxPage = Math.max(Math.ceil(carritos.length / PAGE_SIZE) - 1, 0);
+    if (page > maxPage) setPage(maxPage);
+  }, [carritos.length, page]);
+
   return (
     <div>
       <h2 className="text-xl font-semibold text-[var(--color-titulos)] mb-4">

@@ -121,7 +121,23 @@ export const carritosPendientesEnvio = async () => {
       headers: { "x-token": token },
     });
 
-    return response.data; 
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener carritos pendientes de envío", error);
+    throw error;
+  }
+};
+
+export const obtenerComprasFinalizadasAdmin = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    const url = `${ruta}carrito/historial-finalizadas`;
+
+    const response = await axios.get(url, {
+      headers: { "x-token": token },
+    });
+
+    return response.data.carritos;
   } catch (error) {
     console.error("Error al obtener carritos pendientes de envío", error);
     throw error;
