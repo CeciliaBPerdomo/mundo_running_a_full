@@ -227,15 +227,12 @@ export const getMisComprasPendientesEnvio = async (req: Request, res: Response) 
 export const getComprasFinalizadas = async (req: Request, res: Response) => {
     try {
         const carritos = await Carrito.find({
-          //  deleted: false,
+            deleted: false,
             estado: { $in: [ESTADOS.enviado, ESTADOS.cancelado] },
         })
             .populate("user", "nombre email")
             .populate("items.producto")
             .sort({ createdAt: -1 });
-
-            console.log("ESTADOS.enviado:", ESTADOS.enviado);
-console.log("ESTADOS.cancelado:", (ESTADOS as any).cancelado);
 
         return res.status(200).json({ carritos });
     } catch (error) {

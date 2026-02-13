@@ -11,7 +11,7 @@ export const crearUsuario = async (nombre, email, password, celular, ciudad, cod
 
         const config = {}
 
-        // 👇 Si hay código admin
+        // Si hay código admin
         if (codigoAdmin && codigoAdmin.trim() !== "") {
             config.headers = {
                 "admin-key": codigoAdmin
@@ -55,8 +55,8 @@ export const updateUser = async (data, usuario) => {
         const url = `${ruta}auth/updateUser`
         const token = localStorage.getItem("token");
         const payload = {
-            email: usuario.email, // 👈 mail anterior, el que ya está guardado
-            ...data               // 👈 datos nuevos del form
+            email: usuario.email, // mail anterior, el que ya está guardado
+            ...data               // datos nuevos del form
         }
 
         const response = await axios.patch(url, payload, {

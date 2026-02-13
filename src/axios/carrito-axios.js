@@ -131,7 +131,7 @@ export const carritosPendientesEnvio = async () => {
 export const obtenerComprasFinalizadasAdmin = async () => {
   try {
     const token = localStorage.getItem("token");
-    const url = `${ruta}carrito/historial-finalizadas`;
+    const url = `${ruta}carrito/historial-compras`;
 
     const response = await axios.get(url, {
       headers: { "x-token": token },
