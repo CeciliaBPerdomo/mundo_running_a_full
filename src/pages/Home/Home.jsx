@@ -1,5 +1,3 @@
-import React from "react";
-
 // Secciones
 import Hero from '../../components/Home/Hero/Hero'
 import Productos from '../../components/Home/NuestrosProductos/Productos'

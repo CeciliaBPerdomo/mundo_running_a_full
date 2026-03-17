@@ -7,16 +7,20 @@ const validarProductoExiste = async (
   res: Response,
   next: NextFunction
 ) => {
-  const { producto } = req.body;
+  // 🔥 soporta body y params + nombres distintos
+  const productoId =
+    req.body.productoId ||
+    req.body.producto ||
+    req.params.productoId ||
+    req.params.producto;
 
-  // validar ObjectId
-  if (!Types.ObjectId.isValid(producto)) {
+  if (!productoId || !Types.ObjectId.isValid(productoId)) {
     return res.status(400).json({
       msg: "Producto inválido"
     });
   }
 
-  const productoDB = await Producto.findById(producto);
+  const productoDB = await Producto.findById(productoId);
 
   if (!productoDB || productoDB.delete) {
     return res.status(404).json({
@@ -24,8 +28,9 @@ const validarProductoExiste = async (
     });
   }
 
-  // opcional: lo dejamos disponible para el controller
+  // lo dejamos disponible siempre igual
   (req as any).productoDB = productoDB;
+  (req as any).productoId = productoId;
 
   next();
 };

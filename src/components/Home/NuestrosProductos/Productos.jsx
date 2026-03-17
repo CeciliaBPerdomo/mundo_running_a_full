@@ -23,13 +23,13 @@ const Productos = () => {
           NUESTROS PRODUCTOS
         </h2>
 
-        <div className="flex justify-center mb-8">
+        {/* <div className="flex justify-center mb-8">
           <BuscadorProductos
             value={busqueda}
             onChange={setBusqueda}
             onSubmit={() => console.log("hola")}
           />
-        </div>
+        </div> */}
 
         {/* Grid de Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">

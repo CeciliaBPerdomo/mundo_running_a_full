@@ -13,17 +13,19 @@ import themeReducer from "./theme/themeSlice"
 import usuarioReducer from "./usuario/usuarioSlice"
 import { sessionMiddleware } from "./usuario/sessionMiddleware" //token
 import carritoReducer from "./carrito/carritoSlice"
+import favoritosReducer from "./favorito/favoritosSlice";
 
 const reducers = combineReducers({
     theme: themeReducer,
     usuario: usuarioReducer,
     carrito: carritoReducer,
+    favoritos: favoritosReducer
 })
 
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["usuario", "theme", "carrito"] // Lo que realmente quiero peristir
+    whitelist: ["usuario", "theme", "carrito", "favoritos"] // Lo que realmente quiero peristir
 }
 
 

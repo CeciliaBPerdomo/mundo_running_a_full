@@ -17,6 +17,7 @@ import ProtectedRoute from "../components/Auth/ProtectedRoutes/ProtectedRoute"
 import NotFound from '../pages/NotFound/NotFound';
 import TiendaCategoria from '../pages/Productos/TiendaCategoria';
 import { Carrito } from '../pages/Carrito/Carrito';
+import MisFavoritos from '../components/Usuario/MisFavoritos';
 
 function Rutas() {
     return (
@@ -41,6 +42,14 @@ function Rutas() {
                         <Carrito />
                     </ProtectedRoute>
                 } />
+
+            <Route path='/misfavoritos'
+                element={
+                    <ProtectedRoute redirectTo={'/login'}>
+                        <MisFavoritos />
+                    </ProtectedRoute>
+                }
+            />
 
             {/* Rutas de info */}
             <Route path='/quienes_somos' element={<Somos />} />

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
+import { FaHeart } from "react-icons/fa";
 
 // Axios 
 import { agregarAlCarrito } from "../../axios/carrito-axios";
+import { agregarFavorito } from "../../axios/favoritos-axios";
 
 // UI
 import { mensaje } from "../../components/UI/Toast/mensaje"
@@ -12,12 +14,21 @@ import { ToastContainer } from "react-toastify";
 import ProductoInfoModal from "./ProductoInfoModal";
 
 // redux
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCarrito } from "../../redux/carrito/carritoSlice";
+import {
+    addFavorito,
+    removeFavorito
+} from "../../redux/favorito/favoritosSlice";
 
 const CardProducto = ({ producto }) => {
     const [openInfo, setOpenInfo] = useState(false);
+    const [loadingFav, setLoadingFav] = useState(false);
+
     const dispatch = useDispatch();
+
+    const favoritosIds = useSelector(state => state.favoritos.ids);
+    const esFavorito = favoritosIds.includes(producto._id);
 
     const handleAgregarCarrito = async () => {
         try {
@@ -34,13 +45,37 @@ const CardProducto = ({ producto }) => {
         }
     };
 
+    const handleFavorito = async () => {
+        if (loadingFav) return;
+        try {
+            setLoadingFav(true);
+            if (esFavorito) {
+                dispatch(removeFavorito(producto._id));
+            } else {
+                dispatch(addFavorito(producto._id));
+            }
+
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoadingFav(false);
+        }
+    };
+
     return (
         <div className="relative bg-white p-1 rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden border border-[var(--recuadro)]">
 
             {/* ICONOS */}
             <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
-                <button className="p-1 hover:scale-110 transition">
-                    <FiHeart className="text-[var(--botones-rojos)] text-xl" />
+                <button
+                    onClick={handleFavorito}
+                    className="p-1 hover:scale-110 transition"
+                >
+                    {esFavorito ? (
+                        <FaHeart className="text-red-600 text-xl animate-pulse" />
+                    ) : (
+                        <FiHeart className="text-[var(--botones-rojos)] text-xl" />
+                    )}
                 </button>
                 <button className="p-1 hover:scale-110 transition">
                     <FiShoppingCart onClick={handleAgregarCarrito} className="text-[var(--botones-rojos)] text-xl" />
@@ -77,7 +112,7 @@ const CardProducto = ({ producto }) => {
                 </div>
             </div>
 
-            {openInfo && (<ProductoInfoModal  producto={producto} onClose={() => setOpenInfo(false)} /> )}
+            {openInfo && (<ProductoInfoModal producto={producto} onClose={() => setOpenInfo(false)} />)}
 
             <ToastContainer />
         </div>

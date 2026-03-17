@@ -11,6 +11,7 @@ import authRoutes from "../routes/auth.js"
 import issuesRoutes from "../routes/issue.js"
 import productRoutes from "../routes/productos.js"
 import carritoRoutes from "../routes/carrito.js"
+import favoritoRoutes from "../routes/favoritos.js"
 
 export class Server {
     app: Express
@@ -19,6 +20,7 @@ export class Server {
     issuesPath: string
     productsPath: string
     carritoPath: string
+    favoritoPath: string
 
     constructor() {
         this.app = express()
@@ -27,6 +29,7 @@ export class Server {
         this.issuesPath = "/issues"
         this.productsPath = "/products"
         this.carritoPath = "/carrito"
+        this.favoritoPath = "/favoritos"
 
 
         // Conexión con la base de datos de mongo
@@ -54,6 +57,7 @@ export class Server {
         this.app.use(this.issuesPath, issuesRoutes)
         this.app.use(this.productsPath, productRoutes)
         this.app.use(this.carritoPath, carritoRoutes)
+        this.app.use(this.favoritoPath, favoritoRoutes)
     }
 
     listen(): void {

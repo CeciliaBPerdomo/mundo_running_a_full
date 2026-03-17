@@ -33,7 +33,7 @@ const NavbarIcons = ({ navigate, mode, toggleTheme, isMenuOpen, toggleMenu }) =>
 
       {esUser && (
         <>
-          <IconButton onClick={() => console.log("Favoritos")} ariaLabel="Favoritos" className="rounded-full">
+          <IconButton onClick={() =>  usuarioActual ? navigate("/misfavoritos") : navigate("/login")} ariaLabel="Favoritos" className="rounded-full">
             <FiHeart size={22} className="text-[var(--color-encabezados)]" />
           </IconButton>
 

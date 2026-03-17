@@ -16,6 +16,7 @@ import HistorialCompras from '../../Admin/Historial/HistorialCompras';
 
 // token
 import { useAutoLogoutOnTokenExpiry } from "../../../hooks/useAutoLogoutOnTokenExpiry";
+import MisFavoritos from '../../Usuario/MisFavoritos';
 
 const PerfilUsuario = () => {
   const [vista, setVista] = useState("datos");
@@ -56,7 +57,7 @@ const PerfilUsuario = () => {
             ? <CarritosPendientes nombre={nombre} />
             : <Carrito margen={5} />
         )}
-        {vista === "favoritos" && <div>Favoritos (estamos trabajando para usted)</div>}
+        {vista === "favoritos" && <MisFavoritos top={2}/>}
 
         {vista === "compras" && (
           rol === "admin"
