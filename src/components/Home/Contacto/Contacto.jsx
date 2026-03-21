@@ -1,31 +1,62 @@
 import React from "react";
-import { FiUpload } from "react-icons/fi";
+import { ErrorMessage, Field, Form as FormikForm, Formik } from "formik";
+import { ToastContainer } from "react-toastify";
+
+import { crearMensaje } from "../../../axios/mensaje-axios";
+import { contactInitialValues } from "../../../formik/initialValues";
+import { contactValidationSchema } from "../../../formik/validationSchema";
+import { mensaje } from "../../UI/Toast/mensaje";
+import SubmitButton from "../../UI/Form/BotonSubmit";
+
+const inputClassName = "w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none";
+
+const errorClassName = "text-sm text-red-600 mt-1";
 
 const Contacto = () => {
+  const handleEnvioMensaje = async (values, actions) => {
+    try {
+      const response = await crearMensaje(
+        values.nombre,
+        values.apellido,
+        values.email,
+        values.mensaje
+      );
+
+      if (!response) {
+        mensaje("Error al enviar tu mensaje.");
+        return;
+      }
+
+      mensaje("Tu mensaje fue enviado correctamente.");
+      actions.resetForm();
+    } catch (error) {
+      mensaje(error.message || "Ocurrio un error al enviar tu mensaje.");
+    } finally {
+      actions.setSubmitting(false);
+    }
+  };
+
   return (
     <section className="w-full py-16 bg-[var(--color-background)] flex justify-center">
       <div className="w-[95%] max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12">
-
-        {/* ----------- COLUMNA 1: INFO + MAPA ----------- */}
         <div>
           <h2 className="text-[35px] font-bold text-[var(--botones-rojos)] mb-4">
-            Contáctate con nosotros
+            Contactate con nosotros
           </h2>
 
           <p className="text-[18px] text-[var(--p-negro)] leading-relaxed mb-8">
-            Si quieres saber más acerca de nuestros productos o servicios no dudes
+            Si quieres saber mas acerca de nuestros productos o servicios no dudes
             en enviarnos un mensaje!
           </p>
 
           <h3 className="text-[30px] font-semibold text-[var(--botones-rojos)] mb-2">
-            Visítanos en:
+            Visitanos en:
           </h3>
 
           <p className="text-[18px] text-[var(--p-negro)] mb-8">
-            José Salvo 305 esquina Defensa, Juan Lacaze, Uruguay
+            Jose Salvo 305 esquina Defensa, Juan Lacaze, Uruguay
           </p>
 
-          {/* Google Maps (514 × 241) */}
           <div className="h-[241px] rounded-xl overflow-hidden shadow-lg">
             <iframe
               title="mapa"
@@ -40,81 +71,87 @@ const Contacto = () => {
           </div>
         </div>
 
-        {/* ----------- COLUMNA 2: FORMULARIO ----------- */}
-        <div>
-           <p className="text-[18px] text-[var(--p-negro)] mb-8">
-          Completa el formulario para enviarnos tu mensaje:
-           </p>
-          <form className="space-y-6">
+        <div className="">
+          <p className="text-[18px] text-[var(--p-negro)] mb-8">
+            Completa el formulario para enviarnos tu mensaje:
+          </p>
 
-            {/* Nombre + Apellido */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder="Nombre"
-                className="w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none"
-              />
-              <input
-                type="text"
-                placeholder="Apellido"
-                className="w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none"
-              />
-            </div>
+          <Formik
+            initialValues={contactInitialValues}
+            validationSchema={contactValidationSchema}
+            onSubmit={handleEnvioMensaje}
+          >
+            {({ isSubmitting }) => (
+              <FormikForm className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <Field
+                      type="text"
+                      name="nombre"
+                      placeholder="Nombre"
+                      className={inputClassName}
+                    />
+                    <ErrorMessage
+                      name="nombre"
+                      component="p"
+                      className={errorClassName}
+                    />
+                  </div>
 
-            {/* Email */}
-            <input
-              type="email"
-              placeholder="Correo electrónico"
-              className="w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none"
-            />
+                  <div>
+                    <Field
+                      type="text"
+                      name="apellido"
+                      placeholder="Apellido"
+                      className={inputClassName}
+                    />
+                    <ErrorMessage
+                      name="apellido"
+                      component="p"
+                      className={errorClassName}
+                    />
+                  </div>
+                </div>
 
-            {/* Adjuntar imagen + (opcional) */}
-            <div className="relative w-full">
-              <input
-                type="file"
-                id="fileInput"
-                className="w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none pr-20 cursor-pointer"
-              />
+                <div>
+                  <Field
+                    type="email"
+                    name="email"
+                    placeholder="Correo electronico"
+                    className={inputClassName}
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="p"
+                    className={errorClassName}
+                  />
+                </div>
 
-              <label
-                htmlFor="fileInput"
-                className="
-                  absolute top-1/2 -translate-y-1/2 right-2
-                  bg-[var(--botones-rojos)] text-[var(--p-blanco)]
-                  p-2 rounded-md cursor-pointer
-                  flex items-center justify-center
-                "
-              >
-                <FiUpload size={18} />
-              </label>
+                <div>
+                  <Field
+                    as="textarea"
+                    name="mensaje"
+                    placeholder="Mensaje"
+                    rows={5}
+                    className={`${inputClassName} resize-none`}
+                  />
+                  <ErrorMessage
+                    name="mensaje"
+                    component="p"
+                    className={errorClassName}
+                  />
+                </div>
 
-              {/* Texto opcional (chiquito) */}
-              <span className="absolute right-2 bottom-[-20px] text-[12px] text-gray-500">
-                Opcional
-              </span>
-            </div>
-
-            {/* Mensaje */}
-            <textarea
-              placeholder="Mensaje"
-              rows={5}
-              className="w-full p-3 border border-[var(--border-gray-300)] placeholder-[var(--color-placeholder)] text-[var(--p-negro)] rounded-md outline-none resize-none"
-            ></textarea>
-
-            {/* Botón enviar */}
-            <button
-              type="submit"
-              className="
-                w-full bg-[var(--botones-rojos)]
-                text-[var(--p-blanco)] font-semibold py-3 rounded-md
-                hover:bg-[var(--botones-rojos-hover)] transition-all"
-            >
-              Enviar mensaje
-            </button>
-          </form>
+                <SubmitButton loading={isSubmitting}>
+                  Enviar mensaje
+                </SubmitButton>
+              </FormikForm>
+            )}
+          </Formik>
         </div>
-
       </div>
+
+      <ToastContainer />
     </section>
   );
 };

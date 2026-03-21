@@ -41,7 +41,7 @@ const PerfilAdminSidebar = ({ vista, setVista, open, setOpen }) => {
                   key={item.titulo}
                   onClick={() => {
                     setVista(item.key);
-                    setOpen(false); // 👈 cierra en mobile
+                    setOpen(false); 
                   }}
                   className={`text-left px-3 py-2 rounded-md transition
                     ${activo

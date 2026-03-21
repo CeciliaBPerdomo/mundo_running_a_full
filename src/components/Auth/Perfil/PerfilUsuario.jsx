@@ -17,6 +17,7 @@ import HistorialCompras from '../../Admin/Historial/HistorialCompras';
 // token
 import { useAutoLogoutOnTokenExpiry } from "../../../hooks/useAutoLogoutOnTokenExpiry";
 import MisFavoritos from '../../Usuario/MisFavoritos';
+import Mensajes from '../../Admin/Mensajes/Mensajes';
 
 const PerfilUsuario = () => {
   const [vista, setVista] = useState("datos");
@@ -66,6 +67,7 @@ const PerfilUsuario = () => {
         )}
 
         {vista === "historial" && (<HistorialCompras />)}
+        {vista === "mensajes" && (<Mensajes />)}
       </main>
 
     </div>

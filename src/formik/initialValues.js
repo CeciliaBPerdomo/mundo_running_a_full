@@ -20,6 +20,14 @@ export const issueInitialValues = {
     prioridad: 2
 }
 
+// Valores iniciales para contacto
+export const contactInitialValues = {
+    nombre: "",
+    apellido: "",
+    email: "",
+    mensaje: ""
+}
+
 // Valores iniciales para agregar productos 
 export const productInitialValues = {
     marca: "",
