@@ -13,6 +13,7 @@ import productRoutes from "../routes/productos.js"
 import carritoRoutes from "../routes/carrito.js"
 import favoritoRoutes from "../routes/favoritos.js"
 import mensajeRoutes from "../routes/mensaje.js"
+import newsletterRoutes from "../routes/newsletter.js"
 
 export class Server {
     app: Express
@@ -23,6 +24,7 @@ export class Server {
     carritoPath: string
     favoritoPath: string
     mensajePath: string
+    newsletterPath: string
 
     constructor() {
         this.app = express()
@@ -33,6 +35,7 @@ export class Server {
         this.carritoPath = "/carrito"
         this.favoritoPath = "/favoritos"
         this.mensajePath = "/mensajes"
+        this.newsletterPath = "/newsletter"
 
         // Conexión con la base de datos de mongo
         this.conectarDB()
@@ -60,6 +63,7 @@ export class Server {
         this.app.use(this.carritoPath, carritoRoutes)
         this.app.use(this.favoritoPath, favoritoRoutes)
         this.app.use(this.mensajePath, mensajeRoutes)
+        this.app.use(this.newsletterPath, newsletterRoutes)
     }
 
     listen(): void {

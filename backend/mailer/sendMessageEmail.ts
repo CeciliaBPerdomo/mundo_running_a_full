@@ -11,7 +11,7 @@ export const sendMessageEmail = async (
 ): Promise<void> => {
   try {
     await resend.emails.send({
-      from: '"Mundo Running a Full" <onboarding@resend.dev>',
+      from: '"Mundo Running a Full" <info@mundorunningafull.com>',
       to,
       subject: "Recibimos tu mensaje",
       html: contactMessageReceivedTemplate(nombre, apellido),

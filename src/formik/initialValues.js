@@ -28,6 +28,11 @@ export const contactInitialValues = {
     mensaje: ""
 }
 
+// Valores iniciales para newsletter
+export const newsletterInitialValues = {
+    email: ""
+}
+
 // Valores iniciales para agregar productos 
 export const productInitialValues = {
     marca: "",

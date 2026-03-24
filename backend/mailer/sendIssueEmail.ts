@@ -12,7 +12,7 @@ export const sendIssueEmail = async (
 ): Promise<void> => {
   try {
     await resend.emails.send({
-      from: '"Mundo Running a Full" <onboarding@resend.dev>',
+      from: '"Mundo Running a Full" <info@mundorunningafull.com>',
       to: "cecilia.perdomo@gmail.com",
       subject: `🚨 Nueva incidencia: ${issue.title}`,
       html: issueReportTemplate(issue, usuarioNombre, usuarioEmail),

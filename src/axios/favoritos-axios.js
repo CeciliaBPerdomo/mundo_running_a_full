@@ -34,6 +34,10 @@ export const obtenerFavoritos = async () => {
     try {
         const token = localStorage.getItem("token");
 
+        if (!token) {
+            return [];
+        }
+
         const response = await axios.get(
             `${ruta}favoritos`,
             {

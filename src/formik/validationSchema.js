@@ -55,6 +55,13 @@ export const contactValidationSchema = Yup.object({
         .required("El mensaje es un campo obligatorio.")
 })
 
+// Validacion para newsletter
+export const newsletterValidationSchema = Yup.object({
+    email: Yup.string()
+        .email("Ingrese un email valido")
+        .required("Tu correo electronico es un campo obligatorio.")
+})
+
 // Validacion al agregar producto
 export const productValidationSchema = Yup.object({
     marca: Yup.string()

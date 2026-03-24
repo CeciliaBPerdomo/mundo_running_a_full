@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchFavoritos } from "../../redux/favorito/favoritosSlice";
 import { useLocation } from 'react-router-dom';
 
@@ -9,10 +9,13 @@ import { LayoutWrapper } from './LayoutStyled';
 const Layout = ({ children }) => {
     const dispatch = useDispatch();
     const { pathname } = useLocation();
+    const usuarioActual = useSelector((state) => state.usuario.usuarioActual);
 
     useEffect(() => {
-        dispatch(fetchFavoritos());
-    }, [dispatch]);
+        if (usuarioActual) {
+            dispatch(fetchFavoritos());
+        }
+    }, [dispatch, usuarioActual]);
 
 
     useEffect(() => {
