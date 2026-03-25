@@ -6,13 +6,7 @@ const ruta = import.meta.env.VITE_RUTA
 export const getProductos = async () => {
     try {
         const url = `${ruta}products`
-        const token = localStorage.getItem("token");
-
-        const response = await axios.get(url, {
-            headers: {
-                "x-token": token,
-            },
-        })
+        const response = await axios.get(url)
         return response.data
     } catch (error) {
         if (error.response) {
@@ -123,18 +117,7 @@ export const updateProductos = async (id, data) => {
 export const getProductosPorCategoria = async (categoria) => {
     try {
         const url = `${ruta}products/category/${categoria}`
-        const token = localStorage.getItem("token");
-        if (!token) {
-            throw {
-                status: 401,
-                message: "Token no encontrado"
-            }
-        }
-        const response = await axios.get(url, {
-            headers: {
-                "x-token": token,
-            },
-        })
+        const response = await axios.get(url)
         return response.data
     } catch (error) {
         if (error.response) {

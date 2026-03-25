@@ -26,7 +26,9 @@ const CardProducto = ({ producto }) => {
 
     const dispatch = useDispatch();
 
+    const usuarioActual = useSelector(state => state.usuario.usuarioActual);
     const favoritosIds = useSelector(state => state.favoritos.ids);
+    const esUser = usuarioActual?.rol === "user";
     const esFavorito = favoritosIds.includes(producto._id);
 
     const handleAgregarCarrito = async () => {
@@ -64,22 +66,23 @@ const CardProducto = ({ producto }) => {
     return (
         <div className="relative bg-white p-1 rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden border border-[var(--recuadro)]">
 
-            {/* ICONOS */}
-            <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
-                <button
-                    onClick={handleFavorito}
-                    className="p-1 hover:scale-110 transition"
-                >
-                    {esFavorito ? (
-                        <FaHeart className="text-red-600 text-xl animate-pulse" />
-                    ) : (
-                        <FiHeart className="text-[var(--botones-rojos)] text-xl" />
-                    )}
-                </button>
-                <button className="p-1 hover:scale-110 transition">
-                    <FiShoppingCart onClick={handleAgregarCarrito} className="text-[var(--botones-rojos)] text-xl" />
-                </button>
-            </div>
+            {esUser && (
+                <div className="absolute top-3 right-3 flex flex-col gap-2 z-10">
+                    <button
+                        onClick={handleFavorito}
+                        className="p-1 hover:scale-110 transition"
+                    >
+                        {esFavorito ? (
+                            <FaHeart className="text-red-600 text-xl animate-pulse" />
+                        ) : (
+                            <FiHeart className="text-[var(--botones-rojos)] text-xl" />
+                        )}
+                    </button>
+                    <button className="p-1 hover:scale-110 transition">
+                        <FiShoppingCart onClick={handleAgregarCarrito} className="text-[var(--botones-rojos)] text-xl" />
+                    </button>
+                </div>
+            )}
 
             {/* Imagen */}
             <div className="h-56 overflow-hidden">
