@@ -11,7 +11,7 @@ const CarritosPendientesTable = ({ carritos, onChangeEstado }) => {
             <tbody>
                 {carritos.length === 0 ? (
                     <tr className="border-t">
-                        <td className="px-4 py-6 text-center text-gray-500" colSpan={5}>
+                        <td className="px-4 py-6 text-center text-[var(--text-gray-500)]" colSpan={5}>
                             No hay carritos pendientes de pago.
                         </td>
                     </tr>
@@ -32,16 +32,16 @@ const CarritosPendientesTable = ({ carritos, onChangeEstado }) => {
                         const total = carrito?.total ?? 0;
 
                         return (
-                            <tr key={carrito._id} className="border-t hover:bg-gray-50 transition">
-                                <td className="px-4 py-3">{usuario}</td>
-                                <td className="px-4 py-3 text-center">{productos}</td>
-                                <td className="px-4 py-3">{envioText}</td>
-                                <td className="px-4 py-3 text-right font-semibold"> u$s {total} </td>
+                            <tr key={carrito._id} className="border border-[var(--recuadro)] bg-[var(--color-background)] hover:bg-gray-50 transition">
+                                <td className="px-4 py-3 text-[var(--p-negro)]">{usuario}</td>
+                                <td className="px-4 py-3 text-[var(--p-negro)] text-center">{productos}</td>
+                                <td className="px-4 py-3 text-[var(--p-negro)]">{envioText}</td>
+                                <td className="px-4 py-3 text-right font-semibold text-[var(--p-negro)]"> u$s {total} </td>
                                 <td className={`px-4 py-3 text-center font-semibold ${getEstadoColor(estado)}`}> {estado}</td>
                                 <td className="px-4 py-3 text-center">
                                     <button
                                         onClick={() => setCarritoSeleccionado(carrito)}
-                                        className="p-2 rounded-md border border-[var(--border-gray-300)] hover:bg-gray-100 transition"
+                                        className="p-2 text-[var(--p-negro)] rounded-md border border-[var(--border-gray-300)] hover:bg-gray-100 transition"
                                     >
                                         <FaEdit />
                                     </button>

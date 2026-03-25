@@ -5,6 +5,7 @@ import { carritosPendientesEnvio, actualizarEstadoCarrito } from "../../../axios
 import ComprasRealizadasHeaders from "./ComprasRealizadasHeaders";
 import ComprasRealizadasTable from "./ComprasRealizadasTable";
 import ComprasRealizadasSkeleton from "./ComprasRealizadasSkeleton"
+import ComprasRealizadasMobileList from "./ComprasRealizadasMobileList";
 
 //  ui
 import { mensaje } from "../../UI/Toast/mensaje";
@@ -58,27 +59,33 @@ const ComprasRealizadas = () => {
   }, [carritos.length, page]);
 
   return (
-    <div>
+    <div className="w-full min-w-0">
       <h2 className="text-xl font-semibold text-[var(--color-titulos)] mb-4">
         Compras realizadas
       </h2>
 
       <p className="text-sm text-gray-600 mb-3">Pendientes de envío</p>
 
-      <div className="overflow-x-auto bg-white rounded-2xl shadow border">
-        {loading ? (
-          <ComprasRealizadasSkeleton />
-        ) : (
-          <table className="min-w-full text-sm">
-            <ComprasRealizadasHeaders />
-            <ComprasRealizadasTable
-              carritos={carritosPagina}
-              onChangeEstado={onChangeEstado}
-            />
+      {loading ? (
+        <ComprasRealizadasSkeleton />
+      ) : (
+        <>
+          <ComprasRealizadasMobileList
+            carritos={carritosPagina}
+            onChangeEstado={onChangeEstado}
+          />
 
-          </table>
-        )}
-      </div>
+          <div className="hidden md:block w-full overflow-x-auto bg-white rounded-2xl shadow border">
+            <table className="w-full min-w-[760px] text-sm">
+              <ComprasRealizadasHeaders />
+              <ComprasRealizadasTable
+                carritos={carritosPagina}
+                onChangeEstado={onChangeEstado}
+              />
+            </table>
+          </div>
+        </>
+      )}
 
       {!loading && (
         <Pagination

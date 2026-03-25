@@ -80,7 +80,7 @@ const DetalleCarrito = ({ carrito, onClose }) => {
                 <tbody>
                   {items.length === 0 ? (
                     <tr className="border-t">
-                      <td colSpan={4} className="px-4 py-6 text-center text-gray-500">
+                      <td colSpan={4} className="px-4 py-6 text-center text-[var(--text-gray-500)]">
                         No hay productos en este carrito.
                       </td>
                     </tr>
@@ -107,7 +107,7 @@ const DetalleCarrito = ({ carrito, onClose }) => {
                               <div className="leading-tight">
                                 <p className="font-medium text-[var(--p-negro)]">{nombre}</p>
                                 {p?.categoria && (
-                                  <p className="text-xs text-gray-500">{p.categoria}</p>
+                                  <p className="text-xs text-[var(--text-gray-500)]">{p.categoria}</p>
                                 )}
                               </div>
                             </div>

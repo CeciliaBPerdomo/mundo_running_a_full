@@ -53,14 +53,14 @@ const MensajesTable = ({
       <tbody>
         {mensajes.length === 0 ? (
           <tr className="border-t">
-            <td colSpan={6} className="px-4 py-8 text-center text-gray-500">
+            <td colSpan={6} className="px-4 py-8 text-center text-[var(--text-gray-500)]">
               No hay mensajes para mostrar.
             </td>
           </tr>
         ) : (
           mensajes.map((item) => (
-            <tr key={item._id} className="border-t hover:bg-gray-50 transition">
-              <td className="px-4 py-4 whitespace-nowrap">
+            <tr key={item._id} className="border border-[var(--recuadro)] bg-[var(--color-background)] hover:bg-gray-50 transition">
+              <td className="px-4 py-4 whitespace-nowrap text-[var(--p-negro)] ">
                 {formatFecha(item.createdAt)}
               </td>
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CardProducto from "./CardProducto";
 import { getProductos } from '../../axios/productos-axios';
-import { FiSearch } from "react-icons/fi";
 import BuscadorProductos from '../UI/Buscador/BuscadorProductos';
 
 const TiendaDeportiva = () => {

@@ -12,7 +12,7 @@ const CardProductos = ({ item, mostrarCantidad = true, onEliminar = null, bot = 
       />
 
       <div className="flex-1">
-        <h3 className="font-semibold text-[var(--p-negro)]">{producto.marca}</h3>
+        <h3 className="font-bold text-[var(--text-gray-500)]">{producto.marca}</h3>
         <p className="text-sm text-[var(--text-gray-500)]">{producto.descripcion}</p>
 
         <div className="flex justify-between mt-2">
@@ -21,7 +21,7 @@ const CardProductos = ({ item, mostrarCantidad = true, onEliminar = null, bot = 
               Cantidad: {cantidad}
             </span>
           )}
-          <span className="font-semibold">
+          <span className="font-semibold text-[var(--p-negro)]">
             u$s {precio * cantidad}
           </span>
         </div>

@@ -15,7 +15,7 @@ const DatosUsuario = () => {
   
   if (!usuario) {
     return (
-      <p className="text-center py-20 text-gray-500">
+      <p className="text-center py-20 text-[var(--text-gray-500)]">
         Cargando datos del usuario…
       </p>
     )

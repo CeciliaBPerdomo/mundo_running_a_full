@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { obtenerComprasFinalizadasAdmin } from '../../../axios/carrito-axios'
 import ComprasFinalizadasTable from "./ComprasFinalizadasTable"
 import ComprasFinalizadasTableSkeleton from "./ComprasFinalizadasTableSkeleton"
+import ComprasFinalizadasMobileList from "./ComprasFinalizadasMobileList";
 import Pagination from "../../UI/Pagination/Pagination";
+import Loader from "../../UI/Loader/Loader";
 import { paginate, prevPage, nextPage } from "../../../helpers/pagination/paginate";
 
 const HistorialCompras = () => {
@@ -38,13 +40,30 @@ const HistorialCompras = () => {
   }, [])
 
   return (
-    <div>
+    <div className="w-full min-w-0">
       <h2 className="text-xl font-semibold text-[var(--color-titulos)] mb-4">Historial de compras</h2>
       <p>Compras finalizadas, clientes felices</p>
 
       {loading
-        ? <ComprasFinalizadasTableSkeleton rows={6} />
-        : <ComprasFinalizadasTable carritos={pageItems} />
+        ? (
+          <>
+            <div className="md:hidden flex justify-center py-8">
+              <Loader />
+            </div>
+
+            <div className="hidden md:block">
+              <ComprasFinalizadasTableSkeleton rows={6} />
+            </div>
+          </>
+        )
+        : (
+          <>
+            <ComprasFinalizadasMobileList carritos={pageItems} />
+            <div className="hidden md:block">
+              <ComprasFinalizadasTable carritos={pageItems} />
+            </div>
+          </>
+        )
       }
 
       <Pagination

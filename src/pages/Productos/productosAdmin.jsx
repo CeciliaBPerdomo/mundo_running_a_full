@@ -124,7 +124,7 @@ const ProductosAdmin = () => {
 
             {/* Tabla */}
             <div className="w-full overflow-x-auto">
-                {loading 
+                {loading
                     ? <ListaProductosAdminSkeleton />
                     : <ListaProductosAdmin productos={productosPaginados} cargarProductos={cargarProductos} />
                 }

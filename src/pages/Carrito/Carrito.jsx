@@ -4,6 +4,7 @@ import { fetchCarrito } from '../../redux/carrito/carritoSlice'
 import ListaProductosCarrito from '../../components/Carrito/ListaProductosCarrito'
 import DatosEnvio from '../../components/Carrito/DatosEnvio'
 import { useNavigate } from 'react-router-dom'
+import Loader from '../../components/UI/Loader/Loader'
 
 export const Carrito = ({ margen = 20 }) => {
     const dispatch = useDispatch()
@@ -21,7 +22,11 @@ export const Carrito = ({ margen = 20 }) => {
     }, [dispatch])
 
     if (loading) {
-        return <div className="py-20 text-center">Cargando carrito...</div>
+        return (
+            <div className="flex justify-center py-20">
+                <Loader />
+            </div>
+        )
     }
 
     return (
@@ -31,14 +36,15 @@ export const Carrito = ({ margen = 20 }) => {
             </h1>
 
             {items.length === 0 ? (
-                <div className="text-center bg-white border border-[var(--recuadro)] p-10 rounded-2xl shadow-md space-y-4">
-                    <p className="text-lg">Tu carrito está vacío 🧺</p>
+                <div className="text-center bg-[var(--color-background)] border border-[var(--recuadro)] p-10 rounded-2xl shadow-md space-y-4">
+                    <p className="text-[var(--p-negro)] text-lg">Tu carrito está vacío 🧺</p>
+                    <p className="text-[var(--p-negro)] text-lg">Aprovechá nuestros excelentes precios, ¡Dios proveerá!</p>
 
                     <button
                         onClick={() => navigate("/")}
                         className="px-6 py-3 rounded-full bg-[var(--botones-rojos)] text-white hover:opacity-90 transition"
                     >
-                        Volver al inicio
+                        Ir a la tienda
                     </button>
                 </div>
             ) : (

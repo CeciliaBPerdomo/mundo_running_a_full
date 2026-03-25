@@ -13,7 +13,7 @@ const ComprasRealizadasTable = ({ carritos, onChangeEstado }) => {
       <tbody>
         {carritos.length === 0 ? (
           <tr className="border-t">
-            <td colSpan={6} className="px-4 py-6 text-center text-gray-500">
+            <td colSpan={6} className="px-4 py-6 text-center text-[var(--text-gray-500)]">
               No hay compras pendientes de envío.
             </td>
           </tr>
@@ -31,15 +31,15 @@ const ComprasRealizadasTable = ({ carritos, onChangeEstado }) => {
             return (
               <tr
                 key={carrito._id}
-                className="border-t hover:bg-gray-50 transition"
+                className="border border-[var(--recuadro)] bg-[var(--color-background)] hover:bg-gray-50 transition"
               >
-                <td className="px-4 py-3">{carrito.user?.nombre}</td>
+                <td className="px-4 py-3 text-[var(--p-negro)]">{carrito.user?.nombre}</td>
 
-                <td className="px-4 py-3 text-center">{productos}</td>
+                <td className="px-4 py-3 text-center text-[var(--p-negro)]">{productos}</td>
 
-                <td className="px-4 py-3">{envioText}</td>
+                <td className="px-4 py-3 text-[var(--p-negro)]">{envioText}</td>
 
-                <td className="px-4 py-3 text-right font-semibold">
+                <td className="px-4 py-3 text-right font-semibold text-[var(--p-negro)]">
                   u$s {carrito.total}
                 </td>
 
@@ -54,7 +54,7 @@ const ComprasRealizadasTable = ({ carritos, onChangeEstado }) => {
                     {/* Ver más */}
                     <button
                       onClick={() => setCarritoDetalle(carrito)}
-                      className="p-2 rounded-md border border-[var(--border-gray-300)] hover:bg-gray-100 transition"
+                      className="p-2 text-[var(--p-negro)] rounded-md border border-[var(--border-gray-300)] hover:bg-gray-100 transition"
                       title="Ver detalle"
                     >
                       <FaPlus />
@@ -63,7 +63,7 @@ const ComprasRealizadasTable = ({ carritos, onChangeEstado }) => {
                     {/* Editar estado */}
                     <button
                       onClick={() => setCarritoEstado(carrito)}
-                      className="p-2 rounded-md border border-[var(--border-gray-300)] hover:bg-gray-100 transition"
+                      className="text-[var(--p-negro)] p-2 rounded-md border border-[var(--border-gray-300)] hover:bg-gray-100 transition"
                       title="Cambiar estado"
                     >
                       <FaEdit />

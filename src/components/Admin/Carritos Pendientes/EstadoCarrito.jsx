@@ -31,7 +31,7 @@ const EstadoCarrito = ({
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           <button
             onClick={onClose}
-            className="w-full sm:w-auto px-4 py-2 rounded-md border border-[var(--border-gray-300)] hover:bg-gray-50 transition"
+            className="text-[var(--p-negro)] w-full sm:w-auto px-4 py-2 rounded-md border border-[var(--border-gray-300)] hover:bg-gray-50 transition"
           >
             Cancelar
           </button>

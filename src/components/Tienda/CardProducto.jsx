@@ -4,7 +4,6 @@ import { FaHeart } from "react-icons/fa";
 
 // Axios 
 import { agregarAlCarrito } from "../../axios/carrito-axios";
-import { agregarFavorito } from "../../axios/favoritos-axios";
 
 // UI
 import { mensaje } from "../../components/UI/Toast/mensaje"

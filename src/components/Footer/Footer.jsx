@@ -31,7 +31,7 @@ const Footer = () => {
 
             <p className="font-semibold mb-1">Horarios de Atención:</p>
             <p>
-              Lunes a Viernes: 08:00hs - 12:00hs <br />
+              Lunes a Viernes: 09:00hs - 13:00hs <br />
               y de 15:00hs - 19:00hs.
             </p>
             <p>Sábados: 09:00hs - 13:00hs.</p>
@@ -44,7 +44,7 @@ const Footer = () => {
 
             <p className="flex items-center gap-2 mb-2">
               <FaEnvelope className="text-[var(--p-blanco)]" />
-              correoelectronico@gmail.com
+              info@mundorunningafull.com
             </p>
 
             <p className="flex items-center gap-2 mb-6">
@@ -56,9 +56,28 @@ const Footer = () => {
             <h3 className="text-[var(--color-titulos)] font-semibold text-lg mb-4">SEGUINOS</h3>
 
             <div className="flex gap-4 text-2xl">
-              <FaInstagram />
-              <FaFacebook />
+              <a
+                href="https://www.instagram.com/mundorunningafull/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaInstagram />
+              </a>
+              <a
+                href="https://www.facebook.com/profile.php?id=100064317512612&locale=es_LA"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebook />
+              </a>
+
+              <a
+                href="https://www.youtube.com/@mundorunning8525"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
               <FaYoutube />
+              </a>
             </div>
           </div>
 
@@ -67,9 +86,9 @@ const Footer = () => {
             {/* PRODUCTOS */}
             <h3 className="text-[var(--color-titulos)] font-semibold text-lg mb-4">PRODUCTOS</h3>
             <ul className="space-y-1 mb-6">
-              <li>Ciclismo</li>
-              <li>Natación</li>
-              <li>Running</li>
+              <Link to="/tienda/ciclismo"><li>Ciclismo</li></Link>
+              <Link to="/tienda/natacion"><li>Natación</li></Link>
+            <Link to="/tienda/running"><li>Running</li></Link> 
             </ul>
 
             {/* ENLACES */}

@@ -9,8 +9,10 @@ import {
 import { paginate } from "../../../helpers/pagination/paginate";
 import MensajesSkeleton from "./MensajesSkeleton";
 import MensajesTable from "./MensajesTable";
+import MensajesMobileList from "./MensajesMobileList";
 import ModalBase from "../../UI/ModalEstado/ModalBase";
 import Pagination from "../../UI/Pagination/Pagination";
+import Loader from "../../UI/Loader/Loader";
 import { mensaje } from "../../UI/Toast/mensaje";
 
 const FILTROS_ESTADO = [
@@ -108,7 +110,7 @@ const Mensajes = () => {
           <select
             value={estadoSeleccionado}
             onChange={(e) => setEstadoSeleccionado(e.target.value)}
-            className="w-full sm:w-[240px] h-10 px-3 border border-[var(--border-gray-300)] rounded-md bg-white text-[var(--p-negro)] focus:outline-none focus:ring-2 focus:ring-[var(--color-background-third)]"
+            className="w-full sm:w-[240px] h-10 px-3 border border-[var(--border-gray-300)] rounded-md bg-[var(--color-background)] text-[var(--p-negro)] focus:outline-none focus:ring-2 focus:ring-[var(--color-background-third)]"
           >
             {FILTROS_ESTADO.map((estado) => (
               <option key={estado} value={estado}>
@@ -119,18 +121,35 @@ const Mensajes = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-full overflow-x-auto rounded-2xl border bg-white shadow">
-        {loading ? (
-          <MensajesSkeleton />
-        ) : (
-          <MensajesTable
+      {loading ? (
+        <>
+          <div className="md:hidden flex justify-center py-8">
+            <Loader />
+          </div>
+
+          <div className="hidden md:block">
+            <MensajesSkeleton />
+          </div>
+        </>
+      ) : (
+        <>
+          <MensajesMobileList
             mensajes={mensajesPagina}
             updatingId={updatingId}
             onEstadoChange={handleEstadoChange}
             onOpenMensaje={setMensajeSeleccionado}
           />
-        )}
-      </div>
+
+          <div className="hidden md:block w-full max-w-full overflow-x-auto rounded-2xl border bg-white shadow">
+            <MensajesTable
+              mensajes={mensajesPagina}
+              updatingId={updatingId}
+              onEstadoChange={handleEstadoChange}
+              onOpenMensaje={setMensajeSeleccionado}
+            />
+          </div>
+        </>
+      )}
 
       {!loading && (
         <Pagination

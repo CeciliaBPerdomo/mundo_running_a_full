@@ -9,7 +9,7 @@ const ModalBase = ({ open, title, subtitle, children, footer, onClose }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden"
+        className="rounded-2xl border border-[var(--recuadro)] bg-[var(--color-background)] w-full max-w-md rounded-2xl shadow-xl overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -23,7 +23,7 @@ const ModalBase = ({ open, title, subtitle, children, footer, onClose }) => {
         </div>
 
         {/* Body */}
-        <div className="p-5">{children}</div>
+        <div className="p-5 text-[var(--p-negro)]">{children}</div>
 
         {/* Footer */}
         {footer && <div className="p-5 pt-0">{footer}</div>}

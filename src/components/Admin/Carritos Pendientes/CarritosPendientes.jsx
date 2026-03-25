@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { actualizarEstadoCarrito, carritosPendientesPago } from '../../../axios/carrito-axios'
 import CarritosPendientesHeaders from './CarritosPendientesHeaders';
 import CarritosPendientesTable from './CarritosPendientesTable';
+import CarritosPendientesMobileList from './CarritosPendientesMobileList';
 import Pagination from "../../UI/Pagination/Pagination"
 import CarritosPendientesSkeleton from './CarritosPendientesSkeleton';
 import { mensaje } from "../../UI/Toast/mensaje";
@@ -58,24 +59,33 @@ const CarritosPendientes = ({ nombre }) => {
 
 
     return (
-        <div>
+        <div className="w-full min-w-0">
             <h1 className="text-3xl font-bold text-[var(--color-titulos)] mb-6 text-center">
                 Hola, {nombre?.split(" ")[0]} ✨
             </h1>
 
             <h2 className="text-xl font-semibold text-[var(--color-titulos)] mb-4">Carritos Pendientes de pago</h2>
 
-            <div className="overflow-x-auto bg-white rounded-2xl shadow border">
-                {loading ? <CarritosPendientesSkeleton /> :
-                    <table className="min-w-full text-sm">
-                        <CarritosPendientesHeaders />
-                        <CarritosPendientesTable
-                            carritos={carritosPagina}
-                            onChangeEstado={cambiarEstado}
-                        />
-                    </table>
-                }
-            </div>
+            {loading ? (
+                <CarritosPendientesSkeleton />
+            ) : (
+                <>
+                    <CarritosPendientesMobileList
+                        carritos={carritosPagina}
+                        onChangeEstado={cambiarEstado}
+                    />
+
+                    <div className="hidden md:block w-full overflow-x-auto bg-white rounded-2xl shadow border">
+                        <table className="w-full min-w-[760px] text-sm">
+                            <CarritosPendientesHeaders />
+                            <CarritosPendientesTable
+                                carritos={carritosPagina}
+                                onChangeEstado={cambiarEstado}
+                            />
+                        </table>
+                    </div>
+                </>
+            )}
 
             {/* Paginación  */}
             {!loading && (

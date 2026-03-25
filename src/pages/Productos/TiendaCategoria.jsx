@@ -27,17 +27,17 @@ const TiendaCategoria = () => {
     if (loading) {
         return <p className="text-center py-20">
             Cargando productos…
-            </p>;
+        </p>;
     }
 
     return (
         <div className="max-w-7xl mx-auto px-6 py-20">
-            <h2 className="text-2xl font-semibold text-center mb-8 capitalize text-[var(--color-titulos)]">
-                {categoria}
+            <h2 className="text-2xl font-semibold text-center mb-8 text-[var(--color-titulos)]">
+                {categoria?.toUpperCase()}
             </h2>
 
             {productos.length === 0 ? (
-                <p className="text-center text-gray-500">
+                <p className="text-center text-[var(--text-gray-500)]">
                     No hay productos para esta categoría
                 </p>
             ) : (
