@@ -43,6 +43,24 @@ export const obtenerCarrito = async () => {
   }
 };
 
+export const eliminarCarritoActual = async () => {
+  try {
+    const url = `${ruta}carrito`;
+    const token = localStorage.getItem("token");
+
+    const response = await axios.delete(url, {
+      headers: {
+        "x-token": token
+      }
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error al eliminar el carrito", error);
+    throw error;
+  }
+};
+
 export const confirmarCarrito = async (envio) => {
   try {
     const url = `${ruta}carrito/confirmar`

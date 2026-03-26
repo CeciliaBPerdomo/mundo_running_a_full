@@ -9,7 +9,7 @@ const DetalleCarrito = ({ carrito, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
-      <div className="bg-white w-full max-w-2xl rounded-2xl shadow-xl overflow-hidden">
+      <div className="bg-[var(--color-background)] border border-[var(--recuadro)] w-full max-w-2xl rounded-2xl shadow-xl overflow-hidden">
         {/* Header */}
         <div className="p-5 border-b flex items-start justify-between gap-4">
           <div>
@@ -23,7 +23,7 @@ const DetalleCarrito = ({ carrito, onClose }) => {
 
           <button
             onClick={onClose}
-            className="p-2 rounded-md border border-[var(--border-gray-300)] hover:bg-gray-100 transition"
+            className="p-2 rounded-md border border-[var(--border-gray-300)] text-[var(--p-negro)] hover:bg-gray-100 transition"
             title="Cerrar"
           >
             <FaTimes />
@@ -53,8 +53,8 @@ const DetalleCarrito = ({ carrito, onClose }) => {
                 <p><span className="font-medium">CP:</span> {envio.codigoPostal}</p>
               )}
               {envio?.notas && (
-                <p className="text-gray-600">
-                  <span className="font-medium text-[var(--p-negro)]">Notas:</span> {envio.notas}
+                <p className="text-[var(--p-negro)]">
+                  <span className="font-medium">Notas:</span> {envio.notas}
                 </p>
               )}
             </div>
@@ -68,18 +68,18 @@ const DetalleCarrito = ({ carrito, onClose }) => {
 
             <div className="overflow-x-auto">
               <table className="min-w-full text-sm">
-                <thead className="bg-gray-50">
+                <thead className="bg-[var(--color-background)] border border-[var(--border-gray-300)] ">
                   <tr>
-                    <th className="px-4 py-3 text-left">Producto</th>
-                    <th className="px-4 py-3 text-center">Cant.</th>
-                    <th className="px-4 py-3 text-right">Precio</th>
-                    <th className="px-4 py-3 text-right">Subtotal</th>
+                    <th className="px-4 py-3 text-left text-[var(--p-negro)]">Producto</th>
+                    <th className="px-4 py-3 text-center text-[var(--p-negro)]">Cant.</th>
+                    <th className="px-4 py-3 text-right text-[var(--p-negro)]">Precio</th>
+                    <th className="px-4 py-3 text-right text-[var(--p-negro)]">Subtotal</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   {items.length === 0 ? (
-                    <tr className="border-t">
+                    <tr className="bg-[var(--color-background)] border border-[var(--border-gray-300)] ">
                       <td colSpan={4} className="px-4 py-6 text-center text-[var(--text-gray-500)]">
                         No hay productos en este carrito.
                       </td>
@@ -94,7 +94,7 @@ const DetalleCarrito = ({ carrito, onClose }) => {
                       const subtotal = cantidad * precio;
 
                       return (
-                        <tr key={it?._id || idx} className="border-t hover:bg-gray-50 transition">
+                        <tr key={it?._id || idx} className="bg-[var(--color-background)] border border-[var(--border-gray-300)] transition">
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-3">
                               {p?.imagen && (
@@ -113,9 +113,9 @@ const DetalleCarrito = ({ carrito, onClose }) => {
                             </div>
                           </td>
 
-                          <td className="px-4 py-3 text-center">{cantidad}</td>
-                          <td className="px-4 py-3 text-right">u$s {precio}</td>
-                          <td className="px-4 py-3 text-right font-semibold">u$s {subtotal}</td>
+                          <td className="px-4 py-3 text-center text-[var(--p-negro)]">{cantidad}</td>
+                          <td className="px-4 py-3 text-right text-[var(--p-negro)]">u$s {precio}</td>
+                          <td className="px-4 py-3 text-right font-semibold text-[var(--p-negro)]">u$s {subtotal}</td>
                         </tr>
                       );
                     })
@@ -123,11 +123,11 @@ const DetalleCarrito = ({ carrito, onClose }) => {
                 </tbody>
 
                 <tfoot>
-                  <tr className="border-t bg-gray-50">
-                    <td className="px-4 py-3 text-right font-semibold" colSpan={3}>
+                  <tr className="bg-[var(--color-background)] border border-[var(--border-gray-300)]">
+                    <td className="px-4 py-3 text-right font-semibold text-[var(--p-negro)]" colSpan={3}>
                       Total
                     </td>
-                    <td className="px-4 py-3 text-right font-bold">
+                    <td className="px-4 py-3 text-right font-bold text-[var(--p-negro)]">
                       u$s {carrito?.total ?? 0}
                     </td>
                   </tr>
@@ -140,7 +140,7 @@ const DetalleCarrito = ({ carrito, onClose }) => {
           <div className="flex justify-end">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-md border border-[var(--border-gray-300)] hover:bg-gray-50 transition"
+              className="text-[var(--p-negro)] px-4 py-2 rounded-md border border-[var(--border-gray-300)] hover:bg-gray-50 transition"
             >
               Cerrar
             </button>

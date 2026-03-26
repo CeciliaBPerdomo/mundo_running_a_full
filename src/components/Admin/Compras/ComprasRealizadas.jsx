@@ -11,6 +11,7 @@ import ComprasRealizadasMobileList from "./ComprasRealizadasMobileList";
 import { mensaje } from "../../UI/Toast/mensaje";
 import { ToastContainer } from "react-toastify";
 import Pagination from "../../UI/Pagination/Pagination";
+import Loader from "../../UI/Loader/Loader";
 import { paginate } from "../../../helpers/pagination/paginate";
 
 const PAGE_SIZE = 6;
@@ -67,7 +68,15 @@ const ComprasRealizadas = () => {
       <p className="text-sm text-gray-600 mb-3">Pendientes de envío</p>
 
       {loading ? (
-        <ComprasRealizadasSkeleton />
+        <>
+          <div className="hidden md:block">
+            <ComprasRealizadasSkeleton />
+          </div>
+
+          <div className="flex justify-center py-8 md:hidden">
+            <Loader />
+          </div>
+        </>
       ) : (
         <>
           <ComprasRealizadasMobileList

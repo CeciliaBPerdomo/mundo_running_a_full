@@ -5,6 +5,7 @@ import CarritosPendientesTable from './CarritosPendientesTable';
 import CarritosPendientesMobileList from './CarritosPendientesMobileList';
 import Pagination from "../../UI/Pagination/Pagination"
 import CarritosPendientesSkeleton from './CarritosPendientesSkeleton';
+import Loader from "../../UI/Loader/Loader";
 import { mensaje } from "../../UI/Toast/mensaje";
 import { paginate } from "../../../helpers/pagination/paginate";
 
@@ -67,7 +68,15 @@ const CarritosPendientes = ({ nombre }) => {
             <h2 className="text-xl font-semibold text-[var(--color-titulos)] mb-4">Carritos Pendientes de pago</h2>
 
             {loading ? (
-                <CarritosPendientesSkeleton />
+                <>
+                    <div className="hidden md:block">
+                        <CarritosPendientesSkeleton />
+                    </div>
+
+                    <div className="flex justify-center py-8 md:hidden">
+                        <Loader />
+                    </div>
+                </>
             ) : (
                 <>
                     <CarritosPendientesMobileList

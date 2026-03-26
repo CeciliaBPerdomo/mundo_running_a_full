@@ -68,6 +68,30 @@ export const getCarritoActual = async (req: Request, res: Response) => {
     res.status(200).json({ carrito });
 };
 
+export const deleteCarritoActual = async (req: Request, res: Response) => {
+    try {
+        const userId: ObjectId = (req as any).usuarioConfirmado._id;
+
+        const carrito = await Carrito.findOne({
+            user: userId,
+            estado: ESTADOS.activo,
+            deleted: false
+        });
+
+        if (!carrito) {
+            return res.status(404).json({ msg: "No hay carrito activo para eliminar" });
+        }
+
+        carrito.deleted = true;
+        await carrito.save();
+
+        return res.status(200).json({ msg: "Carrito eliminado correctamente" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ msg: "Error al eliminar el carrito" });
+    }
+};
+
 export const confirmarCarrito = async (req: Request, res: Response) => {
     const { envio } = req.body
     const userId = (req as any).usuarioConfirmado._id
