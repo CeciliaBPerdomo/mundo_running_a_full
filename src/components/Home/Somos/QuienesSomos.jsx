@@ -18,7 +18,7 @@ const QuienesSomos = () => {
           {/* Imagen */}
           <div className="flex justify-center">
             <img
-              src="/quienes.png"
+              src="/quienes.jpg"
               alt="Nosotros"
               className="w-64 h-64 object-cover rounded-full shadow-lg"
             />

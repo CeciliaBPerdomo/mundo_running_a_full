@@ -19,7 +19,7 @@ const Clientes = () => {
           {["1", "2", "3", "4"].map((num) => (
             <motion.img
               key={num}
-              src={`/clientes/cliente${num}.png`}
+              src={`/clientes/cliente${num}.jpg`}
               alt={`Cliente ${num}`}
               className="w-[310px] h-[310px] object-cover rounded-[20px] shadow-md"
               whileHover={{
